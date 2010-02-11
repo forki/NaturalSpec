@@ -15,8 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OrderProcessing", "OrderPro
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KnightMoves", "KnightMoves", "{37D48DED-AD2A-4CAB-8FC0-10299C452FAB}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "NaturalSpecLib", "src\app\NaturalSpecLib\NaturalSpecLib.fsproj", "{3019240D-BBD3-4951-9C5E-4B343638BD4B}"
-EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Spec.NaturalSpec", "src\test\Spec.NaturalSpec\Spec.NaturalSpec.fsproj", "{D319E1AA-68BF-4932-9268-859AEAE0EA61}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarSellingLib", "src\test\CarSellingLib\CarSellingLib.csproj", "{BD004EA1-3738-49C2-A139-CDBF25886033}"
@@ -31,6 +29,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "KnightMoves", "src\test\Kni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.ScenarioSource", "src\test\Test.ScenarioSource\Test.ScenarioSource.csproj", "{6C8F2454-131A-4592-ADEC-DA1818D9C387}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "NaturalSpec", "src\app\NaturalSpec\NaturalSpec.fsproj", "{3019240D-BBD3-4951-9C5E-4B343638BD4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,16 +41,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3019240D-BBD3-4951-9C5E-4B343638BD4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3019240D-BBD3-4951-9C5E-4B343638BD4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3019240D-BBD3-4951-9C5E-4B343638BD4B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{3019240D-BBD3-4951-9C5E-4B343638BD4B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{3019240D-BBD3-4951-9C5E-4B343638BD4B}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{3019240D-BBD3-4951-9C5E-4B343638BD4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3019240D-BBD3-4951-9C5E-4B343638BD4B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3019240D-BBD3-4951-9C5E-4B343638BD4B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{3019240D-BBD3-4951-9C5E-4B343638BD4B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{3019240D-BBD3-4951-9C5E-4B343638BD4B}.Release|x86.ActiveCfg = Release|Any CPU
 		{D319E1AA-68BF-4932-9268-859AEAE0EA61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D319E1AA-68BF-4932-9268-859AEAE0EA61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D319E1AA-68BF-4932-9268-859AEAE0EA61}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -121,6 +111,16 @@ Global
 		{6C8F2454-131A-4592-ADEC-DA1818D9C387}.Release|Mixed Platforms.Build.0 = Release|x86
 		{6C8F2454-131A-4592-ADEC-DA1818D9C387}.Release|x86.ActiveCfg = Release|x86
 		{6C8F2454-131A-4592-ADEC-DA1818D9C387}.Release|x86.Build.0 = Release|x86
+		{3019240D-BBD3-4951-9C5E-4B343638BD4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3019240D-BBD3-4951-9C5E-4B343638BD4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3019240D-BBD3-4951-9C5E-4B343638BD4B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3019240D-BBD3-4951-9C5E-4B343638BD4B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3019240D-BBD3-4951-9C5E-4B343638BD4B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3019240D-BBD3-4951-9C5E-4B343638BD4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3019240D-BBD3-4951-9C5E-4B343638BD4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3019240D-BBD3-4951-9C5E-4B343638BD4B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3019240D-BBD3-4951-9C5E-4B343638BD4B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3019240D-BBD3-4951-9C5E-4B343638BD4B}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

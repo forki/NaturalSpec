@@ -71,8 +71,8 @@
     <Compile Include="FileSpec.fs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\app\NaturalSpecLib\NaturalSpecLib.fsproj">
-      <Name>NaturalSpecLib</Name>
+    <ProjectReference Include="..\..\app\NaturalSpec\NaturalSpec.fsproj">
+      <Name>NaturalSpec</Name>
       <Project>{3019240d-bbd3-4951-9c5e-4b343638bd4b}</Project>
       <Private>True</Private>
     </ProjectReference>

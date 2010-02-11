@@ -55,11 +55,6 @@
     <Compile Include="OrderProcessingSpec.fs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\app\NaturalSpecLib\NaturalSpecLib.fsproj">
-      <Name>NaturalSpecLib</Name>
-      <Project>{3019240d-bbd3-4951-9c5e-4b343638bd4b}</Project>
-      <Private>True</Private>
-    </ProjectReference>
     <ProjectReference Include="..\..\test\OrderProcessingLib\OrderProcessingLib.csproj">
       <Project>{FAAB52DA-DF1D-486C-BFA2-4A36E16B1861}</Project>
       <Name>OrderProcessingLib</Name>
