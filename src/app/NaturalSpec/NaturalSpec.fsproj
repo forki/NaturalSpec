@@ -7,11 +7,11 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{3019240d-bbd3-4951-9c5e-4b343638bd4b}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>NaturalSpecLib</RootNamespace>
+    <RootNamespace>NaturalSpec</RootNamespace>
     <AssemblyName>NaturalSpec</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <Name>NaturalSpecLib</Name>
+    <Name>NaturalSpec</Name>
     <TargetFrameworkProfile />
     <FscToolPath>..\..\..\tools\FSharp\</FscToolPath>
   </PropertyGroup>
@@ -23,7 +23,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Debug\NaturalSpec.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,6 +31,15 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>3</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>bin\Release\NaturalSpec.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DocumentationFile>bin\Debug\NaturalSpec.xml</DocumentationFile>
+    <OtherFlags>
+    </OtherFlags>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core">
