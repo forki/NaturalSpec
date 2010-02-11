@@ -46,7 +46,7 @@ Target? BuildApp <-
                  AssemblyTitle = "NaturalSpec";
                  AssemblyDescription = "NaturalSpec is a .NET UnitTest framework which provides automatically testable specs in natural language.";
                  Guid = "62F3EDB4-1ED9-415c-A349-510DF60380B5";
-                 OutputFileName = @".\src\app\NaturalSpecLib\AssemblyInfo.fs"})                      
+                 OutputFileName = @".\src\app\NaturalSpec\AssemblyInfo.fs"})                      
 
         MSBuildRelease buildDir "Build" AppReferences
           |> Log "AppBuild-Output: "
