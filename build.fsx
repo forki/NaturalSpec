@@ -10,7 +10,7 @@ let buildDir = @".\build\"
 let docDir = @".\Doc\" 
 let deployDir = @".\deploy\"
 let testDir = @".\test\"
-let nunitPath = @".\Tools\NUnit\bin"
+let nunitPath = @".\Tools\NUnit"
 let fxCopRoot =
   let r = environVar "FXCOPROOT"
   if r <> "" && r <> null then r else 
