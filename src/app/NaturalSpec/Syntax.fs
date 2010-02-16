@@ -1,5 +1,6 @@
 [<AutoOpen>]
 module NaturalSpec.Syntax
+
 open NUnit.Framework
 open System.Diagnostics
 open Rhino.Mocks

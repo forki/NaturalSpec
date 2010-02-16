@@ -1,8 +1,4 @@
-﻿module Spec.NaturalSpec.ScenarioTemplates
-
-open NaturalSpec
-open NUnit.Framework
-open SimpleTypes
+﻿module NaturalSpec.ScenarioTemplates
 
 /// Tail recursive version
 let factorial x =

@@ -1,6 +1,4 @@
-﻿module Spec.NaturalSpec.ListSamples
-
-open NaturalSpec
+﻿module NaturalSpec.ListSamples
 
 [<Scenario>]
 let When_creating_a_empty_list_it_should_be_empty() =

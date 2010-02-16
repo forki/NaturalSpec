@@ -1,6 +1,4 @@
-﻿module Spec.NaturalSpec.SortingSamples
-
-open NaturalSpec
+﻿module NaturalSpec.SortingSamples
 
 /// naive implementation of QuickSort - don't use it
 let rec quicksort = function

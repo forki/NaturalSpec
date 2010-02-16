@@ -1,7 +1,4 @@
-﻿module Spec.NaturalSpec.NUnitTest
-
-open NUnit.Framework
-open NaturalSpec
+﻿module NaturalSpec.NUnitTest
 
 [<Scenario>]
 let Foo2() =

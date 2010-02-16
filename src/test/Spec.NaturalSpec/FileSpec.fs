@@ -1,7 +1,5 @@
-﻿module Spec.NaturalSpec.FileSpec
+﻿module NaturalSpec.FileSpec
 
-open NUnit.Framework
-open NaturalSpec
 open System.Xml
 
 let save (fileName:string) =

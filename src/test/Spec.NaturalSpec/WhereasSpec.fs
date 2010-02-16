@@ -1,14 +1,13 @@
 ﻿module NaturalSpec.WhereasSpec
 
-open NaturalSpec
+let c = ref 0
+let f x =
+    printMethod x
+    c := 1
+    x
 
 [<Scenario>]
-let When_using_Whereas() =
-  let c = ref 0
-  let f x =
-     c := 1
-     x
-
+let When_using_Whereas() =  
   Given true
     |> When calculating f
     |> It should equal true
