@@ -63,6 +63,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SimpleTypes.fs" />
+    <Compile Include="Factorial.fs" />
+    <Compile Include="RaisingExceptions.fs" />
     <Compile Include="WhereasSpec.fs" />
     <Compile Include="ScenarioTemplates.fs" />
     <Compile Include="ListSamples.fs" />
