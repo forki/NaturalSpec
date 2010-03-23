@@ -4,5 +4,5 @@ module Helpers
 open NaturalSpec
 
 let solving f =
-  printMethod "solving"
+  printMethod ""
   f

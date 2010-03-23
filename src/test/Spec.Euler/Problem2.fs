@@ -8,7 +8,8 @@ let fibs =
       Some(sum, (b, sum))) 
       (0,1)
 
-let problem2 max =
+let SumOfEvenValuedTermsInTheFibonacciSequence max =
+    printMethod ""
     fibs
       |> Seq.filter (fun x -> x % 2 = 0)
       |> Seq.takeWhile (fun x -> x <= max)
@@ -17,13 +18,13 @@ let problem2 max =
 [<Scenario>]      
 let Problem2_WhenFindingSumOfEvenValuedTermsInTheFibonacciSequenceUpTo89 () =     
     Given 89
-      |> When solving problem2
+      |> When solving SumOfEvenValuedTermsInTheFibonacciSequence
       |> It should equal 44
       |> Verify
     
 [<Scenario>]
 let Problem2_WhenFindingSumOfEvenValuedTermsInTheFibonacciSequenceBelow4Million () =   
     Given 4000000
-      |> When solving problem2
+      |> When solving SumOfEvenValuedTermsInTheFibonacciSequence
       |> It should equal 4613732
       |> Verify

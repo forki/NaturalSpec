@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers.fs" />
+    <Compile Include="Problem1.fs" />
     <Compile Include="Problem2.fs" />
   </ItemGroup>
   <ItemGroup>
