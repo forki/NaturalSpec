@@ -1,12 +1,13 @@
 ﻿module NaturalSpec.Factorial
 
+let rec fac = function 
+| 0 -> 1
+| x -> x * fac (x - 1)
+
+
 let factorial x = 
     printMethod x  ///  prints the method name via reflection
-    let rec fac_ = function 
-    | 0 -> 1
-    | x -> x * fac_ (x - 1)
-
-    fac_ x
+    fac x
 
 [<Scenario>]
 let When_calculating_fac_5_it_should_equal_120() =

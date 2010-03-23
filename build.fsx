@@ -1,4 +1,3 @@
-#light
 #I "tools\FAKE"
 #r "FakeLib.dll"
 open Fake 

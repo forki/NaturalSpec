@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9848d638-8b92-44f7-b19b-e1223e93d625}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Spec.Euler</RootNamespace>
+    <AssemblyName>Spec.Euler</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <Name>Spec.Euler</Name>
+    <TargetFrameworkProfile />
+    <FscToolPath>..\..\..\tools\FSharp\</FscToolPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>3</WarningLevel>
+    <DocumentationFile>bin\Debug\Spec.Euler.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <WarningLevel>3</WarningLevel>
+    <DocumentationFile>bin\Release\Spec.Euler.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FSharp.Core">
+      <HintPath>..\..\..\tools\FSharp\FSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\..\tools\Nunit\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.CoreEx">
+      <HintPath>D:\NaturalSpec\Lib\Rx\System.CoreEx.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Interactive">
+      <HintPath>D:\NaturalSpec\Lib\Rx\System.Interactive.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive">
+      <HintPath>D:\NaturalSpec\Lib\Rx\System.Reactive.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading">
+      <HintPath>D:\NaturalSpec\Lib\Rx\System.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helpers.fs" />
+    <Compile Include="Problem2.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\app\NaturalSpec\NaturalSpec.fsproj">
+      <Name>NaturalSpec</Name>
+      <Project>{3019240d-bbd3-4951-9c5e-4b343638bd4b}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="..\..\..\tools\FSharp\Microsoft.FSharp.Targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+	     Other similar extension points exist, see Microsoft.Common.targets.
+	<Target Name="BeforeBuild">
+	</Target>
+	<Target Name="AfterBuild">
+	</Target>
+	-->
+</Project>
