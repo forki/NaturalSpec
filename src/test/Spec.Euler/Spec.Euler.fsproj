@@ -67,6 +67,7 @@
     <Compile Include="Problem3.fs" />
     <Compile Include="Problem4.fs" />
     <Compile Include="Problem5.fs" />
+    <Compile Include="Problem6.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\app\NaturalSpec\NaturalSpec.fsproj">
