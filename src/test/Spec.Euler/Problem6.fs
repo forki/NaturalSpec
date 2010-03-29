@@ -29,14 +29,14 @@ let FindDifferenceBetweenSumOfSquaresAndSquareOfSum max =
     sumOfSq - sqOfSum |> abs
 
 [<Scenario>]      
-let Problem6_WhenFindingDifferenceBetweenSumOfSquaresandSquareOfSumUpTo10 () =     
+let ``Find the difference between the sum of the squares of the first 10 natural numbers and the square of the sum.``() =     
     Given 10I
       |> When solving FindDifferenceBetweenSumOfSquaresAndSquareOfSum
       |> It should equal 2640I
       |> Verify  
 
 [<Scenario>]      
-let Problem6_WhenFindingDifferenceBetweenSumOfSquaresandSquareOfSumUpTo100 () =     
+let ``Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.``() =     
     Given 100I
       |> When solving FindDifferenceBetweenSumOfSquaresAndSquareOfSum
       |> It should equal 25164150I

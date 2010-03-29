@@ -17,14 +17,14 @@ let SumOfEvenValuedTermsInTheFibonacciSequence max =
       |> Seq.sum
     
 [<Scenario>]      
-let Problem2_WhenFindingSumOfEvenValuedTermsInTheFibonacciSequenceUpTo89 () =     
+let ``Find the sum of all the even-valued terms in the sequence which do not exceed 89.`` () =     
     Given 89
       |> When solving SumOfEvenValuedTermsInTheFibonacciSequence
       |> It should equal 44
       |> Verify
     
 [<Scenario>]
-let Problem2_WhenFindingSumOfEvenValuedTermsInTheFibonacciSequenceBelow4Million () =   
+let ``Find the sum of all the even-valued terms in the sequence which do not exceed four million.`` () =   
     Given 4000000
       |> When solving SumOfEvenValuedTermsInTheFibonacciSequence
       |> It should equal 4613732

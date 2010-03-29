@@ -16,10 +16,17 @@ let GetLargetsPrimeFactorOf max =
       
     primes (new System.Numerics.BigInteger(x))
       |> List.rev
-      |> List.pick (fun x -> if max % x = 0I then Some x else None)
+      |> List.find (fun x -> max % x = 0I)
 
 [<Scenario>]      
-let Problem3_WhenFindingLargestPrimeFactorOf600851475143 () =     
+let ``What is the largest prime factor of the number 13195?`` () =
+    Given 13195I
+      |> When solving GetLargetsPrimeFactorOf
+      |> It should equal 29I
+      |> Verify  
+
+[<Scenario>]      
+let ``What is the largest prime factor of the number 600851475143 ?`` () =
     Given 600851475143I
       |> When solving GetLargetsPrimeFactorOf
       |> It should equal 6857I

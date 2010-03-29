@@ -18,14 +18,14 @@ let FindLargestPalindrome max =
       |> Seq.max
 
 [<Scenario>]      
-let Problem4_WhenFindingLargestPalindromeMadeFromTheProductOf2DigitNumer () =     
+let ``Find the largest palindrome made from the product of two 2-digit numbers.`` () =     
     Given 99
       |> When solving FindLargestPalindrome
       |> It should equal 9009
       |> Verify  
 
 [<Scenario>]      
-let Problem4_WhenFindingLargestPalindromeMadeFromTheProductOf3DigitNumer () =     
+let ``Find the largest palindrome made from the product of two 3-digit numbers.`` () =     
     Given 999
       |> When solving FindLargestPalindrome
       |> It should equal 906609
