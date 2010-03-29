@@ -43,3 +43,8 @@ let allNumbersGreaterThan x = Seq.unfold (fun s -> Some (s, s + 1)) x
 let allPositiveNumbers = allNumbersGreaterThan 0
 
 let bigint (x:int) = new System.Numerics.BigInteger(x)
+
+let toHashTable xs =
+  let h = new System.Collections.Generic.HashSet<_>()
+  for x in xs do h.Add x |> ignore
+  h
