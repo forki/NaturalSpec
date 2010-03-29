@@ -14,22 +14,24 @@ open NaturalSpec
 // 
 // How many different ways can £2 be made using any number of coins?
 
-let rec possibilities numbers n=
-    if n < (numbers |> Seq.head) then 0I else
+let rec possibilities numbers n =
+    if n < (numbers |> Set.minElement) then 0I else
     let m =
         numbers
-          |> Seq.skipWhile (fun x -> x > n)
+          |> Set.filter (fun x -> x <= n)
           |> Seq.map (fun x -> 
-               let rest = numbers |> List.filter (fun y -> y <= x)
+               let rest = numbers |> Set.filter (fun y -> y <= x)
                possibilities rest (n-x))
           |> Seq.sum
 
-    if numbers |> Seq.exists ((=) n) then m + 1I else m
+    if numbers |> Set.contains n then m + 1I else m
 
 
 let FindDifferentWays n =
     printMethod ""
-    possibilities [1; 2; 5; 10; 20; 50; 100; 200] n
+    possibilities 
+      (Set.ofList [1; 2; 5; 10; 20; 50; 100; 200])
+      n
     
 [<Scenario>]      
 let ``How many different ways can 3cent be made using any number of coins?``() =

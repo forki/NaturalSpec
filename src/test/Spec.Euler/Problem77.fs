@@ -16,6 +16,7 @@ open NaturalSpec
 let p = 
   primes 5000I
     |> List.map int
+    |> Set.ofList
 
 
 let FindSmallestValue count =
