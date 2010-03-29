@@ -13,7 +13,7 @@ open NaturalSpec
 ///
 /// Find the difference between the sum of the squares of the first one hundred natural numbers 
 /// and the square of the sum.
-let FindDifferenceBetweenSumOfSquaresandSquareOfSum max =
+let FindDifferenceBetweenSumOfSquaresAndSquareOfSum max =
     let sq (x:bigint) = x*x
 
     printMethod ""   
@@ -31,13 +31,13 @@ let FindDifferenceBetweenSumOfSquaresandSquareOfSum max =
 [<Scenario>]      
 let Problem6_WhenFindingDifferenceBetweenSumOfSquaresandSquareOfSumUpTo10 () =     
     Given 10I
-      |> When solving FindDifferenceBetweenSumOfSquaresandSquareOfSum
+      |> When solving FindDifferenceBetweenSumOfSquaresAndSquareOfSum
       |> It should equal 2640I
       |> Verify  
 
 [<Scenario>]      
 let Problem6_WhenFindingDifferenceBetweenSumOfSquaresandSquareOfSumUpTo100 () =     
     Given 100I
-      |> When solving FindDifferenceBetweenSumOfSquaresandSquareOfSum
+      |> When solving FindDifferenceBetweenSumOfSquaresAndSquareOfSum
       |> It should equal 25164150I
       |> Verify  

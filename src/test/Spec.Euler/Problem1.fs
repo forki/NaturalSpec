@@ -14,14 +14,14 @@ let SumOfMultiplesOf3And5 max =
       |> List.sum
 
 [<Scenario>]     
-let Problem1__WhenGettingSumOfMultiplesOf3And5_Below10 () =   
+let Problem1_WhenGettingSumOfMultiplesOf3And5_Below10 () =   
     Given 10
       |> When solving SumOfMultiplesOf3And5
       |> It should equal 23
       |> Verify
 
 [<Scenario>]     
-let Problem1__WhenGettingSumOfMultiplesOf3And5_Below1000 () =   
+let Problem1_WhenGettingSumOfMultiplesOf3And5_Below1000 () =   
     Given 1000
       |> When solving SumOfMultiplesOf3And5
       |> It should equal 233168
