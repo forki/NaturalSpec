@@ -28,12 +28,12 @@ let s =
 /// Find the greatest product of five consecutive digits in the 1000-digit number.
 let FindGreatestProduct s =
     printMethod ""
-    let rec findMax = function
-        | a::(b::c::d::e::_ as rest) -> max (a*b*c*d*e) (findMax rest)
-        | _ -> 0
+    let rec findMax acc = function
+        | a::(b::c::d::e::_ as rest) -> findMax (max acc (a*b*c*d*e)) rest
+        | _ -> acc
     s 
       |> toIntList
-      |> findMax
+      |> findMax 0
 
 [<Scenario>]      
 let ``Find the greatest product of five consecutive digits in the 1000-digit number.``() =
