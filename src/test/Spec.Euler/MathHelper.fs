@@ -37,3 +37,9 @@ let rec gcd a b =
 
 /// Returns the least common multiple
 let lcm a b = a * b / (gcd a b)
+
+let allNumbersGreaterThan x = Seq.unfold (fun s -> Some (s, s + 1)) x
+
+let allPositiveNumbers = allNumbersGreaterThan 0
+
+let bigint (x:int) = new System.Numerics.BigInteger(x)
