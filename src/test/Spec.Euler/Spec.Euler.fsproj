@@ -60,10 +60,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers.fs" />
-    <Compile Include="Math.fs" />
+    <Compile Include="MathHelper.fs" />
+    <Compile Include="StringHelper.fs" />
     <Compile Include="Problem1.fs" />
     <Compile Include="Problem2.fs" />
     <Compile Include="Problem3.fs" />
+    <Compile Include="Problem4.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\app\NaturalSpec\NaturalSpec.fsproj">

@@ -1,5 +1,5 @@
 ﻿[<AutoOpen>]
-module Math
+module MathHelper
 
 /// Gets a infinite sequence of fibonacci numbers
 let fibs = 
