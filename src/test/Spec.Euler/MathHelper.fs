@@ -26,3 +26,14 @@ let primes (n:bigint) =
     match n with
     | x when x = 1I -> [2I]
     | _ -> filterPrimes <| 2I :: [3I..2I..n]
+
+
+/// Returns the greates common devisor
+let rec gcd a b =
+   if b = 0I then
+     a 
+   else
+     gcd b (a%b)
+
+/// Returns the least common multiple
+let lcm a b = a * b / (gcd a b)

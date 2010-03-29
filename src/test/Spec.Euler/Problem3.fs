@@ -19,7 +19,7 @@ let GetLargetsPrimeFactorOf max =
       |> List.pick (fun x -> if max % x = 0I then Some x else None)
 
 [<Scenario>]      
-let Problem3_WhenFindingLargetsPrimeFactorOf600851475143 () =     
+let Problem3_WhenFindingLargestPrimeFactorOf600851475143 () =     
     Given 600851475143I
       |> When solving GetLargetsPrimeFactorOf
       |> It should equal 6857I
