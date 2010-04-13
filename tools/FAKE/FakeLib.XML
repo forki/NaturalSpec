@@ -104,6 +104,14 @@
 <member name="">
 
 </member>
+<member name="T:Fake.BuildServerHelper.BuildServer">
+<summary>
+ The BuildServer type.
+</summary>
+</member>
+<member name="">
+
+</member>
 <member name="P:Fake.BuildServerHelper.buildServer">
 <summary>
  Determines the current BuildVersion and if it is a local build
@@ -114,19 +122,21 @@
  Determines the current BuildVersion and if it is a local build
 </summary>
 </member>
-<member name="P:Fake.BuildServerHelper.isLocalBuild">
+<member name="P:Fake.BuildServerHelper.tcBuildNumber">
 <summary>
- Determines the current BuildVersion and if it is a local build
+ Build number retrieved from TeamCity
 </summary>
 </member>
-<member name="">
-
+<member name="P:Fake.BuildServerHelper.xmlOutputFile">
+<summary>
+ Definces the XML output file
+ Used for BuildServers like CruiseControl.NET
+</summary>
 </member>
-<member name="">
-
-</member>
-<member name="">
-
+<member name="P:Fake.BuildServerHelper.localBuildLabel">
+<summary>
+ A constant for local builds            
+</summary>
 </member>
 <member name="T:Fake.BuildServerHelper">
 
@@ -135,6 +145,15 @@
 
 </member>
 <member name="T:Fake.CCNetHelper">
+
+</member>
+<member name="M:Fake.CacheHelper.lookup``2(``0,Microsoft.FSharp.Core.FSharpFunc`2{Microsoft.FSharp.Core.Unit,``1},System.Collections.Generic.IDictionary{``0,``1})">
+<summary>
+ Looks for a key in the cache.
+ If it is not found the newValue functions is executed and the result is stored in the cache.
+</summary>
+</member>
+<member name="T:Fake.CacheHelper">
 
 </member>
 <member name="">
@@ -162,6 +181,11 @@
 </member>
 <member name="">
 
+</member>
+<member name="M:Fake.EnvironmentHelper.getBuildParamOrDefault(System.String,System.String)">
+<summary>
+ Returns the value of the buildParam if it is set and otherwise the default
+</summary>
 </member>
 <member name="M:Fake.EnvironmentHelper.getBuildParam(System.String)">
 <summary>
@@ -237,12 +261,11 @@
  Checks if the two files are byte-to-byte equal
 </summary>
 </member>
-<member name="">
-
-</member>
 <member name="M:Fake.FileHelper.AppendTextFiles(System.String,System.Collections.Generic.IEnumerable{System.String})">
 <summary>
  Appends all given files to one file 
+   param newFileName: The target FileName.
+   param files: The original FileNames as a sequence.
 </summary>
 </member>
 <member name="M:Fake.FileHelper.ReadCSVFile(System.String)">
@@ -265,6 +288,9 @@
 <summary>
  Copies a directory recursivly
  If the target directory does not exist, it will be created
+   param target: The target directory.
+   param files: The source directory.
+   param filterFile: A file filter.
 </summary>
 </member>
 <member name="M:Fake.FileHelper.allFiles(System.String)">
@@ -279,7 +305,9 @@
 </member>
 <member name="M:Fake.FileHelper.CopyFiles(System.String,System.Collections.Generic.IEnumerable{System.String})">
 <summary>
- Copies the files to the target
+ Copies the files to the target - Alias for Copy
+   param target: The target directory.
+   param files: The original FileNames as a sequence.
 </summary>
 </member>
 <member name="">
@@ -288,18 +316,22 @@
 <member name="M:Fake.FileHelper.Rename(System.String,System.String)">
 <summary>
  Renames the files to the target fileName
+   param target: The target FileName.
+   param file: The orginal FileName.
 </summary>
 </member>
 <member name="M:Fake.FileHelper.Copy(System.String,System.Collections.Generic.IEnumerable{System.String})">
 <summary>
  Copies the files to the target
+   param target: The target directory.
+   param files: The original FileNames as a sequence.
 </summary>
 </member>
 <member name="M:Fake.FileHelper.CopyFile(System.String,System.String)">
 <summary>
  Copies a single file to the target
-   param target: The targetDirectory
-   param file: The fileName
+   param target: The target directory.
+   param file: The FileName
 </summary>
 </member>
 <member name="M:Fake.FileHelper.CopyFileIntoSubFolder(System.String,System.String)">
@@ -389,11 +421,17 @@
 <member name="">
 
 </member>
-<member name="">
-
+<member name="T:Fake.FileSetHelper.LazyFileSet">
+<summary>
+ The FileSet is lazy loaded into a sequence of strings.
+ Every time the FileSet is used it scans again.
+</summary>
 </member>
-<member name="">
-
+<member name="T:Fake.FileSetHelper.EagerFileSet">
+<summary>
+ The FileSet is eagerly loaded into a list of strings.
+ The scan is only done once.
+</summary>
 </member>
 <member name="M:Fake.FileSetHelper.op_MinusMinus(Fake.FileSetHelper.FileIncludes,System.String)">
 <summary>
@@ -626,24 +664,6 @@
 <member name="T:Fake.FxCopHelper">
 
 </member>
-<member name="">
-
-</member>
-<member name="M:Fake.HTMLHelpWorkShopHelper.saveFiles``1(System.Collections.Generic.IEnumerable{System.Tuple`2{System.String,``0}})">
-<summary>
- saves all files (lazy - file by file!)
-</summary>
-</member>
-<member name="M:Fake.HTMLHelpWorkShopHelper.replaceKeywords``2(System.Collections.Generic.IEnumerable{System.Tuple`2{System.String,System.String}},System.Collections.Generic.IEnumerable{System.Tuple`2{``0,``1}})">
-<summary>
- replaces a bunch of the keywords in all files (lazy - line by line!)
-</summary>
-</member>
-<member name="M:Fake.HTMLHelpWorkShopHelper.loadTemplates(System.Collections.Generic.IEnumerable{System.String})">
-<summary>
- Loads all templates (lazy - line by line!)    
-</summary>
-</member>
 <member name="M:Fake.HTMLHelpWorkShopHelper.CompileHTMLHelpProject(System.String,System.String)">
 <summary>
  Uses the HTML Help Workshop to compile a help project
@@ -653,6 +673,31 @@
 </summary>
 </member>
 <member name="T:Fake.HTMLHelpWorkShopHelper">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:Fake.ILMergeHelper.ILMerge(Microsoft.FSharp.Core.FSharpFunc`2{Fake.ILMergeHelper.ILMergeParams,Fake.ILMergeHelper.ILMergeParams},System.String,System.String)">
+<summary>
+ Use ILMerge to merge some .NET assemblies.
+</summary>
+</member>
+<member name="P:Fake.ILMergeHelper.ILMergeDefaults">
+<summary>
+ ILMerge default params  
+</summary>
+</member>
+<member name="T:Fake.ILMergeHelper">
 
 </member>
 <member name="M:Fake.MSBuildHelper.MSBuildRelease(System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
@@ -854,9 +899,24 @@
 <member name="T:Fake.NUnitHelper">
 
 </member>
+<member name="M:Fake.ProcessHelper.findPath(System.String,System.String)">
+<summary>
+ Tries to find the tool via AppSettings. If no path has the right tool we are trying the PATH system variable. 
+</summary>
+</member>
+<member name="M:Fake.ProcessHelper.appSettings(System.String)">
+<summary>
+ Returns the AppSettings for the key - Splitted on ;
+</summary>
+</member>
 <member name="M:Fake.ProcessHelper.findFile(System.Collections.Generic.IEnumerable{System.String},System.String)">
 <summary>
- Searches the given directories for the given file
+ Searches the given directories for the given file, failing if not found
+</summary>
+</member>
+<member name="M:Fake.ProcessHelper.tryFindFile(System.Collections.Generic.IEnumerable{System.String},System.String)">
+<summary>
+ Searches the given directories for all occurrences of the given file name
 </summary>
 </member>
 <member name="M:Fake.ProcessHelper.UseDefaults``1">
@@ -1159,6 +1219,11 @@
 <member name="M:Fake.StringHelper.ReadFile(System.String)">
 <summary>
  Reads a file line by line
+</summary>
+</member>
+<member name="M:Fake.StringHelper.isNullOrEmpty(System.String)">
+<summary>
+ Returns if the string is null or empty
 </summary>
 </member>
 <member name="">
@@ -1498,7 +1563,27 @@
 <member name="T:Fake.TeamCityHelper">
 
 </member>
-<member name="">
+<member name="M:Fake.TemplateHelper.processTemplates(System.Collections.Generic.IEnumerable{System.Tuple`2{System.String,System.String}},System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Replaces the templates with the given replacements
+</summary>
+</member>
+<member name="P:Fake.TemplateHelper.saveFiles">
+<summary>
+ saves all files (lazy - file by file!)
+</summary>
+</member>
+<member name="M:Fake.TemplateHelper.replaceKeywords``2(System.Collections.Generic.IEnumerable{System.Tuple`2{System.String,System.String}})">
+<summary>
+ replaces a bunch of the keywords in all files (lazy - line by line!)
+</summary>
+</member>
+<member name="M:Fake.TemplateHelper.loadTemplates(System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Loads all templates (lazy - line by line!)    
+</summary>
+</member>
+<member name="T:Fake.TemplateHelper">
 
 </member>
 <member name="">
@@ -1506,6 +1591,11 @@
 </member>
 <member name="">
 
+</member>
+<member name="T:Fake.TraceHelper.TraceMode">
+<summary>
+ The trace Mode type.
+</summary>
 </member>
 <member name="M:Fake.TraceHelper.traceEndTask(System.String,System.String)">
 <summary>
@@ -1561,7 +1651,7 @@
  Traces an error (in red)
 </summary>
 </member>
-<member name="M:Fake.TraceHelper.traceFAKE(System.String)">
+<member name="M:Fake.TraceHelper.traceFAKE``1(Microsoft.FSharp.Core.PrintfFormat{``0,Microsoft.FSharp.Core.Unit,System.String,Microsoft.FSharp.Core.Unit})">
 <summary>
  Writes a trace to the command line (in yellow)
 </summary>
@@ -1576,19 +1666,39 @@
  Writes a trace to the command line (in green) if the verbose mode is activated.
 </summary>
 </member>
+<member name="M:Fake.TraceHelper.tracef``1(Microsoft.FSharp.Core.PrintfFormat{``0,Microsoft.FSharp.Core.Unit,System.String,Microsoft.FSharp.Core.Unit})">
+<summary>
+ Writes a message to the command line (in green) and without a line break
+</summary>
+</member>
+<member name="M:Fake.TraceHelper.tracefn``1(Microsoft.FSharp.Core.PrintfFormat{``0,Microsoft.FSharp.Core.Unit,System.String,Microsoft.FSharp.Core.Unit})">
+<summary>
+ Writes a message to the command line (in green)
+</summary>
+</member>
 <member name="M:Fake.TraceHelper.trace(System.String)">
 <summary>
  Writes a trace to the command line (in green)
 </summary>
 </member>
-<member name="M:Fake.TraceHelper.logColored(System.Boolean,System.String,System.ConsoleColor)">
+<member name="M:Fake.TraceHelper.logColored(System.Boolean,System.ConsoleColor,System.Boolean,System.String)">
 <summary>
  Writes a trace to the command line (in the given color)
 </summary>
 </member>
-<member name="M:Fake.TraceHelper.logVerbose(System.String)">
+<member name="M:Fake.TraceHelper.logVerbosefn``1(Microsoft.FSharp.Core.PrintfFormat{``0,Microsoft.FSharp.Core.Unit,System.String,Microsoft.FSharp.Core.Unit})">
 <summary>
  Logs the specified string if the verbose mode is activated.
+</summary>
+</member>
+<member name="M:Fake.TraceHelper.logf``1(Microsoft.FSharp.Core.PrintfFormat{``0,Microsoft.FSharp.Core.Unit,System.String,Microsoft.FSharp.Core.Unit})">
+<summary>
+ Logs the specified message (without line break)
+</summary>
+</member>
+<member name="M:Fake.TraceHelper.logfn``1(Microsoft.FSharp.Core.PrintfFormat{``0,Microsoft.FSharp.Core.Unit,System.String,Microsoft.FSharp.Core.Unit})">
+<summary>
+ Logs the specified message
 </summary>
 </member>
 <member name="P:Fake.TraceHelper.log">
@@ -1596,7 +1706,7 @@
  Logs the specified string        
 </summary>
 </member>
-<member name="M:Fake.TraceHelper.logMessage(System.Boolean,System.String)">
+<member name="M:Fake.TraceHelper.logMessage(System.Boolean,System.Boolean,System.String)">
 <summary>
  logs the specified string        
 </summary>
@@ -1604,7 +1714,7 @@
 <member name="">
 
 </member>
-<member name="M:Fake.TraceHelper.logMessageToConsole(System.Boolean,System.String)">
+<member name="M:Fake.TraceHelper.logMessageToConsole(System.Boolean,System.Boolean,System.String)">
 <summary>
  logs the specified string to the console
 </summary>
@@ -1630,8 +1740,10 @@
 <member name="">
 
 </member>
-<member name="">
-
+<member name="P:Fake.TraceHelper.traceMode">
+<summary>
+ The actual trace mode.
+</summary>
 </member>
 <member name="T:Fake.TraceHelper">
 
@@ -1867,6 +1979,46 @@
 <member name="T:Fake.VSSHelper">
 
 </member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:Fake.WiXHelper.WiX(Microsoft.FSharp.Core.FSharpFunc`2{Fake.WiXHelper.WiXParams,Fake.WiXHelper.WiXParams},System.String,System.String)">
+<summary>
+ Uses Candle and Light to create a msi.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="P:Fake.WiXHelper.WiXDefaults">
+<summary>
+ WiX default params  
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Fake.WiXHelper">
+
+</member>
 <member name="M:Fake.XCopyHelper.XCopy(System.String,System.String)">
 <summary>
  Performs a XCopy 
@@ -1991,6 +2143,7 @@
 <member name="M:Fake.ZipHelper.Unzip(System.String,System.String)">
 <summary>
  Unzips a file with the given fileName
+
  Parameter 1: target - The target directory.
  Parameter 2: fileName - The fileName of the zip file.
 </summary>
@@ -1998,6 +2151,7 @@
 <member name="M:Fake.ZipHelper.ZipFile(System.String,System.String)">
 <summary>
  Creates a zip file with the given file 
+
  Parameter 1: fileName - The fileName of the resulting zip file.
  Parameter 2: fileName - The file to zip.
 </summary>
@@ -2005,6 +2159,7 @@
 <member name="M:Fake.ZipHelper.Zip(System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
 <summary>
  Creates a zip file with the given files 
+
  Parameter 1: workingDir - The relative dir of the zip files. Use this parameter to influence directory structure within zip file.
  Parameter 2: fileName - The fileName of the resulting zip file.
  Parameter 3: files - A sequence with files to zip.
