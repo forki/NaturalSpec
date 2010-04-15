@@ -15,7 +15,7 @@ open NaturalSpec
 // How many different ways can £2 be made using any number of coins?
 
 let rec possibilities numbers n =
-    if n < (numbers |> Set.minElement) then 0I else
+    if n < Set.minElement numbers then 0I else
     let m =
         numbers
           |> Set.filter (fun x -> x <= n)
