@@ -182,3 +182,40 @@ let ``Given 1,1,2,3,2 placed on "full house" gives 0.`` () =
       |> When (placed_on FullHouse)
       |> It should equal 0
       |> Verify
+
+// Yahtzee: If all dice are the have the same number, the player scores 50 points, otherwise 0.
+
+[<ScenarioTemplate(1)>]
+[<ScenarioTemplate(2)>]
+[<ScenarioTemplate(3)>]
+[<ScenarioTemplate(4)>]
+[<ScenarioTemplate(5)>]
+[<ScenarioTemplate(6)>]
+let ``Given n,n,n,n,n placed on "Yahtzee" gives 50.`` n =   
+    Given (n,n,n,n,n)
+      |> When (placed_on Yahtzee)
+      |> It should equal 50
+      |> Verify
+
+[<Scenario>]     
+let ``Given 1,1,1,2,1 placed on "Yahtzee" gives 50.`` () =   
+    Given (1,1,1,2,1)
+      |> When (placed_on Yahtzee)
+      |> It should equal 0
+      |> Verify
+
+// Chance: The player gets the sum of all dice, no matter what they read. 
+
+[<Scenario>]     
+let ``Given 1,1,1,2,1 placed on "Chance" gives 6.`` () =   
+    Given (1,1,1,2,1)
+      |> When (placed_on Chance)
+      |> It should equal 6
+      |> Verify
+
+[<Scenario>]     
+let ``Given 1,6,1,2,1 placed on "Chance" gives 11.`` () =   
+    Given (1,6,1,2,1)
+      |> When (placed_on Chance)
+      |> It should equal 11
+      |> Verify

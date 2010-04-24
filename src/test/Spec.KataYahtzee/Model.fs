@@ -16,6 +16,8 @@ type Category =
 | SmallStraight
 | LargeStraight
 | FullHouse
+| Yahtzee
+| Chance
 
 let toList (roll:Roll) =
     let a,b,c,d,e = roll
@@ -72,3 +74,7 @@ let calcValue category roll =
         | [2;3;4;5;6] -> 20
         | _ -> 0
     | FullHouse   -> takeBestCombo 2 3 list
+    | Yahtzee -> 
+        let a,b,c,d,e = roll
+        if a = b && a = c && a = d && a = e then 50 else 0 
+    | Chance -> List.sum list
