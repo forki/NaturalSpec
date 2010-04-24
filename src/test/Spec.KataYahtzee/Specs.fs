@@ -157,3 +157,28 @@ let ``Given 1,2,6,4,3 placed on "Large Straight" gives 0.`` () =
       |> When (placed_on LargeStraight)
       |> It should equal 0
       |> Verify
+
+// Full house: If the dice are two of a kind and three of a kind, 
+// the player scores the sum of all the dice. 
+// For example, 1,1,2,2,2 placed on "full house" gives 8. 4,4,4,4,4 is not "full house".
+
+[<Scenario>]     
+let ``Given 1,1,2,2,2 placed on "full house" gives 8.`` () =   
+    Given (1,1,2,2,2)
+      |> When (placed_on FullHouse)
+      |> It should equal 8
+      |> Verify
+
+[<Scenario>]     
+let ``Given 4,4,4,4,4 placed on "full house" gives 0.`` () =   
+    Given (4,4,4,4,4)
+      |> When (placed_on FullHouse)
+      |> It should equal 0
+      |> Verify
+
+[<Scenario>]     
+let ``Given 1,1,2,3,2 placed on "full house" gives 0.`` () =   
+    Given (1,1,2,3,2)
+      |> When (placed_on FullHouse)
+      |> It should equal 0
+      |> Verify

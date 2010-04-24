@@ -15,6 +15,7 @@ type Category =
 | FourOfAKind
 | SmallStraight
 | LargeStraight
+| FullHouse
 
 let toList (roll:Roll) =
     let a,b,c,d,e = roll
@@ -40,6 +41,15 @@ let takeBestTuple value list =
         |> Seq.map (sumAsTuple value list)
         |> takeBest
 
+let takeBestCombo value1 value2 list =
+    allPairs
+        |> Seq.filter (fun (a,b) -> a <> b)
+        |> Seq.map (fun (a,b) -> 
+            let a' = sumAsTuple value1 list a
+            let b' = sumAsTuple value2 list b
+            if a' = 0 || b' = 0 then 0 else a' + b')
+        |> takeBest
+
 let calcValue category roll =
     let list = toList roll
     match category with
@@ -50,14 +60,7 @@ let calcValue category roll =
     | Fives  -> sumNumber 5 list
     | Sixes  -> sumNumber 6 list
     | Pair   -> takeBestTuple 2 list
-    | TwoPair   -> 
-        allPairs
-          |> Seq.filter (fun (a,b) -> a <> b)
-          |> Seq.map (fun (a,b) -> 
-                let a' = sumAsTuple 2 list a
-                let b' = sumAsTuple 2 list b
-                if a' = 0 || b' = 0 then 0 else a' + b')
-          |> takeBest
+    | TwoPair   -> takeBestCombo 2 2 list
     | ThreeOfAKind -> takeBestTuple 3 list
     | FourOfAKind  -> takeBestTuple 4 list
     | SmallStraight -> 
@@ -68,3 +71,4 @@ let calcValue category roll =
         match list |> List.sort with
         | [2;3;4;5;6] -> 20
         | _ -> 0
+    | FullHouse   -> takeBestCombo 2 3 list
