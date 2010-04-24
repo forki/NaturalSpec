@@ -24,3 +24,20 @@ let ``Given  1, 1, 6, 4, 6 placed on "sixes" gives 12 points.`` () =
       |> When (placed_on Sixes)
       |> It should equal 12
       |> Verify
+
+// Pair: The player scores the sum of the two highest matching dice. 
+// For example, 3, 3, 3, 4, 4 placed on "pair" gives 8.
+
+[<Scenario>]     
+let ``Given  3, 3, 3, 4, 4 placed on "pair" gives 8.`` () =   
+    Given (3, 3, 3, 4, 4)
+      |> When (placed_on Pair)
+      |> It should equal 8
+      |> Verify
+
+[<Scenario>]     
+let ``Given  5, 3, 5, 4, 4 placed on "pair" gives 10.`` () =   
+    Given (5, 3, 5, 4, 4)
+      |> When (placed_on Pair)
+      |> It should equal 10
+      |> Verify
