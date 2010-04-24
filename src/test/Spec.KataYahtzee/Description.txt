@@ -1,6 +1,7 @@
 ﻿KataYahtzee
 
 Source: http://www.codingdojo.org/cgi-bin/wiki.pl?KataYahtzee
+
 About this Kata
 
 This problem is based on Ruby Quiz #19 (http://rubyquiz.com/quiz19.html). 
