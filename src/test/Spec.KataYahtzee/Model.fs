@@ -12,6 +12,7 @@ type Category =
 | Pair
 | TwoPair
 | ThreeOfAKind
+| FourOfAKind
 
 let toList (roll:Roll) =
     let a,b,c,d,e = roll
@@ -32,6 +33,11 @@ let allPairs =
       
 let takeBest = Seq.max
 
+let takeBestTuple value list =
+    allNumbers
+        |> Seq.map (sumAsTuple value list)
+        |> takeBest
+
 let calcValue category roll =
     let list = toList roll
     match category with
@@ -41,10 +47,7 @@ let calcValue category roll =
     | Fours  -> sumNumber 4 list
     | Fives  -> sumNumber 5 list
     | Sixes  -> sumNumber 6 list
-    | Pair   -> 
-        allNumbers
-          |> Seq.map (sumAsTuple 2 list)
-          |> takeBest
+    | Pair   -> takeBestTuple 2 list
     | TwoPair   -> 
         allPairs
           |> Seq.filter (fun (a,b) -> a <> b)
@@ -53,7 +56,5 @@ let calcValue category roll =
                 let b' = sumAsTuple 2 list b
                 if a' = 0 || b' = 0 then 0 else a' + b')
           |> takeBest
-    | ThreeOfAKind -> 
-        allNumbers
-          |> Seq.map (sumAsTuple 3 list)
-          |> takeBest
+    | ThreeOfAKind -> takeBestTuple 3 list
+    | FourOfAKind  -> takeBestTuple 4 list
