@@ -3,10 +3,11 @@
 open NaturalSpec
 
 let fizzbuzz n =
-    let s1 = if n % 3 = 0 then "fizz" else ""
-    let s2 = if n % 5 = 0 then "buzz" else ""
+    let t = sprintf "%d" n
+    let s1 = if n % 3 = 0 || t.Contains("3") then "fizz" else ""
+    let s2 = if n % 5 = 0 || t.Contains("5") then "buzz" else ""
     let s = s1 + s2
-    if s = "" then sprintf "%d" n else s
+    if s = "" then t else s
 
 let fizzBuzz n =
   printMethod n
@@ -24,9 +25,22 @@ let fizzBuzz n =
 [<ScenarioTemplate(10,"buzz")>]
 [<ScenarioTemplate(15,"fizzbuzz")>]
 [<ScenarioTemplate(33,"fizz")>]
-[<ScenarioTemplate(34,"34")>]
+[<ScenarioTemplate(48,"fizz")>]
 [<ScenarioTemplate(60,"fizzbuzz")>]
-let ``Given n gives result.`` (n,result) =   
+let ``Given n gives simple fizzbuzz result.`` (n,result) =   
+    Given n
+      |> When fizzBuzz
+      |> It should equal result
+      |> Verify
+
+[<ScenarioTemplate(31,"fizz")>]
+[<ScenarioTemplate(33,"fizz")>]
+[<ScenarioTemplate(35,"fizzbuzz")>]
+[<ScenarioTemplate(39,"fizz")>]
+[<ScenarioTemplate(51,"fizzbuzz")>]
+[<ScenarioTemplate(52,"buzz")>]
+[<ScenarioTemplate(59,"buzz")>]
+let ``Given n gives extended fizzbuzz result.`` (n,result) =   
     Given n
       |> When fizzBuzz
       |> It should equal result
