@@ -97,14 +97,14 @@ let ``Given 3, 4, 3, 4, 5 placed on "three of a kind" gives 0.`` () =
 // For example, 2, 2, 2, 2, 5 places on "four of a kind" gives 8.
 
 [<Scenario>]     
-let ``Given 2, 2, 2, 2, 5 placed on "tour of a kind" gives 8.`` () =   
+let ``Given 2, 2, 2, 2, 5 placed on "four of a kind" gives 8.`` () =   
     Given (2, 2, 2, 2, 5)
       |> When (placed_on FourOfAKind)
       |> It should equal 8
       |> Verify
 
 [<Scenario>]     
-let ``Given 2, 6, 2, 2, 5 placed on "tour of a kind" gives 0.`` () =   
+let ``Given 2, 6, 2, 2, 5 placed on "four of a kind" gives 0.`` () =   
     Given (2, 6, 2, 2, 5)
       |> When (placed_on FourOfAKind)
       |> It should equal 0
