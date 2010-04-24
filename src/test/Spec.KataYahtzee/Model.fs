@@ -11,6 +11,7 @@ type Category =
 | Sixes
 | Pair
 | TwoPair
+| ThreeOfAKind
 
 let toList (roll:Roll) =
     let a,b,c,d,e = roll
@@ -20,9 +21,9 @@ let sumNumber number =
     Seq.filter ((=) number)
       >> Seq.sum
 
-let sumAsPair list number =
+let sumAsTuple value list number =
     let numberCount = list |> Seq.filter ((=) number) |> Seq.length
-    if numberCount >= 2 then 2 * number else 0
+    if numberCount >= value then value * number else 0
     
 let allNumbers = [1..6]
 let allPairs =
@@ -42,13 +43,17 @@ let calcValue category roll =
     | Sixes  -> sumNumber 6 list
     | Pair   -> 
         allNumbers
-          |> Seq.map (sumAsPair list)
+          |> Seq.map (sumAsTuple 2 list)
           |> takeBest
     | TwoPair   -> 
         allPairs
           |> Seq.filter (fun (a,b) -> a <> b)
           |> Seq.map (fun (a,b) -> 
-                let a' = sumAsPair list a
-                let b' = sumAsPair list b
+                let a' = sumAsTuple 2 list a
+                let b' = sumAsTuple 2 list b
                 if a' = 0 || b' = 0 then 0 else a' + b')
+          |> takeBest
+    | ThreeOfAKind -> 
+        allNumbers
+          |> Seq.map (sumAsTuple 3 list)
           |> takeBest

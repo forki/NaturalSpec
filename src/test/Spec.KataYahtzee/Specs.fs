@@ -73,3 +73,21 @@ let ``Given 1, 1, 2, 4, 3 placed on "two pair" gives 0.`` () =
       |> When (placed_on TwoPair)
       |> It should equal 0
       |> Verify
+
+// Three of a kind: If there are three dice with the same number, 
+// the player scores the sum of these dice. Otherwise, the player scores 0. 
+// For example, 3, 3, 3, 4, 5 places on "three of a kind" gives 9.
+
+[<Scenario>]     
+let ``Given 3, 3, 3, 4, 5 placed on "three of a kind" gives 9.`` () =   
+    Given (3, 3, 3, 4, 5)
+      |> When (placed_on ThreeOfAKind)
+      |> It should equal 9
+      |> Verify
+
+[<Scenario>]     
+let ``Given 3, 4, 3, 4, 5 placed on "three of a kind" gives 0.`` () =   
+    Given (3, 4, 3, 4, 5)
+      |> When (placed_on ThreeOfAKind)
+      |> It should equal 0
+      |> Verify
