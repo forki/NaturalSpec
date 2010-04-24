@@ -10,7 +10,7 @@ let fizzbuzz n =
     if s = "" then t else s
 
 let fizzBuzz n =
-  printMethod n
+  printMethod ""
   fizzbuzz n
 
 [<ScenarioTemplate(1,"1")>] 
