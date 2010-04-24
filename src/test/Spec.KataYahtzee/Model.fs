@@ -10,6 +10,7 @@ type Category =
 | Fives
 | Sixes
 | Pair
+| TwoPair
 
 let toList (roll:Roll) =
     let a,b,c,d,e = roll
@@ -24,6 +25,9 @@ let sumAsPair list number =
     if numberCount >= 2 then 2 * number else 0
     
 let allNumbers = [1..6]
+let allPairs =
+    [for i in allNumbers do
+       for j in allNumbers -> i,j]
       
 let takeBest = Seq.max
 
@@ -39,4 +43,12 @@ let calcValue category roll =
     | Pair   -> 
         allNumbers
           |> Seq.map (sumAsPair list)
+          |> takeBest
+    | TwoPair   -> 
+        allPairs
+          |> Seq.filter (fun (a,b) -> a <> b)
+          |> Seq.map (fun (a,b) -> 
+                let a' = sumAsPair list a
+                let b' = sumAsPair list b
+                if a' = 0 || b' = 0 then 0 else a' + b')
           |> takeBest

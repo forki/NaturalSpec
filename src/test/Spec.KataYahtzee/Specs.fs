@@ -12,14 +12,14 @@ let placed_on category =
 // For example, 1, 1, 2, 4, 4 placed on "fours" gives 8 points.
 
 [<Scenario>]     
-let ``Given  1, 1, 2, 4, 4 placed on "fours" gives 8 points.`` () =   
+let ``Given 1, 1, 2, 4, 4 placed on "fours" gives 8 points.`` () =   
     Given (1, 1, 2, 4, 4)
       |> When (placed_on Fours)
       |> It should equal 8
       |> Verify
 
 [<Scenario>]     
-let ``Given  1, 1, 6, 4, 6 placed on "sixes" gives 12 points.`` () =   
+let ``Given 1, 1, 6, 4, 6 placed on "sixes" gives 12 points.`` () =   
     Given (1, 1, 6, 4, 6)
       |> When (placed_on Sixes)
       |> It should equal 12
@@ -29,15 +29,47 @@ let ``Given  1, 1, 6, 4, 6 placed on "sixes" gives 12 points.`` () =
 // For example, 3, 3, 3, 4, 4 placed on "pair" gives 8.
 
 [<Scenario>]     
-let ``Given  3, 3, 3, 4, 4 placed on "pair" gives 8.`` () =   
+let ``Given 3, 3, 3, 4, 4 placed on "pair" gives 8.`` () =   
     Given (3, 3, 3, 4, 4)
       |> When (placed_on Pair)
       |> It should equal 8
       |> Verify
 
 [<Scenario>]     
-let ``Given  5, 3, 5, 4, 4 placed on "pair" gives 10.`` () =   
+let ``Given 5, 3, 5, 4, 4 placed on "pair" gives 10.`` () =   
     Given (5, 3, 5, 4, 4)
       |> When (placed_on Pair)
       |> It should equal 10
+      |> Verify
+
+[<Scenario>]     
+let ``Given 5, 3, 2, 4, 1 placed on "pair" gives 0.`` () =   
+    Given (5, 3, 2, 4, 1)
+      |> When (placed_on Pair)
+      |> It should equal 0
+      |> Verify
+
+// Two pairs: If there are two pairs of dice with the same number, 
+// the player scores the sum of these dice. If not, the player scores 0. 
+// For example, 1, 1, 2, 3, 3 placed on "two pairs" gives 8.
+
+[<Scenario>]     
+let ``Given 1, 1, 2, 3, 3 placed on "two pair" gives 8.`` () =   
+    Given (1, 1, 2, 3, 3)
+      |> When (placed_on TwoPair)
+      |> It should equal 8
+      |> Verify
+
+[<Scenario>]     
+let ``Given 1, 6, 6, 3, 3 placed on "two pair" gives 18.`` () =   
+    Given (1, 6, 6, 3, 3)
+      |> When (placed_on TwoPair)
+      |> It should equal 18
+      |> Verify
+
+[<Scenario>]     
+let ``Given 1, 1, 2, 4, 3 placed on "two pair" gives 0.`` () =   
+    Given (1, 1, 2, 4, 3)
+      |> When (placed_on TwoPair)
+      |> It should equal 0
       |> Verify
