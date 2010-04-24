@@ -3,22 +3,19 @@
 open NaturalSpec
 
 let fizzbuzz n =
-  sprintf "%d" n
+    if n % 3 = 0 then "fizz" else
+    sprintf "%d" n
 
 let fizzBuzz n =
   printMethod n
   fizzbuzz n
 
-[<Scenario>]     
-let ``Given 1 gives 1.`` () =   
-    Given 1
+[<ScenarioTemplate(1,"1")>] 
+[<ScenarioTemplate(2,"2")>]  
+[<ScenarioTemplate(3,"fizz")>]
+[<ScenarioTemplate(4,"4")>]
+let ``Given n gives result.`` (n,result) =   
+    Given n
       |> When fizzBuzz
-      |> It should equal "1"
-      |> Verify
-
-[<Scenario>]     
-let ``Given 2 gives 2.`` () =   
-    Given 2
-      |> When fizzBuzz
-      |> It should equal "2"
+      |> It should equal result
       |> Verify
