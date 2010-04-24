@@ -39,6 +39,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kata", "Kata", "{D86C8AE6-3
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Spec.KataYahtzee", "src\test\Spec.KataYahtzee\Spec.KataYahtzee.fsproj", "{A7F81D5C-4BCA-44DD-932A-36BD88ADB19A}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Spec.KataFizzBuzz", "src\test\Spec.KataFizzBuzz\Spec.KataFizzBuzz.fsproj", "{691EB18C-A8A9-426A-BE4E-7D42D05291AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -158,6 +160,17 @@ Global
 		{A7F81D5C-4BCA-44DD-932A-36BD88ADB19A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{A7F81D5C-4BCA-44DD-932A-36BD88ADB19A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{A7F81D5C-4BCA-44DD-932A-36BD88ADB19A}.Release|x86.ActiveCfg = Release|Any CPU
+		{691EB18C-A8A9-426A-BE4E-7D42D05291AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{691EB18C-A8A9-426A-BE4E-7D42D05291AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{691EB18C-A8A9-426A-BE4E-7D42D05291AE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{691EB18C-A8A9-426A-BE4E-7D42D05291AE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{691EB18C-A8A9-426A-BE4E-7D42D05291AE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{691EB18C-A8A9-426A-BE4E-7D42D05291AE}.Debug|x86.Build.0 = Debug|Any CPU
+		{691EB18C-A8A9-426A-BE4E-7D42D05291AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{691EB18C-A8A9-426A-BE4E-7D42D05291AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{691EB18C-A8A9-426A-BE4E-7D42D05291AE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{691EB18C-A8A9-426A-BE4E-7D42D05291AE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{691EB18C-A8A9-426A-BE4E-7D42D05291AE}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -177,5 +190,6 @@ Global
 		{68B024FC-D384-47DC-94BB-05C02F8FC139} = {37D48DED-AD2A-4CAB-8FC0-10299C452FAB}
 		{9848D638-8B92-44F7-B19B-E1223E93D625} = {21C35F5D-07C3-4B42-9B86-33D85C3BC7B9}
 		{A7F81D5C-4BCA-44DD-932A-36BD88ADB19A} = {D86C8AE6-3344-4922-A742-99B707FAAEC7}
+		{691EB18C-A8A9-426A-BE4E-7D42D05291AE} = {D86C8AE6-3344-4922-A742-99B707FAAEC7}
 	EndGlobalSection
 EndGlobal
