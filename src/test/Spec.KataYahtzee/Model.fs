@@ -13,6 +13,7 @@ type Category =
 | TwoPair
 | ThreeOfAKind
 | FourOfAKind
+| SmallStraight
 
 let toList (roll:Roll) =
     let a,b,c,d,e = roll
@@ -58,3 +59,7 @@ let calcValue category roll =
           |> takeBest
     | ThreeOfAKind -> takeBestTuple 3 list
     | FourOfAKind  -> takeBestTuple 4 list
+    | SmallStraight -> 
+        match list |> List.sort with
+        | [1;2;3;4;5] -> 15
+        | _ -> 0

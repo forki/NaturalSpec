@@ -3,9 +3,9 @@
 open NaturalSpec
 open Model
 
-let placed_on category =
+let placed_on category list =
     printMethod category
-    calcValue category 
+    calcValue category list
 
 // Ones, Twos, Threes, Fours, Fives, Sixes: 
 // The player scores the sum of the dice that reads one, two, three, four, five or six, respectively. 
@@ -107,5 +107,29 @@ let ``Given 2, 2, 2, 2, 5 placed on "tour of a kind" gives 8.`` () =
 let ``Given 2, 6, 2, 2, 5 placed on "tour of a kind" gives 0.`` () =   
     Given (2, 6, 2, 2, 5)
       |> When (placed_on FourOfAKind)
+      |> It should equal 0
+      |> Verify
+
+// Small straight: If the dice read 1,2,3,4,5, the player scores 15 (the sum of all the dice), 
+// otherwise 0.
+
+[<Scenario>]     
+let ``Given 1,2,3,4,5 placed on "Small Straight" gives 15.`` () =   
+    Given (1,2,3,4,5)
+      |> When (placed_on SmallStraight)
+      |> It should equal 15
+      |> Verify
+
+[<Scenario>]     
+let ``Given 1,2,5,4,3 placed on "Small Straight" gives 15.`` () =   
+    Given (1,2,5,4,3)
+      |> When (placed_on SmallStraight)
+      |> It should equal 15
+      |> Verify
+
+[<Scenario>]     
+let ``Given 1,2,6,4,3 placed on "Small Straight" gives 0.`` () =   
+    Given (1,2,6,4,3)
+      |> When (placed_on SmallStraight)
       |> It should equal 0
       |> Verify
