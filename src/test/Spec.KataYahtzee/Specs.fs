@@ -133,3 +133,27 @@ let ``Given 1,2,6,4,3 placed on "Small Straight" gives 0.`` () =
       |> When (placed_on SmallStraight)
       |> It should equal 0
       |> Verify
+
+// Large straight: If the dice read 2,3,4,5,6, the player scores 20 (the sum of all the dice),
+//  otherwise 0.
+
+[<Scenario>]     
+let ``Given 2,3,4,5,6 placed on "Large Straight" gives 20.`` () =   
+    Given (2,3,4,5,6)
+      |> When (placed_on LargeStraight)
+      |> It should equal 20
+      |> Verify
+
+[<Scenario>]     
+let ``Given 6,2,5,4,3 placed on "Large Straight" gives 20.`` () =   
+    Given (6,2,5,4,3)
+      |> When (placed_on LargeStraight)
+      |> It should equal 20
+      |> Verify
+
+[<Scenario>]     
+let ``Given 1,2,6,4,3 placed on "Large Straight" gives 0.`` () =   
+    Given (1,2,6,4,3)
+      |> When (placed_on LargeStraight)
+      |> It should equal 0
+      |> Verify

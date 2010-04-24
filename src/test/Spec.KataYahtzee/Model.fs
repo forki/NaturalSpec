@@ -14,6 +14,7 @@ type Category =
 | ThreeOfAKind
 | FourOfAKind
 | SmallStraight
+| LargeStraight
 
 let toList (roll:Roll) =
     let a,b,c,d,e = roll
@@ -62,4 +63,8 @@ let calcValue category roll =
     | SmallStraight -> 
         match list |> List.sort with
         | [1;2;3;4;5] -> 15
+        | _ -> 0
+    | LargeStraight -> 
+        match list |> List.sort with
+        | [2;3;4;5;6] -> 20
         | _ -> 0
