@@ -5,17 +5,12 @@ let DFS targetF childF root =
   let rec dfs node =
     if targetF node then Some(node) else
     childF node
-      |> List.fold 
-          (fun f c -> 
-            match f with 
-              | None -> dfs c
-              | _ -> f)
-           None
+      |> List.tryPick dfs
   dfs root
   
 /// Performs a Breadth-First-Search
-let BFS targetF childF (root:'a) =
-  let queue = new System.Collections.Generic.Queue<'a>()
+let BFS targetF childF root =
+  let queue = new System.Collections.Generic.Queue<_>()
   queue.Enqueue root
   
   let mutable result = None
@@ -26,8 +21,8 @@ let BFS targetF childF (root:'a) =
       queue.Enqueue child
   result         
   
-let DFS_Stacked targetF childF (root:'a) =
-  let stack = new System.Collections.Generic.Stack<'a>()
+let DFS_Stacked targetF childF root =
+  let stack = new System.Collections.Generic.Stack<_>()
   stack.Push root
   
   let mutable result = None
@@ -40,13 +35,12 @@ let DFS_Stacked targetF childF (root:'a) =
   
       
 /// Performs a Depth-First-Search
-let DFS_Listbased targetF childF (root:'a) =
-  let rec next stack =      
-    match stack with 
-      | [] -> None
-      | node::rest ->        
-          if targetF node then Some node else
-          next (childF node @ rest)
+let DFS_Listbased targetF childF root =
+  let rec next = function     
+    | [] -> None
+    | node::rest ->        
+        if targetF node then Some node else
+        next (childF node @ rest)
   next [root]      
  
   
@@ -55,8 +49,8 @@ let DFS_Listbased targetF childF (root:'a) =
 let RestartedSearch targetF heuristicChildF trials root =
   let rec apply node =      
     match heuristicChildF node with
-      | []      -> node
-      | x::rest -> apply x
+    | []      -> node
+    | x::rest -> apply x
       
   let rec trial trials =
     if trials <= 0 then None else
@@ -77,18 +71,18 @@ let LDS targetF heuristicChildF maxDiscrepancy root =
   let lds_probe maxDiscrepancy =
     let rec getChilds acc childs discrepancy =
       match childs with
-        | [] -> acc
-        | c::rest ->
-            if discrepancy > maxDiscrepancy then acc else
-            getChilds ((c,discrepancy)::acc) rest (discrepancy+1)
+      | [] -> acc
+      | c::rest ->
+          if discrepancy > maxDiscrepancy then acc else
+          getChilds ((c,discrepancy)::acc) rest (discrepancy+1)
       
     let rec next stack =      
       match stack with 
-        | [] -> None
-        | (node,discre)::rest ->        
-            if targetF node then Some node else
-            let childs = getChilds [] (heuristicChildF node) discre
-            next (childs @ rest)
+      | [] -> None
+      | (node,discre)::rest ->        
+          if targetF node then Some node else
+          let childs = getChilds [] (heuristicChildF node) discre
+          next (childs @ rest)
     next [(root,0)]               
   
   let rec lds_trial discrepancy =

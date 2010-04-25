@@ -24,30 +24,29 @@ let outside (a,b) board =
   a < 0 || b < 0 || a >= board.Width || b >= board.Height 
       
 let visit field (board:Board) =
-  match field with
+    match field with
     | _ when outside field board -> invalidArg "field" "Field coordinates outside the board."
     | _ when visited_before field board -> failwith "Field already visited"
     | a, b -> 
-      let newBoard = 
-        {board with 
-          VisitedFields = field::board.VisitedFields;
-          Visited = Map.add field (board.Length+1) board.Visited;
-          Length = board.Length+1}
-      match board.VisitedFields with
+        let newBoard = 
+            {board with 
+                VisitedFields = field::board.VisitedFields;
+                Visited = Map.add field (board.Length+1) board.Visited;
+                Length = board.Length+1}
+        match board.VisitedFields with
         | [] -> newBoard
         | (x,y)::rest ->
             match abs (x - a), abs (y - b) with
-              | 1, 2
-              | 2, 1 -> newBoard
-              | _    -> failwith <| sprintf "Field %A can't be reached from %A" field (x,y)
+            | 1, 2
+            | 2, 1 -> newBoard
+            | _    -> failwith <| sprintf "Field %A can't be reached from %A" field (x,y)
 
 let allFields n m =
   [for i in 0..n-1 do
-     for j in 0..m-1 do
-      yield i,j]              
+     for j in 0..m-1 -> i,j]              
       
 let possible_fields (board:Board) =
-  match board.VisitedFields with
+    match board.VisitedFields with
     | [] -> allFields board.Width board.Height
     | (x,y)::rest -> 
         let possible f =
@@ -64,7 +63,7 @@ let possible_fields (board:Board) =
         fields |> List.sort
     
 let visit_sequence fields board =
-  fields |> Seq.fold (fun b f -> visit f b) board
+    fields |> Seq.fold (fun b f -> visit f b) board
   
 let possible_boards (board:Board)=
     possible_fields board |> List.fold (fun c m -> visit m board :: c) []
