@@ -198,7 +198,7 @@ let ``Given n,n,n,n,n placed on "Yahtzee" gives 50.`` n =
       |> Verify
 
 [<Scenario>]     
-let ``Given 1,1,1,2,1 placed on "Yahtzee" gives 50.`` () =   
+let ``Given 1,1,1,2,1 placed on "Yahtzee" gives 0.`` () =   
     Given (1,1,1,2,1)
       |> When (placed_on Yahtzee)
       |> It should equal 0
