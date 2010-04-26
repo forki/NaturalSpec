@@ -3,63 +3,40 @@ module NaturalSpec.Syntax
 
 open NUnit.Framework
 open System.Diagnostics
-open Rhino.Mocks
 open Utils
 open TimeMeasurement
- 
-/// Create a named Mock object
-let mock<'a>(name:string) = 
-  let m = mocks.StrictMock<'a>(null)
-  mockNameDict.Add(m.ToString(),name)
-  m 
      
 /// Prints the method name and the given parameter to the spec output           
 let printMethod (x:obj) = 
   let methodName = (new StackTrace()).GetFrame(1).GetMethod().Name.Replace("_"," ")    
   match x with
-    | :? string as s     -> sprintf "%s %s" methodName s |> toSpec
-    | _                  ->          
-       sprintf "%s %s" methodName (getMockName x) |> toSpec
+  | :? string as s -> sprintf "%s %s" methodName s |> toSpec
+  | _             -> sprintf "%s %s" methodName (prepareOutput x) |> toSpec
   
 /// Inits a scenario    
 let initScenario() =  
   stopWatch.Reset()
   stopWatch.Start()
-  refreshMocks()
   printScenario()
-
-/// Registers a mock        
-let Mock (f:'a -> 'b) (p:'a) returns context =
-  let e = Expect.Call<'b>( f(p) )
-  sprintf "\n     - With mocking" |> toSpec
-  e.Return returns |> ignore
-  context
-  
-/// Registers a mock call        
-let Expect f context =
-  let e = Expect.Call<unit>( f() )
-  sprintf "\n     - With mocking" |> toSpec
-  context    
 
 /// Sets a test context up - same as "As"  
 /// Represents the Arrange phase of "Arrange"-"Act"-"Assert"      
 let Given f = 
   initScenario()
         
-  sprintf "  - Given %s" (getMockName f) |> toSpec
+  sprintf "  - Given %s" (prepareOutput f) |> toSpec
   f
 
 /// Sets a test context up - same as "Given"  
 let As f =  
   initScenario()
         
-  sprintf "  - As %s" (getMockName f)  |> toSpec
+  sprintf "  - As %s" (prepareOutput f)  |> toSpec
   f
 
 /// Acts on the given test context
 /// Represents the Act phase of "Arrange"-"Act"-"Assert"      
 let When f = 
-  mocks.ReplayAll()
   toSpec  "\n     - When "
   f
     
@@ -93,7 +70,7 @@ let checkEquality (expected:'a) (value:'a) pipe =
 /// Tests for equality
 /// Use it as in "|> It should equal x"
 let equal (expected:'a) (value:'a) = 
-  sprintf "equal %s" (getMockName expected) |> toSpec
+  sprintf "equal %s" (prepareOutput expected) |> toSpec
   checkEquality expected value value    
   
 /// Fluid helper - prints "be "
@@ -168,21 +145,19 @@ let ShouldFailWith (exceptionType:System.Type) (list:TestCaseData list) =
     
 /// Adds an Description to the testcase
 let Named (name:string) (list:TestCaseData list) =
-  match list with 
+    match list with 
     | [] -> invalidArg "list" "No TestData given"
     | x::rest -> (x.SetName name)::rest        
       
 /// Verifies a scenario   
 let Verify x =
   x |> ignore
-  try
-    mocks.VerifyAll()
-    
-    sprintf "\n  ==> Result is: %s" (prepareOutput x) |> toSpec
-    toSpec "\n  ==> OK"
-    printElapsed()
+  try    
+      sprintf "\n  ==> Result is: %s" (prepareOutput x) |> toSpec
+      toSpec "\n  ==> OK"
+      printElapsed()
   with 
-    | ex -> 
+  | ex -> 
         sprintf "\n  ==> Expected mocked call missing" |> toSpec
         printElapsed()
         raise ex
