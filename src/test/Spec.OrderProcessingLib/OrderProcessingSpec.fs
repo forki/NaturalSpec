@@ -4,18 +4,24 @@ open NaturalSpec
 open OrderProcessingLib
 
 let shipping order (x:OrderProcessing) =
-  printMethod order
-  x.Ship(order) |> ignore
-  x
+    printMethod order
+    x.Ship order |> ignore
+    x
 
-let EmailService = mock<IEmailService> "EMailService"
-let Order = mock<IOrder> "Order"
-let OrderProcessing = OrderProcessing EmailService
+let mockEmailService = 
+    {new IEmailService with
+        member x.Send() = calling "EmailService.Send" () }
+
+let order = 
+    {new IOrder with
+        member x.Ship() = calling "Order.Ship" () }
 
 [<Scenario>]
-let When_shipping_order() =
+let ``When shipping order``() =
+  let OrderProcessing = new OrderProcessing(mockEmailService)
+  
   Given OrderProcessing
-    |> Expect EmailService.Send
-    |> Expect Order.Ship
-    |> When shipping Order
+    |> When shipping order
+    |> It should have (called "EmailService.Send" ())
+    |> It should have (called "Order.Ship" ())
     |> Verify

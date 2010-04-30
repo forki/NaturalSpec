@@ -2,31 +2,14 @@
 module NaturalSpec.Utils
 
 open System.IO
-open Rhino.Mocks
 open System.Collections.Generic
 open System.Diagnostics
-
-
-/// create mock repository
-let mocks,mockNameDict = new MockRepository(),new Dictionary<string,string>()
 
 let maxOutputLength = 70
 
 let prepareOutput (x:obj) =
   let s = sprintf "%A" x
   if s.Length > maxOutputLength then s.Substring(0,maxOutputLength) + "..." else s
-  
-/// Checks if the object as a alias in the mock name dictionary
-let getMockName f =
-  let s = (sprintf "%A" f).Trim('"')
-  
-  match mockNameDict.TryGetValue s with
-    | true, name -> name
-    | _ -> prepareOutput f           
-    
-/// Refreshes the mock repository  
-let refreshMocks() =
-  mocks.BackToRecordAll(Rhino.Mocks.BackToRecordOptions.All)
   
 /// Internal type of Assertion
 type AssertType =
@@ -92,12 +75,12 @@ let check x =
   match assertType with
   | Equality -> 
      if a <> b then
-       let s = sprintf "Elements are not equal.\nExpected:%s\nBut was: %s\n" (getMockName a) (getMockName b)
+       let s = sprintf "Elements are not equal.\nExpected:%s\nBut was: %s\n" (prepareOutput a) (prepareOutput b)
        s |> toSpec  
        Assert.Fail s 
   | Inequality -> 
      if a = b then
-       let s = sprintf "Elements should not be equal.\nBut both are: %s\n" (getMockName a)
+       let s = sprintf "Elements should not be equal.\nBut both are: %s\n" (prepareOutput a)
        s |> toSpec  
        Assert.Fail s      
   | IsTrue -> Assert.AreEqual(a,b)

@@ -21,7 +21,7 @@ let selling_a_car_for amount (dealer:Dealer) =
 
 // 6. create a scenario      
 [<Scenario>]
-let When_selling_a_car_for_30000_it_should_equal_the_DreamCar() =
+let ``When selling the DreamCar``() =
   As Bert
     |> When selling_a_car_for 30000
     |> It should equal DreamCar
@@ -29,7 +29,7 @@ let When_selling_a_car_for_30000_it_should_equal_the_DreamCar() =
     |> Verify      
     
 [<Scenario>]
-let When_selling_a_car_for_19000_it_should_equal_the_LameCar() =
+let ``When selling the LameCar``() =
   As Bert
     |> When selling_a_car_for 19000
     |> It should equal LameCar
@@ -38,7 +38,7 @@ let When_selling_a_car_for_19000_it_should_equal_the_LameCar() =
     
 [<Scenario>]
 [<FailsWith "Need more money">]
-let When_selling_a_car_for_1000_it_should_fail_with_Need_More_Money() =
+let ``When selling a car for 1000 it should fail``() =
   As Bert
     |> When selling_a_car_for 1000
     |> Verify     
@@ -50,5 +50,6 @@ let sellingScenario dealer amount car =
     |> It should equal car 
     
 [<Scenario>]
-let When_using_predefined_car_selling_scenario() =
-  sellingScenario Bert 19000 LameCar |> Verify               
+let ``When using predefined car selling scenario``() =
+  sellingScenario Bert 19000 LameCar
+    |> Verify               
