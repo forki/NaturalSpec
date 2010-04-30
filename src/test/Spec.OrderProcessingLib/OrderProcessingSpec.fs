@@ -10,11 +10,11 @@ let shipping order (x:OrderProcessing) =
 
 let mockEmailService = 
     {new IEmailService with
-        member x.Send() = calling "EmailService.Send" () }
+        member x.Send() = calling "EmailService.Send" "" }
 
 let order = 
     {new IOrder with
-        member x.Ship() = calling "Order.Ship" () }
+        member x.Ship() = calling "Order.Ship" "" }
 
 [<Scenario>]
 let ``When shipping order``() =
@@ -22,6 +22,6 @@ let ``When shipping order``() =
   
   Given OrderProcessing
     |> When shipping order
-    |> It should have (called "EmailService.Send" ())
-    |> It should have (called "Order.Ship" ())
+    |> It should have (called "EmailService.Send" "")
+    |> It should have (called "Order.Ship" "")
     |> Verify

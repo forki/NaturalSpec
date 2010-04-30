@@ -37,7 +37,7 @@ let ``When selling the DreamCar for 30000``() =
     
      
 [<Scenario>]
-let ``When selling the Lamear for 19000``() = 
+let ``When selling the Lamecar for 19000``() = 
   let bert = createDealer [(19000,LameCar)]  
   As bert
     |> When selling_a_car_for 19000
