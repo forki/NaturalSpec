@@ -13,40 +13,46 @@ let LameCar = new Car(CarType.Fiat, 45)
 
 // 4. define a mock object and give it a name
 let createDealer cars =     
-    let dict = cars |> Map.ofSeq
+    let dict = Map.ofSeq cars
     {new IDealer with 
-       member x.SellCar price = Map.find price dict }
+        member x.SellCar price = 
+            calling "SellCar" price
+            Map.find price dict }
 
 // 5. create a method in BDD-style
 let selling_a_car_for amount (dealer:IDealer) =
-  printMethod amount
-  dealer.SellCar amount
+    printMethod amount
+    dealer.SellCar amount
 
 // 6. create a scenario      
 [<Scenario>]
-let When_selling_a_car_for_30000_it_should_equal_the_DreamCar_mocked() =     
+let ``When selling the DreamCar for 30000``() =     
   let bert = createDealer [(30000,DreamCar)]
   As bert
     |> When selling_a_car_for 30000
     |> It should equal DreamCar
     |> It shouldn't equal LameCar
+    |> It should have (called "SellCar" 30000)
     |> Verify
     
      
 [<Scenario>]
-let When_selling_a_car_for_19000_it_should_equal_the_LameCar_mocked() = 
+let ``When selling the Lamear for 19000``() = 
   let bert = createDealer [(19000,LameCar)]  
   As bert
     |> When selling_a_car_for 19000
     |> It shouldn't equal DreamCar
     |> It should equal LameCar
+    |> It should have (called "SellCar" 19000)
     |> Verify
     
 [<Scenario>]
 [<Fails>]
-let When_not_calling_the_mocked_function() =   
+let ``When not calling the mocked function``() =   
   let bert = createDealer [(30000,DreamCar);(19000,LameCar)]
   As bert
     |> When selling_a_car_for 19000
     |> It should equal DreamCar
+    |> It should have (called "SellCar" 19000)
+    |> It should have (called "SellCar" 30000)
     |> Verify

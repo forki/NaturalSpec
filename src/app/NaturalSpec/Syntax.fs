@@ -5,19 +5,30 @@ open NUnit.Framework
 open System.Diagnostics
 open Utils
 open TimeMeasurement
+
+/// Get the method name      
+let methodName (x:obj) = 
+    let methodName = (new StackTrace()).GetFrame(1).GetMethod().Name.Replace("_"," ")    
+    match x with
+    | :? string as s -> sprintf "%s %s" methodName s
+    | _             -> sprintf "%s %s" methodName (prepareOutput x)
      
 /// Prints the method name and the given parameter to the spec output           
 let printMethod (x:obj) = 
-  let methodName = (new StackTrace()).GetFrame(1).GetMethod().Name.Replace("_"," ")    
-  match x with
-  | :? string as s -> sprintf "%s %s" methodName s |> toSpec
-  | _             -> sprintf "%s %s" methodName (prepareOutput x) |> toSpec
-  
+    methodName x
+      |> toSpec
+
+/// Calls  
+let calls = new System.Collections.Generic.HashSet<string * string>()
+
+/// Register a expected call
+let calling methodName param = calls.Add(methodName,param.ToString()) |> ignore
+
 /// Inits a scenario    
 let initScenario() =  
-  stopWatch.Reset()
-  stopWatch.Start()
-  printScenario()
+    stopWatch.Reset()
+    stopWatch.Start()
+    printScenario()
 
 /// Sets a test context up - same as "As"  
 /// Represents the Arrange phase of "Arrange"-"Act"-"Assert"      
@@ -86,6 +97,13 @@ let be f value =
 let have f value = 
   toSpec "have "
   IsTrue,true,(f value:bool),value     
+
+/// Fluid helper - prints "called "
+/// Tests for boolean condition
+/// Use it as in "|> It should have called"  
+let called methodName param _ = 
+  toSpec <| sprintf "called %s" (prepareOutput methodName)
+  calls.Contains(methodName,param.ToString())
         
 /// Fluid helper - prints "should "
 /// Tests if the given observation hold
