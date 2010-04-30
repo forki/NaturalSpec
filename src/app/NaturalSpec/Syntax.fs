@@ -7,15 +7,15 @@ open Utils
 open TimeMeasurement
 
 /// Get the method name      
-let methodName (x:obj) = 
-    let methodName = (new StackTrace()).GetFrame(1).GetMethod().Name.Replace("_"," ")    
+let methodName n (x:obj) = 
+    let methodName = (new StackTrace()).GetFrame(n).GetMethod().Name.Replace("_"," ")    
     match x with
     | :? string as s -> sprintf "%s %s" methodName s
     | _             -> sprintf "%s %s" methodName (prepareOutput x)
      
 /// Prints the method name and the given parameter to the spec output           
 let printMethod (x:obj) = 
-    methodName x
+    methodName 2 x
       |> toSpec
 
 
