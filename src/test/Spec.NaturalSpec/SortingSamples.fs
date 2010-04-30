@@ -23,27 +23,26 @@ let sortingScenario f list =
 let quicksortScenario list = sortingScenario QuickSort list
 
 [<Scenario>]
-let When_sorting_empty_list() =
+let ``Sorting []``() =
   quicksortScenario []
     |> Verify
     
 [<Scenario>]
-let When_sorting_small_list() =
+let ``Sorting a small list``() =
   quicksortScenario [2;1;8;15;5;22]
     |> Verify      
     
 [<ScenarioTemplate(100)>]
 [<ScenarioTemplate(1000)>]
 [<ScenarioTemplate(2500)>]
-let When_sorting_ordered_list n =
-  let list = List.init n (fun i -> i) 
-  quicksortScenario list
+let ``Sorting a ordered list`` n =
+  quicksortScenario [1..n]
     |> Verify  
     
 [<ScenarioTemplate(100)>]
 [<ScenarioTemplate(1000)>]
 [<ScenarioTemplate(2500)>]
-let When_sorting_random_list n =
+let ``Sorting a random list`` n =
   quicksortScenario (list_of_random_ints n)
     |> Verify
     

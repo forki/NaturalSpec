@@ -2,7 +2,7 @@
   
 // Boolean
 [<Scenario>]
-let When_comparing_a_false_value() =
+let ``Comparing a false value``() =
   Given false
     |> When doing nothing
     |> It should equal false
@@ -11,7 +11,7 @@ let When_comparing_a_false_value() =
         
 // Integers
 [<Scenario>]
-let When_adding_0_to_3_it_should_not_change() =
+let ``3 + 0 should give 3``() =
   Given 3
     |> When adding 0
     |> It should equal 3
@@ -20,7 +20,7 @@ let When_adding_0_to_3_it_should_not_change() =
   
 [<Scenario>]
 [<FailsWithType (typeof<System.DivideByZeroException>)>]
-let When_dividing_by_zero_it_should_fail() =
+let ``Dividing by zero should fail``() =
   Given 10
     |> When dividing_by 0
     |> Verify                              

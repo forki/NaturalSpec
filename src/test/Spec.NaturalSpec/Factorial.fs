@@ -10,21 +10,21 @@ let factorial x =
     fac x
 
 [<Scenario>]
-let When_calculating_fac_5_it_should_equal_120() =
+let ``Factorial of 5 = 120``() =
   Given 5
     |> When calculating factorial
     |> It should equal 120
     |> Verify    
     
 [<Scenario>]
-let When_calculating_fac_1_it_should_equal_1() =
+let ``Factorial of 1 = 1``() =
   Given 1
     |> When calculating factorial
     |> It should equal 1
     |> Verify          
     
 [<Scenario>]
-let When_calculating_fac_0_it_should_equal_0() =
+let ``Factorial of 0 = 0``() =
   Given 0
     |> When calculating factorial
     |> It should equal 1

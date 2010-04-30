@@ -7,7 +7,7 @@ let f x =
     x
 
 [<Scenario>]
-let When_using_Whereas() =  
+let ``Using whereas to switch context``() =  
   Given true
     |> When calculating f
     |> It should equal true

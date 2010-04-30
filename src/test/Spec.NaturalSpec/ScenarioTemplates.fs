@@ -14,7 +14,7 @@ let factorial x =
 [<ScenarioTemplate(2, 2)>]
 [<ScenarioTemplate(5, 120)>]
 [<ScenarioTemplate(10, 3628800)>]
-let When_calculating_fac_(x:int,result:int) =
+let ``Calculating factorial`` (x:int,result:int) =
   Given x
     |> When calculating factorial
     |> It should equal result
@@ -27,22 +27,22 @@ let factorialScenario x result =
     |> It should equal result
     
 [<Scenario>]
-let When_calculation_factorial_of_1() =
+let ``Factorial of 1 = 1``() =
   factorialScenario 1 1 
     |> Verify   
   
 [<Scenario>]
-let When_calculation_factorial_of_2() =
+let ``Factorial of 2 = 2``() =
   factorialScenario 2 2 
     |> Verify
   
 [<Scenario>]
-let When_calculation_factorial_of_5() =
+let ``Factorial of 5 = 120``() =
   factorialScenario 5 120 
     |> Verify
   
 [<Scenario>]
-let When_calculation_factorial_of_10() =
+let ``Factorial of 10 = 3628800 ``() =
   factorialScenario 10 3628800 
     |> Verify     
 
@@ -56,7 +56,7 @@ let MyTestCases =
     |> And (tripleParam 1200 40 30)        
 
 [<ScenarioSource "MyTestCases">]
-let When_dividing a b result =
+let ``Dividing b by a`` a b result =
  Given a 
    |> When dividing_by b
    |> It should equal result
@@ -67,7 +67,7 @@ let When_dividing a b result =
 let MyTestCases2 = TestWithList [0..5]
 
 [<ScenarioSource "MyTestCases2">]
-let When_multiply_with a =
+let ``Multiply 0 with a`` a =
  Given 0 
    |> When multiply_with a
    |> It should equal 0
@@ -86,7 +86,7 @@ let MyTestCases3 =
   
 
 [<Scenario>]
-let When_dividing_ints ([<Source "MyTestCases3">] p) =
+let ``Dividing ints`` ([<Source "MyTestCases3">] p) =
    let a,b,result = unbox p
    Given a 
      |> When dividing_by b
