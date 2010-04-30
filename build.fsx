@@ -21,7 +21,6 @@ let outputAssemblies =
     -- @"\**\*SharpZipLib*"
     -- @"\**\*SharpSvn*"
     -- "**/nunit.framework.dll"
-    -- "**/Rhino.Mocks.dll"
     |> Scan
     |> Seq.map FullName
 
