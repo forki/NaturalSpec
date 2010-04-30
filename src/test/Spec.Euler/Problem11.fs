@@ -96,26 +96,22 @@ let diagsMain (m:List<List<int>>) =
 let diagsCross (m:List<List<int>>) =
     [for i in -m.Length+1..m.Length-1 -> diagCross m i]
       
-let maxSums m = 
+let FindMaxProduct m = 
     printMethod ""
-    ((m |> diagsMain |> maxLine ) ::
-     (m |> diagsCross |> maxLine) ::
-     (m |> maxLine) ::
-     (m |> transpose |> maxLine) :: [])
+    [diagsMain m; diagsCross m; transpose m; m]
+      |> List.map maxLine
       |> List.reduce max
 
 [<Scenario>]      
 let ``What is the greatest product of four adjacent numbers in any direction in the 4x4 grid?``() =
     Given m2
-      |> When solving maxSums
+      |> When solving FindMaxProduct
       |> It should equal 43680
       |> Verify
 
 [<Scenario>]      
 let ``What is the greatest product of four adjacent numbers in any direction in the 20x20 grid?``() =
     Given m1
-      |> When solving maxSums
+      |> When solving FindMaxProduct
       |> It should equal 70600674
       |> Verify
-
-
