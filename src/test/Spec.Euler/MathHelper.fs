@@ -45,6 +45,11 @@ let allPositiveNumbers = allNumbersGreaterThan 0
 let bigint (x:int) = new System.Numerics.BigInteger(x)
 
 let toHashTable xs =
-  let h = new System.Collections.Generic.HashSet<_>()
-  for x in xs do h.Add x |> ignore
-  h
+    let h = new System.Collections.Generic.HashSet<_>()
+    for x in xs do h.Add x |> ignore
+    h
+
+let rec transpose m =
+    match m with
+    | (_::_)::_ -> List.map List.head m:: transpose (List.map List.tail m)
+    | _         -> []
