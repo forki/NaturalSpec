@@ -68,7 +68,7 @@ let rec maxLine = function
     | l::m -> max (maxProd l) (maxLine m)
     | _ -> 0
   
-let diagMain (m:List<List<int>>) n =
+let diagMain (m:int list list) n =
     [let t = ref 0
      while m.Length > !t do
        let l = m.Item(!t)
@@ -79,7 +79,7 @@ let diagMain (m:List<List<int>>) n =
          yield 0
        t := !t + 1]     
        
-let diagCross (m:List<List<int>>) n =
+let diagCross (m:int list list) n =
     [let t = ref 0
      while m.Length > !t do
        let l = m.Item(!t)
@@ -90,17 +90,19 @@ let diagCross (m:List<List<int>>) n =
          yield 0
        t := !t + 1]              
   
-let diagsMain (m:List<List<int>>) =
-    [for i in -m.Length+1..m.Length-1 -> diagMain m i]
+let diagsMain m =
+    let l = List.length m
+    [for i in -l+1..l-1 -> diagMain m i]
       
-let diagsCross (m:List<List<int>>) =
-    [for i in -m.Length+1..m.Length-1 -> diagCross m i]
+let diagsCross m =
+    let l = List.length m
+    [for i in -l+1..l-1 -> diagCross m i]
       
 let FindMaxProduct m = 
     printMethod ""
     [diagsMain m; diagsCross m; transpose m; m]
       |> List.map maxLine
-      |> List.reduce max
+      |> List.max
 
 [<Scenario>]      
 let ``What is the greatest product of four adjacent numbers in any direction in the 4x4 grid?``() =
