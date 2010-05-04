@@ -53,3 +53,15 @@ let rec transpose m =
     match m with
     | (_::_)::_ -> List.map List.head m:: transpose (List.map List.tail m)
     | _         -> []
+
+let sqrt = System.Math.Sqrt
+let floor (x:float) = System.Math.Floor(x)
+
+let factors n = 
+  let max = float n |> sqrt |> floor |> int
+
+  [for i in 1..max do
+     if n % i = 0 then
+       yield i
+       let j = n / i
+       if i <> j then yield j]
