@@ -56,22 +56,12 @@ let sorted seq =
 
 /// Test if the sequence contains all elements from sequence x
 let contain_all_elements_from x y =
-  printMethod x
-  let found =
-    x |> Seq.fold
-           (fun c element -> 
-              if not c then c else
-              y |> Seq.exists (fun i -> i = element))
-           true
-  IsTrue,true,found,y
+    printMethod x
+    let found = x |> Seq.forall (fun element -> Seq.exists ((=) element) y)
+    IsTrue,true,found,y
 
-/// Test if the sequence contains no ohter elements than sequence x
+/// Test if the sequence contains no other elements than sequence x
 let contain_no_other_elements_than x y =
-  printMethod x
-  let found =
-    y |> Seq.fold
-           (fun c element -> 
-              if not c then c else
-              x |> Seq.exists (fun i -> i = element))
-           true
-  IsTrue,true,found,y
+    printMethod x
+    let found = y |> Seq.forall (fun element -> Seq.exists ((=) element) x)
+    IsTrue,true,found,y
