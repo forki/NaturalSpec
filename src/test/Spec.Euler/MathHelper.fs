@@ -65,3 +65,7 @@ let factors n =
        yield i
        let j = n / i
        if i <> j then yield j]
+
+let factorial n = seq { 1I..n } |> Seq.fold (*) 1I
+
+let binomial n k = factorial n / (factorial k * factorial(n-k))
