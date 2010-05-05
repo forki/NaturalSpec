@@ -8,17 +8,14 @@ open NaturalSpec
 
 let date d m y  = new System.DateTime(y,m,d)
 
-let dates (startDate:System.DateTime) endDate = 
-    let actDate = ref startDate
-    seq {
-        while !actDate <= endDate do
-            yield !actDate
-            actDate := (!actDate).AddDays(1.0) }
+let datesAfter startDate= 
+    Seq.unfold (fun (actDate:System.DateTime) -> Some (actDate,actDate.AddDays(1.0))) startDate   
 
 let CountFirstSundaysUntil endDate startDate =
     printMethod endDate
-    dates startDate endDate
+    datesAfter startDate
       |> Seq.filter (fun d -> d.DayOfWeek = System.DayOfWeek.Sunday && d.Day = 1) 
+      |> Seq.takeWhile (fun d -> d <= endDate)
       |> Seq.length
 
 [<Scenario>]      
