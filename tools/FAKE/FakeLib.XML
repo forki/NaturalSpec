@@ -125,8 +125,10 @@
  The actual trace mode.
 </summary>
 </member>
-<member name="">
-
+<member name="P:Fake.BuildServerHelper.isLocalBuild">
+<summary>
+ Determines if the current build is a local build.
+</summary>
 </member>
 <member name="P:Fake.BuildServerHelper.buildServer">
 <summary>
@@ -136,6 +138,11 @@
 <member name="P:Fake.BuildServerHelper.buildVersion">
 <summary>
  Determines the current BuildVersion and if it is a local build
+</summary>
+</member>
+<member name="P:Fake.BuildServerHelper.ccBuildLabel">
+<summary>
+ CruiseControl.NET Build label
 </summary>
 </member>
 <member name="P:Fake.BuildServerHelper.tcBuildNumber">
@@ -155,12 +162,6 @@
 </summary>
 </member>
 <member name="T:Fake.BuildServerHelper">
-
-</member>
-<member name="">
-
-</member>
-<member name="T:Fake.CCNetHelper">
 
 </member>
 <member name="M:Fake.CacheHelper.lookup``2(``0,Microsoft.FSharp.Core.FSharpFunc`2{Microsoft.FSharp.Core.Unit,``1},System.Collections.Generic.IDictionary{``0,``1})">
@@ -198,6 +199,16 @@
 <member name="">
 
 </member>
+<member name="P:Fake.EnvironmentHelper.ProgramFilesX86">
+<summary>
+ The path of Program Files (x86)
+</summary>
+</member>
+<member name="P:Fake.EnvironmentHelper.ProgramFiles">
+<summary>
+ The path of Program Files - might be x64 on x64 machine
+</summary>
+</member>
 <member name="M:Fake.EnvironmentHelper.getBuildParamOrDefault(System.String,System.String)">
 <summary>
  Returns the value of the buildParam if it is set and otherwise the default
@@ -218,6 +229,16 @@
  Retrieves the EnvironmentVariable
 </summary>
 </member>
+<member name="M:Fake.EnvironmentHelper.op_AtAt(System.String,System.String)">
+<summary>
+ Combines to path strings
+</summary>
+</member>
+<member name="P:Fake.EnvironmentHelper.currentDirectory">
+<summary>
+ Gets the current directory
+</summary>
+</member>
 <member name="M:Fake.EnvironmentHelper.environVar(System.String)">
 <summary>
  Retrieves the EnvironmentVariable
@@ -236,6 +257,16 @@
 </member>
 <member name="T:Fake.FSIHelper">
 
+</member>
+<member name="M:Fake.FileHelper.CopyRecursive(System.String,System.String)">
+<summary>
+ Copies the file structure recursive
+</summary>
+</member>
+<member name="M:Fake.FileHelper.copyRecursive(System.IO.DirectoryInfo,System.IO.DirectoryInfo,System.Boolean)">
+<summary>
+ Copies the file structure recursive
+</summary>
 </member>
 <member name="M:Fake.FileHelper.GeneratePatch(System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
 <summary>
@@ -408,6 +439,11 @@
 <member name="M:Fake.FileHelper.setDirectoryReadOnly(System.Boolean,System.IO.DirectoryInfo)">
 <summary>
  Sets the directory readonly 
+</summary>
+</member>
+<member name="M:Fake.FileHelper.allFilesExist(System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Checks if all given files exists
 </summary>
 </member>
 <member name="T:Fake.FileHelper">
@@ -741,16 +777,6 @@
  MSBuild exe fileName
 </summary>
 </member>
-<member name="M:Fake.MSBuildHelper.CopyRecursive(System.String,System.String)">
-<summary>
- Copies the file structure recursive
-</summary>
-</member>
-<member name="M:Fake.MSBuildHelper.copyRecursive(System.IO.DirectoryInfo,System.IO.DirectoryInfo,System.Boolean)">
-<summary>
- Copies the file structure recursive
-</summary>
-</member>
 <member name="T:Fake.MSBuildHelper">
 
 </member>
@@ -769,13 +795,18 @@
 <member name="">
 
 </member>
-<member name="">
-
+<member name="M:Fake.MailBoxHelper.MessageBoxIsEmpty">
+<summary>
+ Checks if the current Message queue is empty
+</summary>
 </member>
 <member name="">
 
 </member>
-<member name="M:Fake.MailBoxHelper.logMessageToConsole(System.Boolean,System.Boolean,System.String)">
+<member name="">
+
+</member>
+<member name="M:Fake.MailBoxHelper.logMessageToConsole(Fake.MailBoxHelper.Message)">
 <summary>
  Logs the specified string to the console
 </summary>
@@ -786,7 +817,7 @@
 <member name="T:Fake.MailBoxHelper">
 
 </member>
-<member name="M:Fake.MessageHelper.WaitForMessageFile(System.String)">
+<member name="M:Fake.MessageHelper.WaitForMessageFile(System.String,System.TimeSpan)">
 <summary>
  Waits for another application to create a output file
    - if the timeout is reached an exception will be raised
@@ -998,12 +1029,6 @@
  returns the exit code
 </summary>
 </member>
-<member name="M:Fake.ProcessHelper.execProcess2(Microsoft.FSharp.Core.FSharpFunc`2{System.Diagnostics.ProcessStartInfo,Microsoft.FSharp.Core.Unit},System.Boolean)">
-<summary>
- Runs the given process
- returns the exit code
-</summary>
-</member>
 <member name="M:Fake.ProcessHelper.execProcess3(Microsoft.FSharp.Core.FSharpFunc`2{System.Diagnostics.ProcessStartInfo,Microsoft.FSharp.Core.Unit})">
 <summary>
  Runs the given process
@@ -1011,6 +1036,12 @@
 </summary>
 </member>
 <member name="M:Fake.ProcessHelper.execProcessAndReturnExitCode(Microsoft.FSharp.Core.FSharpFunc`2{System.Diagnostics.ProcessStartInfo,Microsoft.FSharp.Core.Unit})">
+<summary>
+ Runs the given process
+ returns the exit code
+</summary>
+</member>
+<member name="M:Fake.ProcessHelper.execProcess2(Microsoft.FSharp.Core.FSharpFunc`2{System.Diagnostics.ProcessStartInfo,Microsoft.FSharp.Core.Unit},System.Boolean)">
 <summary>
  Runs the given process
  returns the exit code
@@ -1059,9 +1090,6 @@
    param url: The URL to perform the GET operation  
    returns: The response of the request, or null if we got 404 or nothing.
 </summary>
-</member>
-<member name="">
-
 </member>
 <member name="T:Fake.REST">
 
@@ -1672,6 +1700,14 @@
 <member name="T:Fake.TemplateHelper">
 
 </member>
+<member name="M:Fake.TimeoutHelper.waitFor(Microsoft.FSharp.Core.FSharpFunc`2{Microsoft.FSharp.Core.Unit,System.Boolean},System.TimeSpan,System.Int32,Microsoft.FSharp.Core.FSharpFunc`2{Microsoft.FSharp.Core.Unit,Microsoft.FSharp.Core.Unit})">
+<summary>
+ Waits until the given function returns true or the timeout is reached
+</summary>
+</member>
+<member name="T:Fake.TimeoutHelper">
+
+</member>
 <member name="M:Fake.TraceHelper.traceEndTask(System.String,System.String)">
 <summary>
  Traces the end of a task
@@ -1701,12 +1737,12 @@
 <member name="">
 
 </member>
-<member name="M:Fake.TraceHelper.traceEndBuild``1(``0)">
+<member name="M:Fake.TraceHelper.traceEndBuild">
 <summary>
  Traces the end of the build
 </summary>
 </member>
-<member name="M:Fake.TraceHelper.traceStartBuild``1(``0)">
+<member name="M:Fake.TraceHelper.traceStartBuild">
 <summary>
  Traces the begin of the build
 </summary>
@@ -1810,228 +1846,6 @@
 </summary>
 </member>
 <member name="T:Fake.TraceHelper">
-
-</member>
-<member name="F:Fake.TwitterHelper.TwitterClientInfo.ClientUrl">
-<summary>
- Sets the URL of the Twitter client.
- Must be in the XML format documented in the &quot;Request Headers&quot; section at:
- http://twitter.pbwiki.com/API-Docs.
- According to the Twitter Fan Wiki at http://twitter.pbwiki.com/API-Docs and supported by
- the Twitter developers, this will be used in the future (hopefully near) to set more information
- in Twitter about the client posting the information as well as future usage in a clients directory.    
-</summary>
-</member>
-<member name="F:Fake.TwitterHelper.TwitterClientInfo.ClientVersion">
-<summary>
- Sets the version of the Twitter client.
- According to the Twitter Fan Wiki at http://twitter.pbwiki.com/API-Docs and supported by
- the Twitter developers, this will be used in the future (hopefully near) to set more information
-</summary>
-</member>
-<member name="F:Fake.TwitterHelper.TwitterClientInfo.ClientName">
-<summary>
- Sets the name of the Twitter client.
- According to the Twitter Fan Wiki at http://twitter.pbwiki.com/API-Docs and supported by
- the Twitter developers, this will be used in the future (hopefully near) to set more information
- in Twitter about the client posting the information as well as future usage in a clients directory.
-</summary>
-</member>
-<member name="F:Fake.TwitterHelper.TwitterClientInfo.Source">
-<summary>
- Source is an additional parameters that will be used to fill the &quot;From&quot; field.
- Currently you must talk to the developers of Twitter at:
- http://groups.google.com/group/twitter-development-talk/
- Otherwise, Twitter will simply ignore this parameter and set the &quot;From&quot; field to &quot;web&quot;.
-</summary>
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="T:Fake.TwitterHelper.TwitterAction">
-<summary>
- The various actions used at Twitter. Not all actions works on all object types.
- For more information about the actions types and the supported functions Check the 
- Twitter documentation at: http://groups.google.com/group/twitter-development-talk/web/api-documentation
-</summary>
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="T:Fake.TwitterHelper.TwitterObject">
-<summary>
- The various object types supported at Twitter.
-</summary>
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="T:Fake.TwitterHelper.TwitterFormat">
-<summary>
- The output formats supported by Twitter. Not all of them can be used with all of the functions.
- For more information about the output formats and the supported functions check the 
- Twitter documentation at: http://groups.google.com/group/twitter-development-talk/web/api-documentation
-</summary>
-</member>
-<member name="M:Fake.TwitterHelper.ShowAsXML(System.String,System.String,System.String)">
-<summary>
- Shows the user as XML
-</summary>
-</member>
-<member name="M:Fake.TwitterHelper.Show(System.String,System.String,System.String,Fake.TwitterHelper.TwitterFormat)">
-<summary>
- Shows the user
-</summary>
-</member>
-<member name="M:Fake.TwitterHelper.GetFeaturedAsXML(System.String,System.String)">
-<summary>
- Gets the featured info as XML
-</summary>
-</member>
-<member name="M:Fake.TwitterHelper.GetFeatured(System.String,System.String,Fake.TwitterHelper.TwitterFormat)">
-<summary>
- Gets the featured info
-</summary>
-</member>
-<member name="M:Fake.TwitterHelper.UpdateAsXML(Fake.TwitterHelper.TwitterClientInfo,System.String,System.String,System.String)">
-<summary>
- Sends an update to twitter and gets the result as XML
-</summary>
-</member>
-<member name="M:Fake.TwitterHelper.Update(Fake.TwitterHelper.TwitterClientInfo,System.String,System.String,System.String,Fake.TwitterHelper.TwitterFormat)">
-<summary>
- Sends an update to twitter
-</summary>
-</member>
-<member name="M:Fake.TwitterHelper.GetFollowersAsXML(System.String,System.String,System.String)">
-<summary>
- Gets the users timeline as XML
-</summary>
-</member>
-<member name="M:Fake.TwitterHelper.GetFollowers(System.String,System.String,System.String,Fake.TwitterHelper.TwitterFormat)">
-<summary>
- Gets the user&apos;s follower
-</summary>
-</member>
-<member name="M:Fake.TwitterHelper.GetFriendsAsXML(System.String,System.String,System.String)">
-<summary>
- Gets the user&apos;s friends as XML
-</summary>
-</member>
-<member name="M:Fake.TwitterHelper.GetFriends(System.String,System.String,System.String,Fake.TwitterHelper.TwitterFormat)">
-<summary>
- Gets the user&apos;s friends
-</summary>
-</member>
-<member name="M:Fake.TwitterHelper.GetFriendsTimelineAsXML(System.String,System.String,Fake.TwitterHelper.TwitterFormat)">
-<summary>
- Gets the users timeline as XML
-</summary>
-</member>
-<member name="M:Fake.TwitterHelper.GetFriendsTimeline(System.String,System.String,Fake.TwitterHelper.TwitterFormat)">
-<summary>
- Gets the friends timeline
-</summary>
-</member>
-<member name="M:Fake.TwitterHelper.GetUserTimelineAsXML(System.String,System.String,System.String,Fake.TwitterHelper.TwitterFormat)">
-<summary>
- Gets the users timeline as XML
-</summary>
-</member>
-<member name="M:Fake.TwitterHelper.GetUserTimeline(System.String,System.String,System.String,Fake.TwitterHelper.TwitterFormat)">
-<summary>
- Gets the users timeline
-</summary>
-</member>
-<member name="">
-
-</member>
-<member name="M:Fake.TwitterHelper.GetPublicTimelineAsXML(Fake.TwitterHelper.TwitterFormat)">
-<summary>
- Gets the public timeline as Xml
-</summary>
-</member>
-<member name="M:Fake.TwitterHelper.GetPublicTimeline(Fake.TwitterHelper.TwitterFormat)">
-<summary>
- Gets the public timeline
-</summary>
-</member>
-<member name="M:Fake.TwitterHelper.GetTestMessage(Fake.TwitterHelper.TwitterFormat)">
-<summary>
- Tests the twitter server
-</summary>
-</member>
-<member name="">
-
-</member>
-<member name="M:Fake.TwitterHelper.GetAsXML(Microsoft.FSharp.Core.FSharpFunc`2{Fake.TwitterHelper.TwitterFormat,System.String},Fake.TwitterHelper.TwitterFormat)">
-<summary>
- Gets the public timeline as Xml
-</summary>
-</member>
-<member name="M:Fake.TwitterHelper.twitterURL``1(Fake.TwitterHelper.TwitterObject,``0,Fake.TwitterHelper.TwitterFormat)">
-<summary>
- Generates a twitter url
-</summary>
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="T:Fake.TwitterHelper">
 
 </member>
 <member name="">
