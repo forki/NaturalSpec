@@ -8,14 +8,14 @@ open NaturalSpec
 // Find the sum of the digits in the number 100!
 
 [<Scenario>]      
-let ``What is the sum of the digits of the number 2^15?``() =
+let ``What is the the sum of the digits in the number 3!``() =
     Given (factorial 3I)
       |> When solving SumOfDigits
       |> It should equal 6I
       |> Verify
 
 [<Scenario>]      
-let ``What is the sum of the digits of the number 2^1000?``() =
+let ``What is the sum of the digits in the number 100!``() =
     Given (factorial 100I)
       |> When solving SumOfDigits
       |> It should equal 648I
