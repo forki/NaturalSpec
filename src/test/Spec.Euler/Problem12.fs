@@ -31,7 +31,7 @@ let triangles =
 
 let triangleFactors =
    triangles
-     |> Seq.map (fun t -> t,factors t)
+     |> Seq.map (fun t -> t,divisors t)
      |> Seq.map (fun (t,f) -> t,Seq.length f)
 
 let Triangles n =

@@ -62,7 +62,18 @@ let doing f =
 let nothing f =
   toSpec "nothing "
   f
-    
+
+/// Fluid helper - prints "solving"
+let solving f =
+    printMethod ""
+    f
+
+
+/// Fluid helper - prints "getting"
+let getting f =
+    printMethod ""
+    f    
+
 /// Tests a condition on the manipulated test context
 /// Represents the Assert phase of "Arrange"-"Act"-"Assert"         
 let It f = 

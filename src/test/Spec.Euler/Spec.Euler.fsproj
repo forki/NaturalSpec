@@ -59,7 +59,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers.fs" />
     <Compile Include="MathHelper.fs" />
     <Compile Include="StringHelper.fs" />
     <Compile Include="Memoization.fs" />
@@ -81,6 +80,7 @@
     <Compile Include="Problem16.fs" />
     <Compile Include="Problem19.fs" />
     <Compile Include="Problem20.fs" />
+    <Compile Include="Problem21.fs" />
     <Compile Include="Problem31.fs" />
     <Compile Include="Problem59.fs" />
     <Compile Include="Problem77.fs" />

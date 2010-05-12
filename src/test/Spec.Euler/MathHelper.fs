@@ -57,7 +57,7 @@ let rec transpose m =
 let sqrt = System.Math.Sqrt
 let floor (x:float) = System.Math.Floor(x)
 
-let factors n = 
+let divisors n = 
   let max = float n |> sqrt |> floor |> int
 
   [for i in 1..max do
