@@ -14,3 +14,9 @@ let toASCII xs =
   sb.ToString()           
 
 let ofASCII (s:string) = [for x in s -> int x]
+
+open NaturalSpec
+
+let SumOfDigits n =
+    printMethod ""
+    sum_of_digits n
