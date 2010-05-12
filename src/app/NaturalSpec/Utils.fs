@@ -75,13 +75,13 @@ let check x =
   match assertType with
   | Equality -> 
      if a <> b then
-       let s = sprintf "Elements are not equal.\nExpected:%s\nBut was: %s\n" (prepareOutput a) (prepareOutput b)
-       s |> toSpec  
+       let s = sprintf "\nElements are not equal.\nExpected:%s\nBut was: %s\n" (prepareOutput a) (prepareOutput b)
+       toSpec s
        Assert.Fail s 
   | Inequality -> 
      if a = b then
-       let s = sprintf "Elements should not be equal.\nBut both are: %s\n" (prepareOutput a)
-       s |> toSpec  
+       let s = sprintf "\nElements should not be equal.\nBut both are: %s\n" (prepareOutput a)
+       toSpec s
        Assert.Fail s      
   | IsTrue -> Assert.AreEqual(a,b)
   | IsFalse -> Assert.AreNotEqual(a,b)
