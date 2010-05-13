@@ -62,7 +62,7 @@ let ``What is the the period length of 1/n?`` (n,periodLength) =
 
 [<ScenarioTemplate(10,7)>]
 [<ScenarioTemplate(1000,983)>]
-let ``What the value of d smaller than n for which 1/d contains the longest recurring cycle in its decimal fraction part?`` (n,result) =
+let ``What is the value of d smaller than n for which 1/d contains the longest recurring cycle in its decimal fraction part?`` (n,result) =
     Given n
       |> When calculating MaxPeriodLength
       |> It should equal result
