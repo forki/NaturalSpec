@@ -2,19 +2,19 @@
 
 /// Tail recursive version
 let factorial x =
-  let rec tailRecursiveFactorial x acc =
-    match x with
-      | y when y = 0 -> acc
-      | _ -> tailRecursiveFactorial (x-1) (acc*x)           
+    let rec tailRecursiveFactorial x acc =
+        match x with
+        | y when y = 0 -> acc
+        | _ -> tailRecursiveFactorial (x-1) (acc*x)           
 
-  tailRecursiveFactorial x 1
+    tailRecursiveFactorial x 1
   
 // with ScenarioTemplate Attribute
 [<ScenarioTemplate(1, 1)>]  
 [<ScenarioTemplate(2, 2)>]
 [<ScenarioTemplate(5, 120)>]
 [<ScenarioTemplate(10, 3628800)>]
-let ``Calculating factorial`` (x:int,result:int) =
+let ``Calculating factorial for n`` (x,result) =
   Given x
     |> When calculating factorial
     |> It should equal result
@@ -62,7 +62,6 @@ let ``Dividing b by a`` a b result =
    |> It should equal result
    |> Verify       
    
-   
 /// with a scenario source      
 let MyTestCases2 = TestWithList [0..5]
 
@@ -91,5 +90,4 @@ let ``Dividing ints`` ([<Source "MyTestCases3">] p) =
    Given a 
      |> When dividing_by b
      |> It should equal result
-     |> Verify     
-     
+     |> Verify
