@@ -84,5 +84,5 @@ let ``Find the maximum total from top to bottom of the small triangle``() =
 let ``Find the maximum total from top to bottom of the big triangle``() =
     Given bigTriangle
       |> When solving Triangle
-      |> It should equal 23
+      |> It should equal 1074
       |> Verify
