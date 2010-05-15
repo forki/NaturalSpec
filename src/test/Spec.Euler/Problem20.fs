@@ -8,7 +8,7 @@ open NaturalSpec
 // Find the sum of the digits in the number 100!
 
 [<Scenario>]      
-let ``What is the the sum of the digits in the number 3?``() =
+let ``What is the sum of the digits in the number 3?``() =
     Given (factorial 3I)
       |> When solving SumOfDigits
       |> It should equal 6I
