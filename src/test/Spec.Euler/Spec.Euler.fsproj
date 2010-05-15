@@ -58,6 +58,10 @@
     <Compile Include="Problem19.fs" />
     <Compile Include="Problem20.fs" />
     <Compile Include="Problem21.fs" />
+    <Compile Include="Problem22.fs" />
+    <Content Include="names.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Compile Include="Problem25.fs" />
     <Compile Include="Problem26.fs" />
     <Compile Include="Problem31.fs" />
