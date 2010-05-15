@@ -6,7 +6,10 @@ let fibs =
     Seq.unfold (fun (a,b) -> 
       let sum = a + b
       Some(sum, (b, sum))) 
-      (0,1)
+      (0I,1I)
+
+/// Gets a n.th fibonacci number
+let fib n = fibs |> Seq.skip n |> Seq.head
 
 /// Returns a list with primes  
 let primes (n:bigint) =    

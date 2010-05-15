@@ -13,20 +13,20 @@ open NaturalSpec
 let SumOfEvenValuedTermsInTheFibonacciSequence max =
     printMethod ""
     fibs
-      |> Seq.filter (fun x -> x % 2 = 0)
+      |> Seq.filter (fun x -> x % 2I = 0I)
       |> Seq.takeWhile (fun x -> x <= max)
       |> Seq.sum
     
 [<Scenario>]      
 let ``Find the sum of all the even-valued terms in the sequence which do not exceed 89.`` () =     
-    Given 89
+    Given 89I
       |> When solving SumOfEvenValuedTermsInTheFibonacciSequence
-      |> It should equal 44
+      |> It should equal 44I
       |> Verify
     
 [<Scenario>]
 let ``Find the sum of all the even-valued terms in the sequence which do not exceed four million.`` () =   
-    Given 4000000
+    Given 4000000I
       |> When solving SumOfEvenValuedTermsInTheFibonacciSequence
-      |> It should equal 4613732
+      |> It should equal 4613732I
       |> Verify
