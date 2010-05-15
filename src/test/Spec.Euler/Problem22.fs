@@ -15,9 +15,9 @@ open NaturalSpec
 // What is the total of all the name scores in the file?
 
 let names =
-     System.IO.File.ReadAllLines "names.txt"
-       |> Array.map (fun line -> line.Split [| ',' |] |> Array.map (fun s -> s.Trim [|'\"'|]))
-       |> Array.concat
+     System.IO.File.ReadAllText "names.txt"
+       |> fun text -> text.Split [| ',' |] 
+       |> Array.map (fun s -> s.Trim [|'\"'|])
        |> Array.sort
 
 let Position name =
