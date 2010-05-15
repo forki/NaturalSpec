@@ -32,32 +32,7 @@
     <WarningLevel>3</WarningLevel>
     <DocumentationFile>bin\Release\Spec.Euler.XML</DocumentationFile>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="FSharp.Core">
-      <HintPath>..\..\..\tools\FSharp\FSharp.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="mscorlib" />
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\..\tools\Nunit\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.CoreEx">
-      <HintPath>D:\NaturalSpec\Lib\Rx\System.CoreEx.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Interactive">
-      <HintPath>D:\NaturalSpec\Lib\Rx\System.Interactive.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive">
-      <HintPath>D:\NaturalSpec\Lib\Rx\System.Reactive.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading">
-      <HintPath>D:\NaturalSpec\Lib\Rx\System.Threading.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml" />
-  </ItemGroup>
+  <Import Project="..\..\..\tools\FSharp\Microsoft.FSharp.Targets" />
   <ItemGroup>
     <Compile Include="MathHelper.fs" />
     <Compile Include="StringHelper.fs" />
@@ -86,16 +61,43 @@
     <Compile Include="Problem26.fs" />
     <Compile Include="Problem31.fs" />
     <Compile Include="Problem59.fs" />
+    <Compile Include="Problem67.fs" />
+    <Content Include="triangle.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Compile Include="Problem77.fs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="FSharp.Core">
+      <HintPath>..\..\..\tools\FSharp\FSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\..\tools\Nunit\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.CoreEx">
+      <HintPath>D:\NaturalSpec\Lib\Rx\System.CoreEx.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Interactive">
+      <HintPath>D:\NaturalSpec\Lib\Rx\System.Interactive.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive">
+      <HintPath>D:\NaturalSpec\Lib\Rx\System.Reactive.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading">
+      <HintPath>D:\NaturalSpec\Lib\Rx\System.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
     <ProjectReference Include="..\..\app\NaturalSpec\NaturalSpec.fsproj">
       <Name>NaturalSpec</Name>
       <Project>{3019240d-bbd3-4951-9c5e-4b343638bd4b}</Project>
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="..\..\..\tools\FSharp\Microsoft.FSharp.Targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
 	     Other similar extension points exist, see Microsoft.Common.targets.
 	<Target Name="BeforeBuild">
