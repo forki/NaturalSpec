@@ -20,3 +20,5 @@ open NaturalSpec
 let SumOfDigits n =
     printMethod ""
     sum_of_digits n
+
+let isNullOrEmpty = System.String.IsNullOrEmpty
