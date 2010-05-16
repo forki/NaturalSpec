@@ -8,36 +8,34 @@ open System.Diagnostics
 let maxOutputLength = 70
 
 let prepareOutput (x:obj) =
-  let s = sprintf "%A" x
-  if s.Length > maxOutputLength then s.Substring(0,maxOutputLength) + "..." else s
+    let s = sprintf "%A" x
+    if s.Length > maxOutputLength then s.Substring(0,maxOutputLength) + "..." else s
   
 /// Internal type of Assertion
 type AssertType =
 | Equality
 | Inequality
 | IsTrue
-| IsFalse            
-  
+| IsFalse
 
 /// Streamwriter for spec output
 let specWriter =
-  let rec getFileName i =
-    let fileName = sprintf "Spec_%d.txt" i
-    if (new FileInfo(fileName)).Exists then
-      getFileName (i+1)
-    else
-      fileName
+    let rec getFileName i =
+        let fileName = sprintf "Spec_%d.txt" i
+        if File.Exists fileName then
+            getFileName (i+1)
+        else
+            fileName
       
-  let file = new FileStream(getFileName 1, FileMode.Create, FileAccess.Write)
-  new StreamWriter(file)
-  
-specWriter.AutoFlush <- true
+    let file = new FileStream(getFileName 1, FileMode.Create, FileAccess.Write)
+    let writer = new StreamWriter(file)
+    writer.AutoFlush <- true
+    writer
 
 /// Writes the given string to the spec output
 let toSpec s =
-  printf "%s" s
-  specWriter.Write s
-  
+    printf "%s" s
+    specWriter.Write s
   
 /// Prints the test scenario name to the spec output         
 let printScenario() = 
@@ -56,16 +54,16 @@ let printScenario() =
   
   let methodName = m.Name.Replace("_"," ")
     
-  sprintf "\n\nScenario: %s\n" methodName |> toSpec
+  sprintf "\n\nScenario: %s\r\n" methodName |> toSpec
   for attrib in m.GetCustomAttributes(typeof<Fails>,true) do
     let a = attrib :?> Fails
     match a.ExpectedMessage , a.ExpectedException with
     | null, null
-    | ""  , null -> "  - Should fail with unspecified exception\n" |> toSpec
-    | m   , null -> sprintf "  - Should fail with %A\n" m |> toSpec
+    | ""  , null -> "  - Should fail with unspecified exception\r\n" |> toSpec
+    | m   , null -> sprintf "  - Should fail with %A\r\n" m |> toSpec
     | null, t  
-    | "", t      -> sprintf "  - Should fail with exception type %A\n" t |> toSpec
-    | x, t       -> sprintf "  - Should fail with %A and message %A\n" t m |> toSpec
+    | "", t      -> sprintf "  - Should fail with exception type %A\r\n" t |> toSpec
+    | x, t       -> sprintf "  - Should fail with %A and message %A\r\n" t m |> toSpec
   
 open NUnit.Framework
 
@@ -75,12 +73,12 @@ let check x =
   match assertType with
   | Equality -> 
      if a <> b then
-       let s = sprintf "\nElements are not equal.\nExpected:%s\nBut was: %s\n" (prepareOutput a) (prepareOutput b)
+       let s = sprintf "\r\nElements are not equal.\r\nExpected:%s\r\nBut was: %s\r\n" (prepareOutput a) (prepareOutput b)
        toSpec s
        Assert.Fail s 
   | Inequality -> 
      if a = b then
-       let s = sprintf "\nElements should not be equal.\nBut both are: %s\n" (prepareOutput a)
+       let s = sprintf "\r\nElements should not be equal.\r\nBut both are: %s\r\n" (prepareOutput a)
        toSpec s
        Assert.Fail s      
   | IsTrue -> Assert.AreEqual(a,b)

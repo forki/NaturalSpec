@@ -36,23 +36,20 @@ let length n (seq:'a seq) =
 
 /// Test if the sequence is empty
 let empty seq =
-  printMethod ""
-  seq |> Seq.isEmpty
+    printMethod ""
+    Seq.isEmpty seq
 
 /// Applies the sorting function f
 let sorting_with f =
-  printMethod ""
-  f    
+    printMethod ""
+    f    
 
 /// Test if the sequence is sorted
 let sorted seq =
-  printMethod ""
-  if seq |> Seq.isEmpty then true else
-  seq 
-    |> Seq.fold 
-         (fun (s,l) e -> if s && e >= l then (s,e) else (false,e))
-         (true,(Seq.head seq))
-    |> fst
+    printMethod ""
+    if Seq.isEmpty seq then true else
+    let l = ref (Seq.head seq)
+    Seq.forall (fun e -> if e >= !l then l := e; true else false) seq
 
 /// Test if the sequence contains all elements from sequence x
 let contain_all_elements_from x y =

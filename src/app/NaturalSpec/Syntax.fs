@@ -11,7 +11,7 @@ let methodName n (x:obj) =
     let methodName = (new StackTrace()).GetFrame(n).GetMethod().Name.Replace("_"," ")    
     match x with
     | :? string as s -> sprintf "%s %s" methodName s
-    | _             -> sprintf "%s %s" methodName (prepareOutput x)
+    | _              -> sprintf "%s %s" methodName (prepareOutput x)
      
 /// Prints the method name and the given parameter to the spec output           
 let printMethod (x:obj) = 
@@ -23,8 +23,7 @@ let printMethod (x:obj) =
 let calls = new System.Collections.Generic.HashSet<string * string>()
 
 /// Register a expected call
-let calling methodName param = 
-    calls.Add(methodName, param.ToString()) |> ignore
+let calling methodName param = calls.Add(methodName, param.ToString()) |> ignore
 
 /// Inits a scenario    
 let initScenario() =  
@@ -35,33 +34,33 @@ let initScenario() =
 /// Sets a test context up - same as "As"  
 /// Represents the Arrange phase of "Arrange"-"Act"-"Assert"      
 let Given f = 
-  initScenario()
+    initScenario()
         
-  sprintf "  - Given %s" (prepareOutput f) |> toSpec
-  f
+    sprintf "  - Given %s" (prepareOutput f) |> toSpec
+    f
 
 /// Sets a test context up - same as "Given"  
 let As f =  
-  initScenario()
+    initScenario()
         
-  sprintf "  - As %s" (prepareOutput f)  |> toSpec
-  f
+    sprintf "  - As %s" (prepareOutput f)  |> toSpec
+    f
 
 /// Acts on the given test context
 /// Represents the Act phase of "Arrange"-"Act"-"Assert"      
 let When f = 
-  toSpec  "\n     - When "
-  f
+    toSpec  "\n     - When "
+    f
     
 /// Fluid helper - prints "doing "
 let doing f =
-  toSpec "doing "
-  f        
+    toSpec "doing "
+    f        
 
 /// Fluid helper - prints "nothing "  
 let nothing f =
-  toSpec "nothing "
-  f
+    toSpec "nothing "
+    f
 
 /// Fluid helper - prints "solving"
 let solving f =
@@ -77,39 +76,38 @@ let getting f =
 /// Tests a condition on the manipulated test context
 /// Represents the Assert phase of "Arrange"-"Act"-"Assert"         
 let It f = 
-  toSpec "\n      => It "
-  f
+    toSpec "\n      => It "
+    f
   
 /// Tests a condition on the given value
 /// Represents the Assert phase of "Arrange"-"Act"-"Assert"    
 let Whereas v f = 
-  toSpec <| sprintf "\n      => Whereas %A " v
-  v  
+    toSpec <| sprintf "\n      => Whereas %A " v
+    v  
 
 /// Tests for equality
-let checkEquality (expected:'a) (value:'a) pipe = 
-  Equality,expected,value,pipe
+let checkEquality (expected:'a) (value:'a) pipe = Equality,expected,value,pipe
   
 /// Fluid helper - prints "equal "
 /// Tests for equality
 /// Use it as in "|> It should equal x"
 let equal (expected:'a) (value:'a) = 
-  sprintf "equal %s" (prepareOutput expected) |> toSpec
-  checkEquality expected value value    
+    sprintf "equal %s" (prepareOutput expected) |> toSpec
+    checkEquality expected value value    
   
 /// Fluid helper - prints "be "
 /// Tests for boolean condition
 /// Use it as in "|> It should be true"    
 let be f value = 
-  toSpec "be "
-  IsTrue,true,(f value:bool),value     
+    toSpec "be "
+    IsTrue,true,(f value:bool),value     
   
 /// Fluid helper - prints "have "
 /// Tests for boolean condition
 /// Use it as in "|> It should be true"    
-let have f value = 
-  toSpec "have "
-  IsTrue,true,(f value:bool),value     
+let have (f:'a-> bool) value = 
+    toSpec "have "
+    IsTrue,true,f value,value     
 
 /// Fluid helper - prints "called "
 /// Tests for boolean condition
@@ -123,15 +121,15 @@ let called methodName param _ =
 /// Tests if the given observation hold
 /// Use it as in "|> It should equal 5"              
 let should f x y =
-  toSpec "should "
-  f x y |> check      
+    toSpec "should "
+    f x y |> check      
 
 /// Fluid helper - prints "should not "
 /// Tests if the given observation does not hold
 /// Use it as in "|> It shouldn't equal 5"
 let shouldn't f x y =
-  toSpec "should not "
-  f x y |> not' |> check 
+    toSpec "should not "
+    f x y |> not' |> check 
 
 /// generates TestCaseData object
 let testData x y z = new TestCaseData(x, [|box y; box z|])
@@ -147,7 +145,7 @@ let doubleParam a b = DoubleParam(box a,box b)
 let tripleParam a b c = TripleParam(box a,box b,box c)
 
 /// Generates a testcase
-let TestWith (p:TestCaseParam) = 
+let TestWith p = 
   match p with
   | SingleParam a       -> [new TestCaseData(a)]
   | DoubleParam (a,b)   -> [new TestCaseData(a, b)]
@@ -155,23 +153,21 @@ let TestWith (p:TestCaseParam) =
   | MultiParam  y       -> [new TestCaseData(y)]
       
 /// Generates from a list
-let TestWithList (list: 'a seq) = 
-  list |> Seq.fold (fun r e -> new TestCaseData(box e)::r) []    
+let TestWithList (seq: 'a seq) = 
+    seq
+      |> Seq.map (fun e -> new TestCaseData(box e))
 
 /// Adds a test case to the list of testcases
-let And (p:TestCaseParam) list = TestWith p @ list  
+let And p list = TestWith p @ list  
 
 /// Generates testdata from n-times application of the given function
 let GenerateTestData f n =
-   {2..n} 
-     |> Seq.fold 
-         (fun acc i -> And (f i) acc)
-         (TestWith (f 1))
-    
+   {1..n} 
+     |> Seq.map (fun e -> TestWith (f e))   
 
 /// Adds an ExpectedException to the testcase
 let ShouldFailWith (exceptionType:System.Type) (list:TestCaseData list) =
-  match list with 
+    match list with 
     | [] -> invalidArg "list" "No TestData given"
     | x::rest -> (x.Throws exceptionType)::rest  
     
@@ -183,14 +179,6 @@ let Named (name:string) (list:TestCaseData list) =
       
 /// Verifies a scenario   
 let Verify x =
-  x |> ignore
-  try    
-      sprintf "\n  ==> Result is: %s" (prepareOutput x) |> toSpec
-      toSpec "\n  ==> OK"
-      printElapsed()
-  with 
-  | ex -> 
-        sprintf "\n  ==> Expected mocked call missing" |> toSpec
-        printElapsed()
-        raise ex
-       
+    sprintf "\n  ==> Result is: %s" (prepareOutput x) |> toSpec
+    toSpec "\n  ==> OK"
+    printElapsed()
