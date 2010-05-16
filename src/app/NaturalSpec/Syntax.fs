@@ -163,7 +163,7 @@ let And p list = TestWith p @ list
 /// Generates testdata from n-times application of the given function
 let GenerateTestData f n =
    {1..n} 
-     |> Seq.map (fun e -> TestWith (f e))   
+     |> Seq.map (TestWith << f)   
 
 /// Adds an ExpectedException to the testcase
 let ShouldFailWith (exceptionType:System.Type) (list:TestCaseData list) =
