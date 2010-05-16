@@ -68,6 +68,7 @@
     <Compile Include="Problem30.fs" />
     <Compile Include="Problem31.fs" />
     <Compile Include="Problem48.fs" />
+    <Compile Include="Problem52.fs" />
     <Compile Include="Problem59.fs" />
     <Compile Include="Problem67.fs" />
     <Content Include="triangle.txt">
