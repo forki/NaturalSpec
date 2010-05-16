@@ -179,6 +179,9 @@ let Named (name:string) (list:TestCaseData list) =
       
 /// Verifies a scenario   
 let Verify x =
-    sprintf "\n  ==> Result is: %s" (prepareOutput x) |> toSpec
-    toSpec "\n  ==> OK"
+    prepareOutput x
+      |> sprintf "\r\n  ==> Result is: %s" 
+      |> toSpec
+    toSpec "\r\n  ==> OK"    
     printElapsed()
+    toSpec "\r\n"
