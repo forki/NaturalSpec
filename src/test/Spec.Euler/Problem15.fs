@@ -10,7 +10,7 @@ open NaturalSpec
 
 let CountRoutes n =
     printMethod ""
-    binomial (2I*n) n
+    binomial (2I*n,n)
 
 [<Scenario>]      
 let ``How many routes are there through a 2 x 2 grid?``() =

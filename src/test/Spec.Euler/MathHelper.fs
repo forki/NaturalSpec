@@ -73,8 +73,6 @@ let pow a b = System.Numerics.BigInteger.Pow(a,b)
 
 let factorial n = seq { 1I..n } |> Seq.fold (*) 1I
 
-let binomial n k = factorial n / (factorial k * factorial(n-k))
-
 let rec digits n = [for x in n.ToString() -> System.Int32.Parse(x.ToString())]
 
 let digitsToNumber digits = 
@@ -88,3 +86,9 @@ let digitsToNumber digits =
 let rec sum_of_digits n =
     if n = 0I then 0I else
     n % 10I + sum_of_digits (n / 10I)
+
+#nowarn "40"
+
+let rec binomial =
+    let f (n,k) = if k = 0I || n = k then 1I else binomial(n - 1I,k) + binomial(n - 1I,k - 1I)
+    memoizeWithDictionary f

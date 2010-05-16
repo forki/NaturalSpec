@@ -34,9 +34,9 @@
   </PropertyGroup>
   <Import Project="..\..\..\tools\FSharp\Microsoft.FSharp.Targets" />
   <ItemGroup>
+    <Compile Include="Memoization.fs" />
     <Compile Include="MathHelper.fs" />
     <Compile Include="StringHelper.fs" />
-    <Compile Include="Memoization.fs" />
     <Compile Include="Problem1.fs" />
     <Compile Include="Problem2.fs" />
     <Compile Include="Problem3.fs" />
@@ -69,6 +69,7 @@
     <Compile Include="Problem31.fs" />
     <Compile Include="Problem48.fs" />
     <Compile Include="Problem52.fs" />
+    <Compile Include="Problem53.fs" />
     <Compile Include="Problem59.fs" />
     <Compile Include="Problem67.fs" />
     <Content Include="triangle.txt">
