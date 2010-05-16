@@ -23,14 +23,14 @@ let FindSmallestValue count =
 
 [<Scenario>]      
 let ``What is the first value which can be written as the sum of primes in over 4 different ways?``() =
-    Given 4I
+    Given 4
       |> When solving FindSmallestValue
       |> It should equal 10
       |> Verify
 
 [<Scenario>]      
 let ``What is the first value which can be written as the sum of primes in over five thousand different ways?``() =
-    Given 5000I
+    Given 5000
       |> When solving FindSmallestValue
       |> It should equal 71
       |> Verify

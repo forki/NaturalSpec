@@ -15,16 +15,14 @@ open NaturalSpec
 // How many different ways can £2 be made using any number of coins?
 
 let rec possibilities numbers n =
-    if n < Set.minElement numbers then 0I else
-    let m =
-        numbers
-          |> Set.filter (fun x -> x <= n)
-          |> Seq.map (fun x -> 
-               let rest = numbers |> Set.filter (fun y -> y <= x)
-               possibilities rest (n-x))
-          |> Seq.sum
-
-    if numbers |> Set.contains n then m + 1I else m
+    if n < Set.minElement numbers then 0 else
+    numbers
+      |> Set.filter (fun x -> x <= n)
+      |> Seq.map (fun x -> 
+            let rest = numbers |> Set.filter (fun y -> y <= x)
+            possibilities rest (n-x))
+      |> Seq.sum
+      |> fun m -> if Set.contains n numbers then m + 1 else m
 
 
 let FindDifferentWays n =
@@ -37,14 +35,14 @@ let FindDifferentWays n =
 let ``How many different ways can 3cent be made using any number of coins?``() =
     Given 3
       |> When solving FindDifferentWays
-      |> It should equal 2I
+      |> It should equal 2
       |> Verify
 
 [<Scenario>]      
 let ``How many different ways can 6cent be made using any number of coins?``() =
     Given 6
       |> When solving FindDifferentWays
-      |> It should equal 5I
+      |> It should equal 5
       |> Verify
 
 
@@ -52,12 +50,12 @@ let ``How many different ways can 6cent be made using any number of coins?``() =
 let ``How many different ways can 10cent be made using any number of coins?``() =
     Given 10
       |> When solving FindDifferentWays
-      |> It should equal 11I
+      |> It should equal 11
       |> Verify
 
 [<Scenario>]      
 let ``How many different ways can £2 be made using any number of coins?``() =
     Given 200
       |> When solving FindDifferentWays
-      |> It should equal 73682I
+      |> It should equal 73682
       |> Verify
