@@ -98,9 +98,9 @@ let equal (expected:'a) (value:'a) =
 /// Fluid helper - prints "be "
 /// Tests for boolean condition
 /// Use it as in "|> It should be true"    
-let be f value = 
+let be (f:'a -> bool) value = 
     toSpec "be "
-    IsTrue,true,(f value:bool),value     
+    IsTrue,true,f value,value     
   
 /// Fluid helper - prints "have "
 /// Tests for boolean condition
