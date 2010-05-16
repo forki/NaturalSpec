@@ -14,10 +14,9 @@ open NaturalSpec
 // What is the first value which can be written as the sum of primes in over five thousand different ways?
 
 let p = 
-  primes 5000I
+  primes 5000L
     |> List.map int
     |> Set.ofList
-
 
 let FindSmallestValue count =
     printMethod ""

@@ -12,23 +12,19 @@ let fibs =
 let fib n = fibs |> Seq.skip n |> Seq.head
 
 /// Returns a list with primes  
-let primes (n:bigint) =    
+let primes (n:int64) =    
     let max = System.Math.Sqrt (float n)
-    let rec filterPrimes = function
-        | x::rest -> 
-            if float x <= max then              
-              let r = 
-                rest
-                  |> List.filter (fun num -> num % x <> 0I)
-                  |> filterPrimes
-              x :: r
-            else
-              x::rest
+    let rec filterPrimes numbers = 
+        match numbers with
         | [] -> []
+        | x::rest when float x <= max -> 
+            rest
+              |> List.filter (fun num -> num % x <> 0L)
+              |> filterPrimes
+              |> fun r -> x :: r
+        | _ -> numbers
 
-    match n with
-    | x when x = 1I -> [2I]
-    | _ -> filterPrimes <| 2I :: [3I..2I..n]
+    if n = 1L then [2L] else filterPrimes <| 2L :: [3L..2L..n]
 
 
 /// Returns the greates common devisor
