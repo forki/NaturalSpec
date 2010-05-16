@@ -75,6 +75,16 @@ let factorial n = seq { 1I..n } |> Seq.fold (*) 1I
 
 let binomial n k = factorial n / (factorial k * factorial(n-k))
 
+let rec digits n = [for x in n.ToString() -> System.Int32.Parse(x.ToString())]
+
+let digitsToNumber digits = 
+    digits
+      |> Seq.toList
+      |> List.rev
+      |> List.mapi (fun i x -> float x * System.Math.Pow(10.0,i |> double))
+      |> List.sum
+      |> int
+
 let rec sum_of_digits n =
     if n = 0I then 0I else
     n % 10I + sum_of_digits (n / 10I)
