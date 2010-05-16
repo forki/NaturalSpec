@@ -1,4 +1,4 @@
-﻿module Problem26
+﻿module Euler.Problem26
   
 open NaturalSpec
 open System.Collections.Generic

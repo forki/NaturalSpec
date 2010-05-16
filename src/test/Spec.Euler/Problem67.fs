@@ -1,4 +1,4 @@
-﻿module Problem67
+﻿module Euler.Problem67
   
 open NaturalSpec
 

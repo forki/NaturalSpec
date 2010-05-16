@@ -1,4 +1,4 @@
-﻿module Problem12
+﻿module Euler.Problem12
   
 open NaturalSpec
 
