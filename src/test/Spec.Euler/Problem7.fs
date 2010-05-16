@@ -9,18 +9,20 @@ open NaturalSpec
 
 let FindPrimeNumber n =
     printMethod ""   
-    List.nth (primes 140000L) (n-1)
+    primes 140000
+      |> Seq.skip (n-1)
+      |> Seq.head
 
 [<Scenario>]      
 let ``What is the 6th prime number?``() =
     Given 6
       |> When solving FindPrimeNumber
-      |> It should equal 13L
+      |> It should equal 13
       |> Verify  
 
 [<Scenario>]      
 let ``What is the 10001st prime number?``() =
     Given 10001
       |> When solving FindPrimeNumber
-      |> It should equal 104743L
+      |> It should equal 104743
       |> Verify  

@@ -12,7 +12,7 @@ let fibs =
 let fib n = fibs |> Seq.skip n |> Seq.head
 
 /// Returns a list with primes  
-let primes (n:int64) =    
+let primes' (n:int64) =    
     let max = System.Math.Sqrt (float n)
     let rec filterPrimes numbers = 
         match numbers with
@@ -26,13 +26,19 @@ let primes (n:int64) =
 
     if n = 1L then [2L] else filterPrimes <| 2L :: [3L..2L..n]
 
+open System.Collections
+
+let primes max =
+    let primes = new BitArray(max+1, true)
+    seq { for n in 2 .. max do
+            if primes.[n] then
+                for i in int64 n * int64 n..int64 n..int64 max do 
+                    primes.[int i] <- false
+                yield n }
+  
 
 /// Returns the greates common devisor
-let rec gcd a b =
-   if b = 0I then
-     a 
-   else
-     gcd b (a%b)
+let rec gcd a b = if b = 0I then a else gcd b (a%b)
 
 /// Returns the least common multiple
 let lcm a b = a * b / (gcd a b)

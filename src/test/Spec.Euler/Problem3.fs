@@ -13,22 +13,23 @@ let GetLargetsPrimeFactorOf max =
       max 
         |> float
         |> System.Math.Sqrt
-        |> int64
+        |> int
       
     primes x
+      |> Seq.toList
       |> List.rev
-      |> List.find (fun x -> max % x = 0L)
+      |> List.find (fun x -> max % (int64 x) = 0L)
 
 [<Scenario>]      
 let ``What is the largest prime factor of the number 13195?`` () =
     Given 13195L
       |> When solving GetLargetsPrimeFactorOf
-      |> It should equal 29L
+      |> It should equal 29
       |> Verify  
 
 [<Scenario>]      
 let ``What is the largest prime factor of the number 600851475143 ?`` () =
     Given 600851475143L
       |> When solving GetLargetsPrimeFactorOf
-      |> It should equal 6857L
+      |> It should equal 6857
       |> Verify  

@@ -9,30 +9,32 @@ open NaturalSpec
 
 let FindPrimes n =
     printMethod ""
-    primes n 
+    primes n
+      |> Seq.toList
 
 let FindSumOfPrimes n =
     printMethod ""
     primes n  
-      |> List.sum 
+      |> Seq.map int64
+      |> Seq.sum
 
 [<Scenario>]      
 let ``Find all the primes below 10``() =
-    Given 10L
+    Given 10
       |> When solving FindPrimes
-      |> It should equal [2L; 3L; 5L; 7L]
+      |> It should equal [2; 3; 5; 7]
       |> Verify
 
 [<Scenario>]      
 let ``Find the sum of all the primes below 10``() =
-    Given 10L
+    Given 10
       |> When solving FindSumOfPrimes
       |> It should equal 17L
       |> Verify
 
 [<Scenario>]      
 let ``Find the sum of all the primes below two million``() =
-    Given 2000000L
+    Given 2000000
       |> When solving FindSumOfPrimes
       |> It should equal 142913828922L
       |> Verify
