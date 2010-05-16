@@ -20,17 +20,16 @@ open NaturalSpec
 // NOTE: Once the chain starts the terms are allowed to go above one million.
 
 let dict = new System.Collections.Generic.Dictionary<_,_>() 
-let addToDict n t =
-    if n < 100000I then
-        dict.[n] <- t
+let inline addToDict n t =
+    dict.[n] <- t
     t
     
 let rec chainLength n = 
     match n with
-    | _ when n = 1I              -> 1I
+    | _ when n = 1L              -> 1L
     | _ when dict.ContainsKey n  -> dict.[n]
-    | _ when n % 2I = 0I         -> 1I + chainLength (n / 2I)      |> addToDict n 
-    | _                          -> 1I + chainLength (3I * n + 1I) |> addToDict n 
+    | _ when n % 2L = 0L         -> 1L + chainLength (n / 2L)      |> addToDict n 
+    | _                          -> 1L + chainLength (3L * n + 1L) |> addToDict n 
 
 let FindChainLength n =
     printMethod ""
@@ -38,19 +37,19 @@ let FindChainLength n =
 
 let FindLongestChainStart n =
     printMethod ""
-    seq { 1I..n }
+    seq { 1L..n }
       |> Seq.maxBy chainLength
 
 [<Scenario>]      
 let ``Find chain length for 13``() =
-    Given 13I
+    Given 13L
       |> When solving FindChainLength
-      |> It should equal 10I
+      |> It should equal 10L
       |> Verify
 
 [<Scenario>]      
 let ``Find the starting number, under one million, which produces the longest chain``() =
-    Given 1000000I
+    Given 1000000L
       |> When solving FindLongestChainStart
-      |> It should equal 837799I
+      |> It should equal 837799L
       |> Verify
