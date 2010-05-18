@@ -49,7 +49,7 @@ let As f =
 /// Acts on the given test context
 /// Represents the Act phase of "Arrange"-"Act"-"Assert"      
 let When f = 
-    toSpec  "\n     - When "
+    toSpec  "\r\n     - When "
     f
     
 /// Fluid helper - prints "doing "
@@ -76,13 +76,13 @@ let getting f =
 /// Tests a condition on the manipulated test context
 /// Represents the Assert phase of "Arrange"-"Act"-"Assert"         
 let It f = 
-    toSpec "\n      => It "
+    toSpec "\r\n      => It "
     f
   
 /// Tests a condition on the given value
 /// Represents the Assert phase of "Arrange"-"Act"-"Assert"    
 let Whereas v f = 
-    toSpec <| sprintf "\n      => Whereas %A " v
+    toSpec <| sprintf "\r\n      => Whereas %A " v
     v  
 
 /// Tests for equality
