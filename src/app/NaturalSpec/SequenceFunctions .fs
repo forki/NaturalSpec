@@ -10,27 +10,27 @@ open NUnit.Framework
 
 /// Remove an element from the sequence
 let Removing x seq =
-  printMethod x
-  seq |> Seq.filter ((<>) x)
+    printMethod x
+    Seq.filter ((<>) x) seq
       
 // Assertions
 
 /// Test if the element is in the sequence
 let contain x (seq:'a seq) =
-  printMethod x
-  IsTrue,true,Seq.exists ((=) x) seq,seq
+    printMethod x
+    IsTrue,true,Seq.exists ((=) x) seq,seq
   
 /// Test if the element is in the sequence
 let duplicates (seq:'a seq) =
-  printMethod ""
-  let dict = new System.Collections.Generic.HashSet<'a>()
-  seq |> Seq.fold (fun d i -> d || (not (dict.Add i))) false
+    printMethod ""
+    let dict = new System.Collections.Generic.HashSet<'a>()
+    seq |> Seq.fold (fun d i -> d || (not (dict.Add i))) false
   
 /// Test if sequence has length n
 let length n (seq:'a seq) =
-  printMethod n
-  Assert.AreEqual(n, seq |> Seq.length)
-  true
+    printMethod n
+    Assert.AreEqual(n, seq |> Seq.length)
+    true
   
 // Constants
 
