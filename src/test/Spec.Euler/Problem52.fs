@@ -21,7 +21,7 @@ let SmallestPositiveNumberWithProperty n =
       |> Seq.filter (fun x ->
             let x' = normalize x
             seq {2..n} 
-              |> Seq.forall (fun f -> (x * f |> normalize) = x'))
+              |> Seq.forall (fun f -> normalize (x * f) = x'))
       |> Seq.head
 
 [<Scenario>]      
