@@ -28,6 +28,7 @@ let selling_a_car_for amount (dealer:IDealer) =
 [<Scenario>]
 let ``When selling the DreamCar for 30000``() =     
   let bert = createDealer [(30000,DreamCar)]
+
   As bert
     |> When selling_a_car_for 30000
     |> It should equal DreamCar
@@ -39,6 +40,7 @@ let ``When selling the DreamCar for 30000``() =
 [<Scenario>]
 let ``When selling the Lamecar for 19000``() = 
   let bert = createDealer [(19000,LameCar)]  
+
   As bert
     |> When selling_a_car_for 19000
     |> It shouldn't equal DreamCar
@@ -50,6 +52,7 @@ let ``When selling the Lamecar for 19000``() =
 [<Fails>]
 let ``When not calling the mocked function``() =   
   let bert = createDealer [(30000,DreamCar);(19000,LameCar)]
+
   As bert
     |> When selling_a_car_for 19000
     |> It should equal DreamCar
