@@ -23,7 +23,10 @@ open NaturalSpec
 
 let triangle =
    System.IO.File.ReadAllLines "triangle.txt"
-     |> Array.map (fun line -> line.Split [| ' ' |] |> Array.map (System.Int32.Parse))
+     |> Array.map (fun line -> 
+            line.Split [| ' ' |] 
+              |> Array.map (System.Int32.Parse))
+     |> Seq.toList
 
 
 [<Scenario>]      

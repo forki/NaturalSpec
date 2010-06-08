@@ -10,14 +10,14 @@ open NaturalSpec
 // 
 // There exists exactly one Pythagorean triplet for which a + b + c = 1000.
 // Find the product abc.
-let srqt = System.Math.Sqrt
+
 let sq x = x * x
+
 let triplets n = 
-    seq { for i in 1..n do
-            for j in i+1..n do
-                let k = sq i + sq j |> double |> sqrt
-                if k = System.Math.Ceiling k then
-                    yield i,j,int k }
+    seq { for i in 1.0..n do
+            for j in i+1.0..n -> i,j }
+        |> Seq.map (fun (i,j) -> i,j,sq i + sq j |> sqrt)
+        |> Seq.filter (fun (_,_,k) -> k = ceil k)
 
 let FindProduct max =
     printMethod ""
@@ -28,7 +28,7 @@ let FindProduct max =
 
 [<Scenario>]      
 let ``Find the one Pythagorean triplet for which a + b + c = 1000``() =
-    Given 1000
+    Given 1000.0
       |> When solving FindProduct
-      |> It should equal 31875000
+      |> It should equal 31875000.0
       |> Verify
