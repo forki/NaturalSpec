@@ -12,8 +12,8 @@ let DreamCar = new Car(CarType.BMW, 200)
 let LameCar = new Car(CarType.Fiat, 45)
 
 // 4. define a mock object and give it a name
-let createDealer cars =     
-    let dict = Map.ofSeq cars
+let createDealer carPrices =     
+    let dict = Map.ofSeq carPrices
     {new IDealer with 
         member x.SellCar price = 
             calling "SellCar" price
@@ -26,14 +26,14 @@ let selling_a_car_for amount (dealer:IDealer) =
 
 // 6. create a scenario      
 [<Scenario>]
-let ``When selling the DreamCar for 30000``() =     
-  let bert = createDealer [(30000,DreamCar)]
+let ``When selling the DreamCar for 40000``() =     
+  let bert = createDealer [(40000,DreamCar)]
 
   As bert
-    |> When selling_a_car_for 30000
+    |> When selling_a_car_for 40000
     |> It should equal DreamCar
     |> It shouldn't equal LameCar
-    |> It should have (called "SellCar" 30000)
+    |> It should have (called "SellCar" 40000)
     |> Verify
     
      
