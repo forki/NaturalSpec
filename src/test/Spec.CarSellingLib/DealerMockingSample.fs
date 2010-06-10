@@ -27,35 +27,35 @@ let selling_a_car_for amount (dealer:IDealer) =
 // 6. create a scenario      
 [<Scenario>]
 let ``When selling the DreamCar for 40000``() =     
-  let bert = createDealer [(40000,DreamCar)]
+    let bert = createDealer [(40000,DreamCar)]
 
-  As bert
-    |> When selling_a_car_for 40000
-    |> It should equal DreamCar
-    |> It shouldn't equal LameCar
-    |> It should have (called "SellCar" 40000)
-    |> Verify
+    As bert
+      |> When selling_a_car_for 40000
+      |> It should equal DreamCar
+      |> It shouldn't equal LameCar
+      |> It should have (called "SellCar" 40000)
+      |> Verify
     
      
 [<Scenario>]
 let ``When selling the Lamecar for 19000``() = 
-  let bert = createDealer [(19000,LameCar)]  
+    let bert = createDealer [(19000,LameCar)]  
 
-  As bert
-    |> When selling_a_car_for 19000
-    |> It shouldn't equal DreamCar
-    |> It should equal LameCar
-    |> It should have (called "SellCar" 19000)
-    |> Verify
+    As bert
+      |> When selling_a_car_for 19000
+      |> It shouldn't equal DreamCar
+      |> It should equal LameCar
+      |> It should have (called "SellCar" 19000)
+      |> Verify
     
 [<Scenario>]
 [<Fails>]
 let ``When not calling the mocked function``() =   
-  let bert = createDealer [(30000,DreamCar);(19000,LameCar)]
+    let bert = createDealer [(30000,DreamCar);(19000,LameCar)]
 
-  As bert
-    |> When selling_a_car_for 19000
-    |> It should equal DreamCar
-    |> It should have (called "SellCar" 19000)
-    |> It should have (called "SellCar" 30000)
-    |> Verify
+    As bert
+      |> When selling_a_car_for 19000
+      |> It should equal DreamCar
+      |> It should have (called "SellCar" 19000)
+      |> It should have (called "SellCar" 30000)
+      |> Verify
