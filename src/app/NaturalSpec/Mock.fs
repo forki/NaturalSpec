@@ -13,10 +13,10 @@ let createProperty<'a> (typeBuilder:TypeBuilder) propertyName =
     let property = typeBuilder.DefineProperty(propertyName, PropertyAttributes.None, t, [| t |])
 
     // The property set and property get methods require a special set of attributes:
-    let GetSetAttr = MethodAttributes.Public |||  MethodAttributes.HideBySig
+    let GetSetAttr = MethodAttributes.Public |||  MethodAttributes.HideBySig ||| MethodAttributes.Virtual
 
     // Define the "get" accessor method for current private field.
-    let currGetPropMthdBldr = typeBuilder.DefineMethod("get_value", GetSetAttr, t, System.Type.EmptyTypes)
+    let currGetPropMthdBldr = typeBuilder.DefineMethod("get_" + propertyName, GetSetAttr, t, System.Type.EmptyTypes)
 
     // Implement Getter in ILO
     let currGetIL = currGetPropMthdBldr.GetILGenerator()
@@ -25,7 +25,7 @@ let createProperty<'a> (typeBuilder:TypeBuilder) propertyName =
     currGetIL.Emit(OpCodes.Ret)
 
     // Define the "set" accessor method for current private field.
-    let currSetPropMthdBldr = typeBuilder.DefineMethod("set_value", GetSetAttr, null, [| t |])
+    let currSetPropMthdBldr = typeBuilder.DefineMethod("set_" + propertyName, GetSetAttr, null, [| t |])
 
     // Implement Setter in IL
     let currSetIL = currSetPropMthdBldr.GetILGenerator()
@@ -39,7 +39,31 @@ let createProperty<'a> (typeBuilder:TypeBuilder) propertyName =
     property.SetGetMethod(currGetPropMthdBldr)
     property.SetSetMethod(currSetPropMthdBldr)
 
-let mock name =
+let implementInterface<'i> (typeBuilder:TypeBuilder) =
+    for m in typeof<'i>.GetMethods() do
+        let attr = MethodAttributes.Public ||| MethodAttributes.HideBySig ||| MethodAttributes.Virtual
+        let args = m.GetParameters()
+        
+        let methodImpl = 
+            typeBuilder.DefineMethod(
+                m.Name, 
+                attr, 
+                m.ReturnType, 
+                args |> Array.map (fun arg -> arg.ParameterType))
+
+        let il = methodImpl.GetILGenerator()
+        if args = [||] then                    
+            il.Emit(OpCodes.Ldarg_0)
+            il.Emit(OpCodes.Ldstr, "Test")
+            il.Emit(OpCodes.Ret)
+        else
+            il.Emit(OpCodes.Ldarg_0)
+            il.Emit(OpCodes.Ldarg_1)
+            il.Emit(OpCodes.Ret)
+
+        typeBuilder.DefineMethodOverride(methodImpl, m)
+
+let mock<'i> name =
     let assemblyName = new AssemblyName(Name = "tmpAssembly")
     let assemblyBuilder = 
             System.Threading.Thread.GetDomain().DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run)
@@ -47,9 +71,14 @@ let mock name =
     let tmpModule = assemblyBuilder.DefineDynamicModule "tmpModule"
 
     // create a new type builder
-    let typeBuilder = tmpModule.DefineType(name, TypeAttributes.Public ||| TypeAttributes.Class)
+    let typeBuilder = 
+        tmpModule.DefineType(
+            name, 
+            TypeAttributes.Public ||| TypeAttributes.Class,
+            null, // parentType
+            [|typeof<'i>|])
 
-    createProperty<string> typeBuilder "Name"
+    implementInterface<'i> typeBuilder
 
     // Generate our type
     let generatedType = typeBuilder.CreateType()
@@ -57,7 +86,8 @@ let mock name =
     // Now we have our type. Let's create an instance from it:
     let generatedObject = System.Activator.CreateInstance(generatedType)
 
-    // Fill properties    
-    generatedType.GetProperty("Name").SetValue(generatedObject, name, null)
 
-    generatedObject
+    // Fill properties    
+  //  generatedType.GetProperty("Name").SetValue(generatedObject, name, null)
+    
+    generatedObject :?> 'i
