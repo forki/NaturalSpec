@@ -53,26 +53,35 @@ let implementInterface<'i> (typeBuilder:TypeBuilder) (dict:FieldBuilder) =
                 args |> Array.map (fun arg -> arg.ParameterType))
 
         let il = methodImpl.GetILGenerator()
-        if args = [||] then                    
-            il.Emit(OpCodes.Ldarg_0)
-            il.Emit(OpCodes.Ldstr, "Test")
-            il.Emit(OpCodes.Ret)
+        il.Emit(OpCodes.Ldarg_0)
+
+        // put method dict on stack
+        il.Emit(OpCodes.Ldfld,dict)
+
+        // put method name on stack
+        il.Emit(OpCodes.Ldstr, m.Name)
+
+        // Lookup method
+        il.Emit(OpCodes.Callvirt,typeof<Dictionary<obj,obj>>.GetMethod("get_Item",[|typeof<obj>|]))
+        il.Emit(OpCodes.Castclass,typeof<FSharpFunc<string,string>>)
+
+        if args = [||] then                                               
+            il.Emit(OpCodes.Ldnull)         
         else
-            il.Emit(OpCodes.Ldarg_0)
-            il.Emit(OpCodes.Ldfld,dict)
             il.Emit(OpCodes.Ldarg_1)
-            il.Emit(OpCodes.Callvirt,typeof<Dictionary<obj,obj>>.GetMethod("get_Item",[|typeof<obj>|]))
-            il.Emit(OpCodes.Castclass,typeof<string>)
-            il.Emit(OpCodes.Ret)
+
+        il.Emit(OpCodes.Callvirt,typeof<FSharpFunc<string,string>>.GetMethod("Invoke"))
+        il.Emit(OpCodes.Ret)
 
         typeBuilder.DefineMethodOverride(methodImpl, m)
 
 let mock<'i> name =
     let assemblyName = new AssemblyName(Name = "tmpAssembly")
     let assemblyBuilder = 
-            System.Threading.Thread.GetDomain().DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run)
+        System.AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave)
 
-    let tmpModule = assemblyBuilder.DefineDynamicModule "tmpModule"
+    let filename = "tmpAssembly.dll"
+    let tmpModule = assemblyBuilder.DefineDynamicModule(filename,filename)
 
     // create a new type builder
     let typeBuilder = 
@@ -90,14 +99,23 @@ let mock<'i> name =
             FieldAttributes.Public)
 
     implementInterface<'i> typeBuilder dict
-
+    
     // Generate our type
     let generatedType = typeBuilder.CreateType()
+    
+    assemblyBuilder.Save(filename)
+    
     let generatedObject = System.Activator.CreateInstance generatedType
+    
+    generatedType.GetField("_dict")    
+      .SetValue(generatedObject, new Dictionary<obj,obj>())
               
-    let field = generatedType.GetField("_dict")
-    let d = new Dictionary<obj,obj>()
-    d.Add("bla","blub")
-
-    field.SetValue(generatedObject,d)
     generatedObject :?> 'i
+
+let registerCall methodName result mock =
+    let field = mock.GetType().GetField("_dict")
+    let d = field.GetValue mock :?> Dictionary<obj,obj>
+    d.Add(methodName,result)
+
+    field.SetValue(mock,d)
+    mock

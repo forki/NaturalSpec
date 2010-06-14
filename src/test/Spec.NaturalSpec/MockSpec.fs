@@ -7,20 +7,32 @@ type IFoo =
   abstract Name : string
   abstract Test: string -> string
 
-let name (x:IFoo) = x.Name
+let name (x:IFoo) = 
+    printMethod ""
+    x.Name
+
 let test s (x:IFoo) = 
+    printMethod s
     x.Test s
 
 [<Scenario>]
 let ``When getting the name of a mock``() =  
-  Given (mock<IFoo> "MyMock")
-    |> When getting name
-    |> It should equal "Test"
-    |> Verify
+    let m =
+        mock<IFoo> "MyMock"
+          |> registerCall "get_Name" (fun (x:string) -> "MyName")
+
+    Given m
+      |> When getting name
+      |> It should equal "MyName"
+      |> Verify
 
 [<Scenario>]
 let ``When calling a function on a mock``() =  
-  Given (mock<IFoo> "MyMock")
-    |> When calculating (test "bla")
-    |> It should equal "blub"
-    |> Verify
+    let m =
+        mock<IFoo> "MyMock"
+          |> registerCall "Test" (fun (x:string) -> if x = "bla" then "blub" else x)
+
+    Given m
+      |> When calculating (test "bla")
+      |> It should equal "blub"
+      |> Verify
