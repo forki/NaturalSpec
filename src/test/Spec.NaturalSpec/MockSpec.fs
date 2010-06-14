@@ -22,5 +22,5 @@ let ``When getting the name of a mock``() =
 let ``When calling a function on a mock``() =  
   Given (mock<IFoo> "MyMock")
     |> When calculating (test "bla")
-    |> It should equal "bla"
+    |> It should equal "blub"
     |> Verify

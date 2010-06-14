@@ -2,6 +2,7 @@
 module NaturalSpec.Mock
 
 open System.Reflection
+open System.Collections.Generic
 open System.Reflection.Emit
 
 let createProperty<'a> (typeBuilder:TypeBuilder) propertyName =
@@ -39,7 +40,7 @@ let createProperty<'a> (typeBuilder:TypeBuilder) propertyName =
     property.SetGetMethod(currGetPropMthdBldr)
     property.SetSetMethod(currSetPropMthdBldr)
 
-let implementInterface<'i> (typeBuilder:TypeBuilder) =
+let implementInterface<'i> (typeBuilder:TypeBuilder) (dict:FieldBuilder) =
     for m in typeof<'i>.GetMethods() do
         let attr = MethodAttributes.Public ||| MethodAttributes.HideBySig ||| MethodAttributes.Virtual
         let args = m.GetParameters()
@@ -58,7 +59,10 @@ let implementInterface<'i> (typeBuilder:TypeBuilder) =
             il.Emit(OpCodes.Ret)
         else
             il.Emit(OpCodes.Ldarg_0)
+            il.Emit(OpCodes.Ldfld,dict)
             il.Emit(OpCodes.Ldarg_1)
+            il.Emit(OpCodes.Callvirt,typeof<Dictionary<obj,obj>>.GetMethod("get_Item",[|typeof<obj>|]))
+            il.Emit(OpCodes.Castclass,typeof<string>)
             il.Emit(OpCodes.Ret)
 
         typeBuilder.DefineMethodOverride(methodImpl, m)
@@ -78,16 +82,22 @@ let mock<'i> name =
             null, // parentType
             [|typeof<'i>|])
 
-    implementInterface<'i> typeBuilder
+    // Create lookip dict
+    let dict = 
+        typeBuilder.DefineField(
+            "_dict", 
+            typeof<Dictionary<obj,obj>>, 
+            FieldAttributes.Public)
+
+    implementInterface<'i> typeBuilder dict
 
     // Generate our type
     let generatedType = typeBuilder.CreateType()
+    let generatedObject = System.Activator.CreateInstance generatedType
+              
+    let field = generatedType.GetField("_dict")
+    let d = new Dictionary<obj,obj>()
+    d.Add("bla","blub")
 
-    // Now we have our type. Let's create an instance from it:
-    let generatedObject = System.Activator.CreateInstance(generatedType)
-
-
-    // Fill properties    
-  //  generatedType.GetProperty("Name").SetValue(generatedObject, name, null)
-    
+    field.SetValue(generatedObject,d)
     generatedObject :?> 'i
