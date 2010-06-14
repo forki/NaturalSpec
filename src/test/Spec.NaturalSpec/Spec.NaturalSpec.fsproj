@@ -71,6 +71,7 @@
     <Compile Include="SortingSamples.fs" />
     <Compile Include="NUnitTest.fs" />
     <Compile Include="FileSpec.fs" />
+    <Compile Include="MockSpec.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\app\NaturalSpec\NaturalSpec.fsproj">
