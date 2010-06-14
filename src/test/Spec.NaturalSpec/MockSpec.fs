@@ -6,6 +6,7 @@ let (?) (this : 'Source) (prop : string) : 'Result =
 type IFoo =
   abstract Name : string
   abstract Test: string -> string
+  abstract Add: int*int -> int
 
 let name (x:IFoo) = 
     printMethod ""
@@ -15,11 +16,16 @@ let test s (x:IFoo) =
     printMethod s
     x.Test s
 
+let add a b (x:IFoo) = 
+    printMethod (sprintf "%d + %d" a b)
+    let result = x.Add(a,b)
+    result
+
 [<Scenario>]
 let ``When getting the name of a mock``() =  
     let m =
         mock<IFoo> "MyMock"
-          |> registerCall "get_Name" (fun (x:string) -> "MyName")
+          |> registerCall "get_Name" (fun _ -> "MyName")
 
     Given m
       |> When getting name
@@ -35,4 +41,15 @@ let ``When calling a function on a mock``() =
     Given m
       |> When calculating (test "bla")
       |> It should equal "blub"
+      |> Verify
+
+[<Scenario>]
+let ``When calling add on a mock``() =  
+    let m =
+        mock<IFoo> "MyMock"
+          |> registerCall "Add" (fun (x,y) -> x+y)
+
+    Given m
+      |> When calculating (add 4 5)
+      |> It should equal 9
       |> Verify

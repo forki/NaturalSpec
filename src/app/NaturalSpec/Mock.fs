@@ -40,19 +40,29 @@ let createProperty<'a> (typeBuilder:TypeBuilder) propertyName =
     property.SetGetMethod(currGetPropMthdBldr)
     property.SetSetMethod(currSetPropMthdBldr)
 
+let internal baseTupleType = 
+    typeof<System.Tuple<int,string>>.AssemblyQualifiedName
+      .Replace(typeof<int>.AssemblyQualifiedName,"{0}")
+      .Replace(typeof<string>.AssemblyQualifiedName,"{1}")
+
+let getTupleType2 (type1:System.Type) (type2:System.Type) =
+    System.String.Format(baseTupleType, type1.AssemblyQualifiedName, type2.AssemblyQualifiedName)
+      |> System.Type.GetType
+
 let implementInterface<'i> (typeBuilder:TypeBuilder) (dict:FieldBuilder) =
     for m in typeof<'i>.GetMethods() do
         let attr = MethodAttributes.Public ||| MethodAttributes.HideBySig ||| MethodAttributes.Virtual
-        let args = m.GetParameters()
+        let args = m.GetParameters() |> Array.map (fun arg -> arg.ParameterType)
         
         let methodImpl = 
             typeBuilder.DefineMethod(
                 m.Name, 
                 attr, 
                 m.ReturnType, 
-                args |> Array.map (fun arg -> arg.ParameterType))
+                args)
 
         let il = methodImpl.GetILGenerator()
+        
         il.Emit(OpCodes.Ldarg_0)
 
         // put method dict on stack
@@ -63,14 +73,18 @@ let implementInterface<'i> (typeBuilder:TypeBuilder) (dict:FieldBuilder) =
 
         // Lookup method
         il.Emit(OpCodes.Callvirt,typeof<Dictionary<obj,obj>>.GetMethod("get_Item",[|typeof<obj>|]))
-        il.Emit(OpCodes.Castclass,typeof<FSharpFunc<string,string>>)
-
+                 
         if args = [||] then                                               
-            il.Emit(OpCodes.Ldnull)         
+            il.Emit(OpCodes.Ldnull)       
         else
-            il.Emit(OpCodes.Ldarg_1)
-
-        il.Emit(OpCodes.Callvirt,typeof<FSharpFunc<string,string>>.GetMethod("Invoke"))
+           if args.Length = 1 then
+              il.Emit(OpCodes.Ldarg_1)              
+           else
+              il.Emit(OpCodes.Ldarg_1)
+              il.Emit(OpCodes.Ldarg_2)
+              il.Emit(OpCodes.Newobj,(getTupleType2 args.[0] args.[1]).GetConstructor(args))
+              
+        il.Emit(OpCodes.Callvirt,typeof<FSharpFunc<obj,obj>>.GetMethod("Invoke"))  
         il.Emit(OpCodes.Ret)
 
         typeBuilder.DefineMethodOverride(methodImpl, m)
@@ -112,10 +126,10 @@ let mock<'i> name =
               
     generatedObject :?> 'i
 
-let registerCall methodName result mock =
+let registerCall methodName resultF mock =
     let field = mock.GetType().GetField("_dict")
     let d = field.GetValue mock :?> Dictionary<obj,obj>
-    d.Add(methodName,result)
+    d.Add(methodName,resultF)
 
     field.SetValue(mock,d)
     mock
