@@ -47,6 +47,9 @@
       <HintPath>..\..\..\tools\FSharp\FSharp.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FSharp.PowerPack">
+      <HintPath>..\..\..\tools\PowerPack\FSharp.PowerPack.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="nunit.framework">
       <HintPath>..\..\..\tools\Nunit\nunit.framework.dll</HintPath>

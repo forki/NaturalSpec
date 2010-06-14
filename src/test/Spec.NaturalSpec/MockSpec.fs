@@ -25,7 +25,7 @@ let add a b (x:IFoo) =
 let ``When getting the name of a mock``() =  
     let m =
         mock<IFoo> "MyMock"
-          |> registerCall "get_Name" (fun _ -> "MyName")
+          |> registerCall <@fun x -> x.Name @> (fun _ -> "MyName")
 
     Given m
       |> When getting name
@@ -33,10 +33,10 @@ let ``When getting the name of a mock``() =
       |> Verify
 
 [<Scenario>]
-let ``When calling a function on a mock``() =  
+let ``When calling a function on a mock``() =    
     let m =
         mock<IFoo> "MyMock"
-          |> registerCall "Test" (fun (x:string) -> if x = "bla" then "blub" else x)
+          |> register <@fun x -> x.Test @> (fun x -> if x = "bla" then "blub" else x)
 
     Given m
       |> When calculating (test "bla")
@@ -47,7 +47,7 @@ let ``When calling a function on a mock``() =
 let ``When calling add on a mock``() =  
     let m =
         mock<IFoo> "MyMock"
-          |> registerCall "Add" (fun (x,y) -> x+y)
+          |> register <@fun x -> x.Add @> (fun (x,y) -> x + y)
 
     Given m
       |> When calculating (add 4 5)

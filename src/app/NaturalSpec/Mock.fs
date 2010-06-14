@@ -126,10 +126,23 @@ let mock<'i> name =
               
     generatedObject :?> 'i
 
-let registerCall methodName resultF mock =
+open Microsoft.FSharp.Quotations
+open Microsoft.FSharp.Quotations.Patterns
+open Microsoft.FSharp.Quotations.DerivedPatterns
+
+let getMethodName (exp : Expr<'a -> 'b>) =
+    match exp with
+    | Lambda (x, PropertyGet (a,b,c)) -> b.GetGetMethod().Name
+    | Lambda (x1, Lambda (x2, Call (a, b, c))) -> b.Name
+    | Lambda (x, Lambda (tupledArg, Let (arg00, _, Let (arg01, _,  Call (a, b, c))))) -> b.Name
+    | _ -> failwithf "Unknown pattern %A" exp
+
+let registerCall (exp : Expr<'a -> 'b>)  resultF (mock:'a) =
     let field = mock.GetType().GetField("_dict")
     let d = field.GetValue mock :?> Dictionary<obj,obj>
-    d.Add(methodName,resultF)
+    d.Add(getMethodName exp,resultF)
 
     field.SetValue(mock,d)
     mock
+
+let register (exp : Expr<'a -> 'b>)  (resultF:'b) (mock:'a) = registerCall exp  resultF mock

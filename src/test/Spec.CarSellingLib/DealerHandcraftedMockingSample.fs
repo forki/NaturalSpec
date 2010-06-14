@@ -1,5 +1,5 @@
 ﻿// 1. define module
-module Spec.CarSellingLib.DealerMockingSample
+module Spec.CarSellingLib.DealerHandcraftedMockingSample
 
 // 2. open NaturalSpec-Namespace
 open NaturalSpec
@@ -11,13 +11,13 @@ open CarSellingLib
 let DreamCar = new Car(CarType.BMW, 200)
 let LameCar = new Car(CarType.Fiat, 45)
 
-let mutable wasCalled = None
-
 // 4. define a mock object and give it a name
 let createDealer carPrices =     
     let dict = Map.ofSeq carPrices
-    mock<IDealer> "Bert"
-       |> registerCall <@fun x -> x.SellCar @> (fun price -> wasCalled <- Some price; Map.find price dict)    
+    {new IDealer with 
+        member x.SellCar price = 
+            calling "SellCar" price
+            Map.find price dict }
 
 // 5. create a method in BDD-style
 let selling_a_car_for amount (dealer:IDealer) =
@@ -33,8 +33,7 @@ let ``When selling the DreamCar for 40000``() =
       |> When selling_a_car_for 40000
       |> It should equal DreamCar
       |> It shouldn't equal LameCar
-      |> Whereas wasCalled
-      |> It should equal (Some 40000)
+      |> It should have (called "SellCar" 40000)
       |> Verify
     
      
@@ -46,8 +45,7 @@ let ``When selling the Lamecar for 19000``() =
       |> When selling_a_car_for 19000
       |> It shouldn't equal DreamCar
       |> It should equal LameCar
-      |> Whereas wasCalled
-      |> It should equal (Some 19000)
+      |> It should have (called "SellCar" 19000)
       |> Verify
     
 [<Scenario>]
