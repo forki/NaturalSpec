@@ -25,7 +25,7 @@ let add a b (x:IFoo) =
 let ``When getting the name of a mock``() =  
     let m =
         mock<IFoo> "MyMock"
-          |> registerCall <@fun x -> x.Name @> (fun _ -> "MyName")
+          |> registerProperty <@fun x -> x.Name @> (fun _ -> "MyName")
 
     Given m
       |> When getting name

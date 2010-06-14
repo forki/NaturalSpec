@@ -55,7 +55,7 @@ let ``When not calling the mocked function``() =
 
     As bert
       |> When selling_a_car_for 19000
-      |> It should equal DreamCar
+      |> It should equal LameCar
       |> It should have (called "SellCar" 19000)
       |> It should have (called "SellCar" 30000)
       |> Verify
