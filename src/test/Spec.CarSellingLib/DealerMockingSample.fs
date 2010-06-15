@@ -62,3 +62,14 @@ let ``When not calling the second mocked function``() =
       |> When selling_a_car_for 19000
       |> It should equal LameCar
       |> Verify
+      
+[<Scenario>]
+let ``When selling the Lamecar for 19000 mocked``() = 
+    let bert =
+        mock<IDealer> "Bert"
+          |> registerCall <@fun x -> x.SellCar @> (fun price -> if price < 20000 then LameCar else DreamCar)
+
+    As bert
+      |> When selling_a_car_for 19000
+      |> It should equal LameCar
+      |> Verify
