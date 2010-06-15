@@ -11,6 +11,8 @@ open CarSellingLib
 let DreamCar = new Car(CarType.BMW, 200)
 let LameCar = new Car(CarType.Fiat, 45)
 
+let getCarByPrice price = if price < 20000 then LameCar else DreamCar
+
 // 4. create a method in BDD-style
 let selling_a_car_for amount (dealer:IDealer) =
     printMethod amount
@@ -21,7 +23,7 @@ let selling_a_car_for amount (dealer:IDealer) =
 let ``When selling the DreamCar for 40000``() =     
     let bert = 
         mock<IDealer> "Bert"
-          |> expectCall <@fun x -> x.SellCar @> 40000 (fun price -> DreamCar)
+          |> expectCall <@fun x -> x.SellCar @> 40000 getCarByPrice
 
     As bert
       |> When selling_a_car_for 40000
@@ -33,7 +35,7 @@ let ``When selling the DreamCar for 40000``() =
 let ``When selling the Lamecar for 19000``() = 
     let bert =
         mock<IDealer> "Bert"
-          |> expectCall <@fun x -> x.SellCar @> 19000 (fun price -> LameCar)
+          |> expectCall <@fun x -> x.SellCar @> 19000 getCarByPrice
 
     As bert
       |> When selling_a_car_for 19000
@@ -45,7 +47,7 @@ let ``When selling the Lamecar for 19000``() =
 let ``When not calling the mocked function``() = 
     let bert =
         mock<IDealer> "Bert"
-          |> expectCall <@fun x -> x.SellCar @> 19000 (fun price -> LameCar)
+          |> expectCall <@fun x -> x.SellCar @> 19000 getCarByPrice
 
     As bert
       |> Verify
@@ -55,8 +57,8 @@ let ``When not calling the mocked function``() =
 let ``When not calling the second mocked function``() = 
     let bert =
         mock<IDealer> "Bert"
-          |> expectCall <@fun x -> x.SellCar @> 19000 (fun price -> LameCar)    
-          |> expectCall <@fun x -> x.SellCar @> 40000 (fun price -> DreamCar)    
+          |> expectCall <@fun x -> x.SellCar @> 19000 getCarByPrice
+          |> expectCall <@fun x -> x.SellCar @> 40000 getCarByPrice
 
     As bert
       |> When selling_a_car_for 19000
@@ -67,7 +69,7 @@ let ``When not calling the second mocked function``() =
 let ``When selling the Lamecar for 19000 mocked``() = 
     let bert =
         mock<IDealer> "Bert"
-          |> registerCall <@fun x -> x.SellCar @> (fun price -> if price < 20000 then LameCar else DreamCar)
+          |> registerCall <@fun x -> x.SellCar @> getCarByPrice
 
     As bert
       |> When selling_a_car_for 19000
