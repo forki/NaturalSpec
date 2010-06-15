@@ -5,6 +5,8 @@ open System.Reflection
 open System.Collections.Generic
 open System.Reflection.Emit
 
+let mutable SaveAssembly = false
+
 let createProperty<'a> (typeBuilder:TypeBuilder) propertyName =
     let t = typeof<'a>
     // Generate a private field
@@ -92,7 +94,8 @@ let implementInterface<'i> (typeBuilder:TypeBuilder) (dict:FieldBuilder) =
 let mock<'i> name =
     let assemblyName = new AssemblyName(Name = "tmpAssembly")
     let assemblyBuilder = 
-        System.AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave)
+        let mode = if SaveAssembly then AssemblyBuilderAccess.RunAndSave else AssemblyBuilderAccess.Run
+        System.AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, mode)
 
     let filename = "tmpAssembly.dll"
     let tmpModule = assemblyBuilder.DefineDynamicModule(filename,filename)
@@ -117,7 +120,8 @@ let mock<'i> name =
     // Generate our type
     let generatedType = typeBuilder.CreateType()
     
-    assemblyBuilder.Save(filename)
+    if SaveAssembly then
+        assemblyBuilder.Save filename
     
     let generatedObject = System.Activator.CreateInstance generatedType
     
