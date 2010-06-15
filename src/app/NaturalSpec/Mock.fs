@@ -94,8 +94,7 @@ let implementInterface<'i> (typeBuilder:TypeBuilder) (dict:FieldBuilder) =
 let mock<'i> name =
     let assemblyName = new AssemblyName(Name = "tmpAssembly")
     let assemblyBuilder = 
-        let mode = if SaveAssembly then AssemblyBuilderAccess.RunAndSave else AssemblyBuilderAccess.Run
-        System.AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, mode)
+        System.AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave)
 
     let filename = "tmpAssembly.dll"
     let tmpModule = assemblyBuilder.DefineDynamicModule(filename,filename)
@@ -142,19 +141,19 @@ let getMethodName (exp : Expr<'a -> 'b>) =
     | _ -> failwithf "Unknown pattern %A" exp
 
 let registerCall (exp : Expr<'a -> 'b>) (resultF: 'c -> 'd) (mock:'a) =
-    let field = mock.GetType().GetField("_dict")
+    let field = mock.GetType().GetField "_dict"
     let d = field.GetValue mock :?> Dictionary<obj,obj>
+    let methodName = getMethodName exp
     let wasCalled = ref []
     let called x = 
         wasCalled := x::!wasCalled
         resultF x
+    expectations.Add(fun () -> if !wasCalled = [] then failwithf "Method %s was not called on %A" methodName mock)
 
-    d.Add(getMethodName exp,called)
+    d.Add(methodName,called)
 
     field.SetValue(mock,d)
-    mock,fun () -> !wasCalled
+    mock
 
 let registerProperty (exp : Expr<'a -> 'b>)  (resultF:unit -> 'b) (mock:'a) = registerCall exp resultF mock
 let register (exp : Expr<'a -> ('b -> 'c)>)  (resultF:('b -> 'c)) (mock:'a) = registerCall exp resultF mock
-
-

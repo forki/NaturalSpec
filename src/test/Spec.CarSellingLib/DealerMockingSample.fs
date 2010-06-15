@@ -25,25 +25,21 @@ let selling_a_car_for amount (dealer:IDealer) =
 // 6. create a scenario      
 [<Scenario>]
 let ``When selling the DreamCar for 40000``() =     
-    let bert,wasCalled = createDealer [(40000,DreamCar)]
+    let bert = createDealer [(40000,DreamCar)]
 
     As bert
       |> When selling_a_car_for 40000
       |> It should equal DreamCar
       |> It shouldn't equal LameCar
-      |> Whereas (wasCalled())
-      |> It should contain 40000
       |> Verify
     
      
 [<Scenario>]
 let ``When selling the Lamecar for 19000``() = 
-    let bert,wasCalled = createDealer [(19000,LameCar)]  
+    let bert = createDealer [(19000,LameCar)]  
 
     As bert
       |> When selling_a_car_for 19000
       |> It shouldn't equal DreamCar
       |> It should equal LameCar
-      |> Whereas (wasCalled())
-      |> It should contain 19000
       |> Verify
