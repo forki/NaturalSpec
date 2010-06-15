@@ -141,7 +141,7 @@ let getMethodName (exp : Expr<'a -> 'b>) =
     | Lambda (x, Lambda (tupledArg, Let (arg00, _, Let (arg01, _,  Call (a, b, c))))) -> b.Name
     | _ -> failwithf "Unknown pattern %A" exp
 
-let registerProperty (exp : Expr<'a -> 'b>) (resultF: 'c -> 'd) (mock:'a) =
+let registerCall (exp : Expr<'a -> 'b>) (resultF: 'c -> 'd) (mock:'a) =
     let field = mock.GetType().GetField("_dict")
     let d = field.GetValue mock :?> Dictionary<obj,obj>
     let wasCalled = ref []
@@ -154,6 +154,7 @@ let registerProperty (exp : Expr<'a -> 'b>) (resultF: 'c -> 'd) (mock:'a) =
     field.SetValue(mock,d)
     mock,fun () -> !wasCalled
 
-let register (exp : Expr<'a -> ('b -> 'c)>)  (resultF:('b -> 'c)) (mock:'a) = registerProperty exp resultF mock
+let registerProperty (exp : Expr<'a -> 'b>)  (resultF:unit -> 'b) (mock:'a) = registerCall exp resultF mock
+let register (exp : Expr<'a -> ('b -> 'c)>)  (resultF:('b -> 'c)) (mock:'a) = registerCall exp resultF mock
 
 
