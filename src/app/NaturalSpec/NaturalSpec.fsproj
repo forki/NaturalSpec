@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Expectations.fs" />
     <Compile Include="Spec.fs" />
     <Compile Include="Utils.fs" />
     <Compile Include="TimeMeasurement.fs" />

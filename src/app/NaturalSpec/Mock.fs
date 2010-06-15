@@ -143,17 +143,58 @@ let getMethodName (exp : Expr<'a -> 'b>) =
 let registerCall (exp : Expr<'a -> 'b>) (resultF: 'c -> 'd) (mock:'a) =
     let field = mock.GetType().GetField "_dict"
     let d = field.GetValue mock :?> Dictionary<obj,obj>
-    let methodName = getMethodName exp
-    let wasCalled = ref []
-    let called x = 
-        wasCalled := x::!wasCalled
-        resultF x
-    expectations.Add(fun () -> if !wasCalled = [] then failwithf "Method %s was not called on %A" methodName mock)
-
-    d.Add(methodName,called)
+    
+    d.Add(getMethodName exp,resultF)
 
     field.SetValue(mock,d)
     mock
 
-let registerProperty (exp : Expr<'a -> 'b>)  (resultF:unit -> 'b) (mock:'a) = registerCall exp resultF mock
-let register (exp : Expr<'a -> ('b -> 'c)>)  (resultF:('b -> 'c)) (mock:'a) = registerCall exp resultF mock
+let expectAnyCall exp resultF mock =
+    let methodName = getMethodName exp
+    let wasCalled = ref false
+    let called x = 
+        wasCalled := true
+        resultF x
+
+    let expectation() =
+        if !wasCalled then null
+        else new System.Exception(sprintf "Method %s was not called on %A" methodName mock) 
+
+    Expectations.add expectation
+    registerCall exp called mock
+
+
+let registerProperty (exp : Expr<'a -> 'b>)  (resultF:unit -> 'b) (mock:'a) = expectAnyCall exp resultF mock
+let register (exp : Expr<'a -> ('b -> 'c)>)  (resultF:('b -> 'c)) (mock:'a) = expectAnyCall exp resultF mock
+
+let expectCall (exp : Expr<'a -> ('b -> 'c)>)  parameter (resultF:('b -> 'c)) (mock:'a) =
+    let field = mock.GetType().GetField "_dict"
+    let d = field.GetValue mock :?> Dictionary<obj,obj>
+    let methodName = getMethodName exp
+    let wasCalled = ref false
+
+    Expectations.add 
+        (fun _ ->
+            if !wasCalled then null
+            else new System.Exception(sprintf "Method %s was not called with %A on %A" methodName parameter mock))
+
+    match d.TryGetValue methodName with
+    | true,m ->
+        let m1 = m :?> ('b -> 'c)
+        let called x = 
+            if x = parameter then
+              wasCalled := true
+              resultF x
+            else m1 x
+        d.[methodName] <- called
+    | _ -> 
+        let called x = 
+            if x = parameter then
+              wasCalled := true
+              resultF x
+            else failwithf "No result given for %s(%A) on %A" methodName parameter mock
+
+        d.Add(methodName,called)
+
+    field.SetValue(mock,d)
+    mock

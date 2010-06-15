@@ -25,11 +25,8 @@ let calls = new System.Collections.Generic.HashSet<string * string>()
 /// Register a expected call
 let calling methodName param = calls.Add(methodName, param.ToString()) |> ignore
 
-/// All expectations
-let expectations = new System.Collections.Generic.List<unit -> unit>()
-
 /// Inits a scenario    
-let initScenario() =  
+let initScenario() =
     stopWatch.Reset()
     stopWatch.Start()
     printScenario()
@@ -183,12 +180,16 @@ let Named (name:string) (list:TestCaseData list) =
 /// Verifies a scenario   
 let Verify x =
     // verify expectations
-    expectations |> Seq.iter (fun f -> f())
+
+
+    Expectations.getErrors()
+      |> Seq.iter raise
 
     // print OK
     prepareOutput x
       |> sprintf "\r\n  ==> Result is: %s" 
       |> toSpec
+
     toSpec "\r\n  ==> OK"    
     printElapsed()
     toSpec "\r\n"
