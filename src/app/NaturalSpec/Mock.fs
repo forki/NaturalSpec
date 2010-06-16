@@ -64,16 +64,28 @@ let implementInterface<'i> (typeBuilder:TypeBuilder) (dict:FieldBuilder) =
                 args)
 
         let il = methodImpl.GetILGenerator()
-        
-        il.Emit(OpCodes.Ldarg_0)
+     
+        IlHelper.IfNotThenBlock 
+            (fun il ->
+                il.Emit(OpCodes.Ldarg_0)
+                // put method dict on stack
+                il.Emit(OpCodes.Ldfld,dict)
 
+                // put method name on stack
+                il.Emit(OpCodes.Ldstr, m.Name)
+
+                il.Emit(OpCodes.Callvirt,typeof<Dictionary<obj,obj>>.GetMethod("ContainsKey",[|typeof<obj>|])))
+            (IlHelper.throwException<System.Exception> (sprintf "Method %s was not registered." m.Name))
+            il
+          |> ignore
+
+        // Lookup method
+        il.Emit(OpCodes.Ldarg_0)
         // put method dict on stack
         il.Emit(OpCodes.Ldfld,dict)
 
         // put method name on stack
         il.Emit(OpCodes.Ldstr, m.Name)
-
-        // Lookup method
         il.Emit(OpCodes.Callvirt,typeof<Dictionary<obj,obj>>.GetMethod("get_Item",[|typeof<obj>|]))
                  
         if args = [||] then                                               
@@ -84,9 +96,12 @@ let implementInterface<'i> (typeBuilder:TypeBuilder) (dict:FieldBuilder) =
            else
               il.Emit(OpCodes.Ldarg_1)
               il.Emit(OpCodes.Ldarg_2)
-              il.Emit(OpCodes.Newobj,(getTupleType2 args.[0] args.[1]).GetConstructor(args))
+              il.Emit(OpCodes.Newobj,(getTupleType2 args.[0] args.[1]).GetConstructor args)
               
-        il.Emit(OpCodes.Callvirt,typeof<FSharpFunc<obj,obj>>.GetMethod("Invoke"))  
+        il.Emit(OpCodes.Callvirt,typeof<FSharpFunc<obj,obj>>.GetMethod "Invoke")
+        if m.ReturnType = typeof<System.Void> then
+            il.Emit(OpCodes.Pop)
+            
         il.Emit(OpCodes.Ret)
 
         typeBuilder.DefineMethodOverride(methodImpl, m)
