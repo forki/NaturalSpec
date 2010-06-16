@@ -71,11 +71,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IOrder.cs" />
-    <Compile Include="IEmailService.cs" />
     <Compile Include="IWarehouse.cs" />
     <Compile Include="Order.cs" />
-    <Compile Include="OrderProcessing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

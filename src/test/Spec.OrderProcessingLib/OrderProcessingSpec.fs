@@ -1,5 +1,6 @@
 ﻿module Spec.OrderProcOrderProcessingSpec
 
+open System
 open NaturalSpec
 open OrderProcessingLib
 
@@ -15,7 +16,7 @@ let filled (order:Order) =
     order.IsFilled
 
 [<Scenario>]
-let ``Filling removes inventory if in Stock``() =
+let ``Filling removes from inventory if in Stock``() =
     let order = new Order(TALISKER, 50)
     let warehouse = 
         mock<IWarehouse> "Warehouse"
@@ -25,4 +26,16 @@ let ``Filling removes inventory if in Stock``() =
     Given order
       |> When filling warehouse
       |> It should be filled
+      |> Verify
+
+[<Scenario>]
+let ``Filling removes doesn't remove from inventory if not enough in Stock``() =
+    let order = new Order(TALISKER, 50)
+    let warehouse = 
+        mock<IWarehouse> "Warehouse"
+            |> expectCall <@fun x -> x.HasInventory @> (TALISKER, 50) (fun (_,count) -> count > 100)
+
+    Given order
+      |> When filling warehouse
+      |> It shouldn't be filled
       |> Verify
