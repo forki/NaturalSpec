@@ -26,7 +26,34 @@ let ``Mocked interface should be implemented by mock``() =
     Given (mock<IFoo> "MyMock")
       |> When castingAs<IFoo>
       |> Verify
+
+[<Scenario>]
+[<FailsWith "Method get_Name was not registered.">]
+let ``Calling a unregistered method on a mocked interface should throw``() =
+    Given (mock<IFoo> "MyMock")
+      |> When getting name
+      |> Verify
   
+[<Scenario>]
+[<FailsWith "Method Add was not called with (3, 4) on MyMock.">]
+let ``Not calling an expected method on a mocked interface should throw``() =
+    let m =
+        mock<IFoo> "MyMock"
+          |> expectCall <@fun x -> x.Add @> (3,4) (fun _ -> 0)
+
+    Given (mock<IFoo> "MyMock")
+      |> Verify
+
+[<Scenario>]
+[<FailsWith "Method Add was not registered.">]
+let ``Not calling an expected method with the right params on a mocked interface should throw``() =
+    let m =
+        mock<IFoo> "MyMock"
+          |> expectCall <@fun x -> x.Add @> (3,4) (fun _ -> 0)
+
+    Given (mock<IFoo> "MyMock")
+      |> When calculating (add 4 5)  // different params
+      |> Verify
 
 [<Scenario>]
 let ``When getting the name of a mock``() =  

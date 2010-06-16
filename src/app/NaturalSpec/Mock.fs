@@ -173,9 +173,9 @@ let expectAnyCall exp resultF mock =
 
     let expectation() =
         if !wasCalled then null
-        else new System.Exception(sprintf "Method %s was not called on %A" methodName mock) 
+        else new System.Exception(sprintf "Method %s was not called on %A." methodName mock) 
 
-    Expectations.add expectation
+    Expectations.add(Expectations.getScenarioName(),expectation)
     registerCall exp called mock
 
 
@@ -188,26 +188,28 @@ let expectCall (exp : Expr<'a -> ('b -> 'c)>)  parameter (resultF:('b -> 'c)) (m
     let methodName = getMethodName exp
     let wasCalled = ref false
 
-    Expectations.add 
+    Expectations.add(
+        Expectations.getScenarioName(),
         (fun _ ->
             if !wasCalled then null
-            else new System.Exception(sprintf "Method %s was not called with %A on %A" methodName parameter mock))
+            else new System.Exception(sprintf "Method %s was not called with %A on %A." methodName parameter mock)))
 
     match d.TryGetValue methodName with
     | true,m ->
         let m1 = m :?> ('b -> 'c)
         let called x = 
             if x = parameter then
-              wasCalled := true
-              resultF x
+                wasCalled := true
+                resultF x
             else m1 x
+
         d.[methodName] <- called
     | _ -> 
         let called x = 
             if x = parameter then
-              wasCalled := true
-              resultF x
-            else failwithf "No result given for %s(%A) on %A" methodName parameter mock
+                wasCalled := true
+                resultF x
+            else failwithf "No result given for %s (%A) on %A" methodName parameter mock
 
         d.Add(methodName,called)
 
