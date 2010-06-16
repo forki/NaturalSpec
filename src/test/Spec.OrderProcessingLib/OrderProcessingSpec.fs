@@ -3,25 +3,26 @@
 open NaturalSpec
 open OrderProcessingLib
 
-let shipping order (x:OrderProcessing) =
-    printMethod order
-    x.Ship order |> ignore
-    x
+let TALISKER = "Talisker"
 
-let mockEmailService = 
-    {new IEmailService with
-        member x.Send() = calling "EmailService.Send" "" }
-
-let order = 
-    {new IOrder with
-        member x.Ship() = calling "Order.Ship" "" }
+let filling warehouse (order:Order) =
+    printMethod warehouse
+    order.Fill warehouse
+    order
+    
+let filled (order:Order) = 
+    printMethod ""
+    order.IsFilled
 
 [<Scenario>]
-let ``When shipping order``() =
-  let OrderProcessing = new OrderProcessing(mockEmailService)
-  
-  Given OrderProcessing
-    |> When shipping order
-    |> It should have (called "EmailService.Send" "")
-    |> It should have (called "Order.Ship" "")
-    |> Verify
+let ``Filling removes inventory if in Stock``() =
+    let order = new Order(TALISKER, 50)
+    let warehouse = 
+        mock<IWarehouse> "Warehouse"
+            |> expectCall <@fun x -> x.HasInventory @> (TALISKER, 50) (fun _ -> true)
+            |> expectCall <@fun x -> x.Remove @> (TALISKER, 50) (fun _ -> ())
+
+    Given order
+      |> When filling warehouse
+      |> It should be filled
+      |> Verify
