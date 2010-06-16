@@ -33,7 +33,7 @@ let ``Filling removes doesn't remove from inventory if not enough in Stock``() =
     let order = new Order(TALISKER, 50)
     let warehouse = 
         mock<IWarehouse> "Warehouse"
-            |> expectCall <@fun x -> x.HasInventory @> (TALISKER, 50) (fun (_,count) -> count > 100)
+            |> expectCall <@fun x -> x.HasInventory @> (TALISKER, 50) (fun _ -> false)
 
     Given order
       |> When filling warehouse
