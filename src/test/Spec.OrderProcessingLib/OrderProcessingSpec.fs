@@ -16,7 +16,7 @@ let filled (order:Order) =
     order.IsFilled
 
 [<Scenario>]
-let ``Filling removes from inventory if in Stock``() =
+let ``Filling order removes items from inventory if in Stock``() =
     let order = new Order(TALISKER, 50)
     let warehouse = 
         mock<IWarehouse> "Warehouse"
@@ -29,7 +29,7 @@ let ``Filling removes from inventory if in Stock``() =
       |> Verify
 
 [<Scenario>]
-let ``Filling removes doesn't remove from inventory if not enough in Stock``() =
+let ``Filling order removes doesn't remove items from inventory if not enough in Stock``() =
     let order = new Order(TALISKER, 50)
     let warehouse = 
         mock<IWarehouse> "Warehouse"
