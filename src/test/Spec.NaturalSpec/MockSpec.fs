@@ -22,6 +22,13 @@ let add a b (x:IFoo) =
     result
 
 [<Scenario>]
+let ``Mocked interface should be implemented by mock``() =
+    Given (mock<IFoo> "MyMock")
+      |> When castingAs<IFoo>
+      |> Verify
+  
+
+[<Scenario>]
 let ``When getting the name of a mock``() =  
     let m =
         mock<IFoo> "MyMock"

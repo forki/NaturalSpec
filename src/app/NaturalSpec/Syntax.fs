@@ -93,7 +93,12 @@ let checkEquality (expected:'a) (value:'a) pipe = Equality,expected,value,pipe
 /// Use it as in "|> It should equal x"
 let equal (expected:'a) (value:'a) = 
     sprintf "equal %s" (prepareOutput expected) |> toSpec
-    checkEquality expected value value    
+    checkEquality expected value value
+
+/// Fluid helper - prints "casting as type "
+let castingAs<'a>  (value:obj) = 
+    sprintf "casting as %s" (typeof<'a>.ToString()) |> toSpec
+    value :?> 'a
   
 /// Fluid helper - prints "be "
 /// Tests for boolean condition
@@ -180,8 +185,6 @@ let Named (name:string) (list:TestCaseData list) =
 /// Verifies a scenario   
 let Verify x =
     // verify expectations
-
-
     Expectations.getErrors()
       |> Seq.iter raise
 
