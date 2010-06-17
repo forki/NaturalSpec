@@ -20,6 +20,5 @@
             warehouse.Remove(ProductName, Quantity);
             IsFilled = true;
         }
-
     }
 }
