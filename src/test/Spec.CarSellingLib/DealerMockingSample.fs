@@ -43,7 +43,7 @@ let ``When selling the Lamecar for 19000``() =
       |> Verify
 
 [<Scenario>]
-[<FailsWith "Method SellCar was not called with 19000 on Bert">]
+[<FailsWith "Method SellCar was not called with 19000 on Bert.">]
 let ``When not calling the mocked function``() = 
     let bert =
         mock<IDealer> "Bert"
@@ -53,7 +53,7 @@ let ``When not calling the mocked function``() =
       |> Verify
 
 [<Scenario>]
-[<FailsWith "Method SellCar was not called with 40000 on Bert">]
+[<FailsWith "Method SellCar was not called with 40000 on Bert.">]
 let ``When not calling the second mocked function``() = 
     let bert =
         mock<IDealer> "Bert"
