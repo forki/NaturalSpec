@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{12e106d5-1621-4ea5-8102-a47653e49d38}</ProjectGuid>
+    <ProjectGuid>{c798b91f-b10a-4667-865a-0111936b5b64}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Spec.OrderProcessingLib</RootNamespace>
     <AssemblyName>Spec.OrderProcessingLib</AssemblyName>
@@ -46,7 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OrderProcessingSpec.fs" />
+    <Compile Include="StoreMock.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\app\NaturalSpec\NaturalSpec.fsproj">
@@ -54,9 +54,10 @@
       <Project>{3019240d-bbd3-4951-9c5e-4b343638bd4b}</Project>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\test\OrderProcessingLib\OrderProcessingLib.csproj">
-      <Project>{FAAB52DA-DF1D-486C-BFA2-4A36E16B1861}</Project>
-      <Name>OrderProcessingLib</Name>
+    <ProjectReference Include="..\StoreSample\StoreSample.csproj">
+      <Name>StoreSample</Name>
+      <Project>{48b72b94-6af8-4a38-8fb4-86c95732192f}</Project>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\..\..\tools\FSharp\Microsoft.FSharp.Targets" />
