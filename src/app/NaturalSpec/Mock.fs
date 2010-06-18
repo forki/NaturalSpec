@@ -150,9 +150,11 @@ open Microsoft.FSharp.Quotations.DerivedPatterns
 
 let getMethodName (exp : Expr<'a -> 'b>) =
     match exp with
-    | Lambda (x, PropertyGet (a,b,c)) -> b.GetGetMethod().Name
-    | Lambda (x1, Lambda (x2, Call (a, b, c))) -> b.Name
-    | Lambda (x, Lambda (tupledArg, Let (arg00, _, Let (arg01, _,  Call (a, b, c))))) -> b.Name
+    | Lambda (_, PropertyGet (_,b,_)) -> b.GetGetMethod().Name
+    | Lambda (_, Lambda (_, Call (_, b, _))) -> b.Name
+    | Lambda (_, Lambda (_, Let (_, _, Let (_, _, Call (_, b, _))))) -> b.Name
+    | Lambda (_, Let (_, Call (_, _, Lambda (_, Call (_,c,_))::_), Lambda (_, Call (_, b, _)))) 
+        when b.Name = "AddHandler" -> c.Name
     | _ -> failwithf "Unknown pattern %A" exp
 
 let registerCall (exp : Expr<'a -> 'b>) (resultF: 'c -> 'd) (mock:'a) =

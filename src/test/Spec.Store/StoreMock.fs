@@ -19,6 +19,7 @@ let ``Creating a ProductsPresenter should set ViewCategories``() =
     let view = 
         mock<IProductsView> "View"
           |> registerCall <@fun x -> x.SetCategories @> (fun _ -> ())
+          |> registerCall <@fun x -> x.CategorySelected.AddHandler @> (fun _ -> ())
     
     Given catalog
       |> When creating_presenter_with view
