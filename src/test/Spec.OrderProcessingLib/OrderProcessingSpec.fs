@@ -20,12 +20,15 @@ let ``Filling order removes items from inventory if in Stock``() =
     let order = new Order(TALISKER, 50)
     let warehouse = 
         mock<IWarehouse> "Warehouse"
-            |> expectCall <@fun x -> x.HasInventory @> (TALISKER, 50) (fun _ -> true)
-            |> expectCall <@fun x -> x.Remove @> (TALISKER, 50) (fun _ -> ())
+            |> setup <@fun x -> x.HasInventory @> (fun _ -> true)
+            |> setup <@fun x -> x.Remove @> (fun _ -> ())
 
     Given order
       |> When filling warehouse
       |> It should be filled
+      |> Whereas warehouse
+      |> Called <@fun x -> x.HasInventory @> (TALISKER, 50)
+      |> Called <@fun x -> x.Remove @> (TALISKER, 50)
       |> Verify
 
 [<Scenario>]
@@ -33,9 +36,11 @@ let ``Filling order removes doesn't remove items from inventory if not enough in
     let order = new Order(TALISKER, 50)
     let warehouse = 
         mock<IWarehouse> "Warehouse"
-            |> expectCall <@fun x -> x.HasInventory @> (TALISKER, 50) (fun _ -> false)
+            |> setup <@fun x -> x.HasInventory @> (fun _ -> false)
 
     Given order
       |> When filling warehouse
       |> It shouldn't be filled
+      |> Whereas warehouse
+      |> Called <@fun x -> x.HasInventory @> (TALISKER, 50)
       |> Verify

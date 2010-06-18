@@ -18,13 +18,6 @@ let printMethod (x:obj) =
     methodName 2 x
       |> toSpec
 
-
-/// Calls  
-let calls = new System.Collections.Generic.HashSet<string * string>()
-
-/// Register a expected call
-let calling methodName param = calls.Add(methodName, param.ToString()) |> ignore
-
 /// Inits a scenario    
 let initScenario() =
     stopWatch.Reset()
@@ -112,15 +105,7 @@ let be (f:'a -> bool) value =
 /// Use it as in "|> It should be true"    
 let have (f:'a-> bool) value = 
     toSpec "have "
-    IsTrue,true,f value,value     
-
-/// Fluid helper - prints "called "
-/// Tests for boolean condition
-/// Use it as in "|> It should have called"  
-let called methodName param _ = 
-    let p = param.ToString()
-    toSpec <| sprintf "called %s with %s" (prepareOutput methodName) p
-    calls.Contains(methodName,p)
+    IsTrue,true,f value,value
         
 /// Fluid helper - prints "should "
 /// Tests if the given observation hold

@@ -23,11 +23,13 @@ let selling_a_car_for amount (dealer:IDealer) =
 let ``When selling the DreamCar for 40000``() =     
     let bert = 
         mock<IDealer> "Bert"
-          |> expectCall <@fun x -> x.SellCar @> 40000 getCarByPrice
+          |> setup <@fun x -> x.SellCar @> getCarByPrice
 
     As bert
       |> When selling_a_car_for 40000
       |> It should equal DreamCar
+      |> Whereas bert
+      |> Called <@fun x -> x.SellCar @> 40000
       |> Verify
     
      
@@ -35,11 +37,13 @@ let ``When selling the DreamCar for 40000``() =
 let ``When selling the Lamecar for 19000``() = 
     let bert =
         mock<IDealer> "Bert"
-          |> expectCall <@fun x -> x.SellCar @> 19000 getCarByPrice
+          |> setup <@fun x -> x.SellCar @> getCarByPrice
 
     As bert
       |> When selling_a_car_for 19000
       |> It should equal LameCar
+      |> Whereas bert
+      |> Called <@fun x -> x.SellCar @> 19000
       |> Verify
 
 [<Scenario>]
@@ -47,9 +51,10 @@ let ``When selling the Lamecar for 19000``() =
 let ``When not calling the mocked function``() = 
     let bert =
         mock<IDealer> "Bert"
-          |> expectCall <@fun x -> x.SellCar @> 19000 getCarByPrice
+          |> setup <@fun x -> x.SellCar @> getCarByPrice
 
     As bert
+      |> Called <@fun x -> x.SellCar @> 19000
       |> Verify
 
 [<Scenario>]
@@ -57,19 +62,21 @@ let ``When not calling the mocked function``() =
 let ``When not calling the second mocked function``() = 
     let bert =
         mock<IDealer> "Bert"
-          |> expectCall <@fun x -> x.SellCar @> 19000 getCarByPrice
-          |> expectCall <@fun x -> x.SellCar @> 40000 getCarByPrice
+          |> setup <@fun x -> x.SellCar @> getCarByPrice
 
     As bert
       |> When selling_a_car_for 19000
       |> It should equal LameCar
+      |> Whereas bert
+      |> Called <@fun x -> x.SellCar @> 19000
+      |> Called <@fun x -> x.SellCar @> 40000
       |> Verify
       
 [<Scenario>]
 let ``When selling the Lamecar for 19000 mocked``() = 
     let bert =
         mock<IDealer> "Bert"
-          |> registerCall <@fun x -> x.SellCar @> getCarByPrice
+          |> setup <@fun x -> x.SellCar @> getCarByPrice
 
     As bert
       |> When selling_a_car_for 19000

@@ -13,15 +13,17 @@ let creating_presenter_with view catalog =
 
 [<Scenario>]
 let ``Creating a ProductsPresenter should set ViewCategories``() =
-    let list = [Category(Id=1);Category(Id=2)] 
+    let list = [Category(Name="Islay");Category(Name="Highland")] 
     let catalog = 
         mock<ICatalogService> "Catalog"
-          |> registerCall <@fun x -> x.GetCategories @> (fun _ -> list)
+          |> setup <@fun x -> x.GetCategories @> (fun _ -> list)
     let view = 
         mock<IProductsView> "View"
-          |> expectCall <@fun x -> x.SetCategories @> list (fun _ -> ())
-          |> registerCall <@fun x -> x.CategorySelected.AddHandler @> (fun _ -> ())
-    
+          |> setup <@fun x -> x.SetCategories @> (fun _ -> ())
+          |> setup <@fun x -> x.CategorySelected.AddHandler @> (fun _ -> ())
+
     Given catalog
       |> When creating_presenter_with view
+      |> Whereas view
+      |> Called <@fun x -> x.SetCategories @> list
       |> Verify
