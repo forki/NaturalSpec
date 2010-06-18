@@ -13,15 +13,15 @@ let creating_presenter_with view catalog =
 
 [<Scenario>]
 let ``Creating a ProductsPresenter should set ViewCategories``() =
+    let list = [Category(Id=1);Category(Id=2)] 
     let catalog = 
         mock<ICatalogService> "Catalog"
-          |> registerCall <@fun x -> x.GetCategories @> (fun _ -> [])
+          |> registerCall <@fun x -> x.GetCategories @> (fun _ -> list)
     let view = 
         mock<IProductsView> "View"
-          |> registerCall <@fun x -> x.SetCategories @> (fun _ -> ())
+          |> expectCall <@fun x -> x.SetCategories @> list (fun _ -> ())
           |> registerCall <@fun x -> x.CategorySelected.AddHandler @> (fun _ -> ())
     
     Given catalog
       |> When creating_presenter_with view
-      //|>  view.Verify(v => v.SetCategories(It.IsAny<IEnumerable<Category>>()));
       |> Verify
