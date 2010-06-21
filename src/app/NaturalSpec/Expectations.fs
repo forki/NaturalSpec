@@ -1,6 +1,7 @@
 ﻿module NaturalSpec.Expectations
 
 open System.Diagnostics
+open System.Collections.Generic
 
 /// Try to find scenario in call stack
 let findScenario() =
@@ -20,8 +21,10 @@ let getScenarioName () =
 
 
 /// All expectations
-let private expectations = new System.Collections.Generic.List<string * (unit -> System.Exception)>()
+let private expectations = new List<string * (unit -> System.Exception)>()
+let internal calls = new List<string * string * string * obj>()
 
+let addCall scenario mock methodName param = calls.Add (scenario,mock,methodName,param)
 let add = expectations.Add
 
 let getErrors () =

@@ -39,20 +39,23 @@ let ``Calling a unregistered method on a mocked interface should throw``() =
 let ``Not calling an expected method on a mocked interface should throw``() =
     let m =
         mock<IFoo> "MyMock"
-          |> expectCall <@fun x -> x.Add @> (3,4) (fun _ -> 0)
+          |> setup <@fun x -> x.Add @> (fun _ -> 0)
 
-    Given (mock<IFoo> "MyMock")
+    Given m
+      |> Called <@fun x -> x.Add @> (3,4)
       |> Verify
 
 [<Scenario>]
-[<FailsWith "Method Add was not registered.">]
+[<FailsWith "Method Add was not called with (3, 4) on MyMock.">]
 let ``Not calling an expected method with the right params on a mocked interface should throw``() =
     let m =
         mock<IFoo> "MyMock"
-          |> expectCall <@fun x -> x.Add @> (3,4) (fun _ -> 0)
+          |> setup <@fun x -> x.Add @> (fun _ -> 0)
 
-    Given (mock<IFoo> "MyMock")
+    Given m
       |> When calculating (add 4 5)  // different params
+      |> Whereas m      
+      |> Called <@fun x -> x.Add @> (3,4)
       |> Verify
 
 [<Scenario>]

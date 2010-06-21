@@ -150,21 +150,45 @@ open Microsoft.FSharp.Quotations.DerivedPatterns
 
 let getMethodName (exp : Expr<'a -> 'b>) =
     match exp with
-    | Lambda (x, PropertyGet (a,b,c)) -> b.GetGetMethod().Name
-    | Lambda (x1, Lambda (x2, Call (a, b, c))) -> b.Name
-    | Lambda (x, Lambda (tupledArg, Let (arg00, _, Let (arg01, _,  Call (a, b, c))))) -> b.Name
+    | Lambda (_, PropertyGet (_,b,_)) -> b.GetGetMethod().Name
+    | Lambda (_, Lambda (_, Call (_, b, _))) -> b.Name
+    | Lambda (_, Lambda (_, Let (_, _, Let (_, _, Call (_, b, _))))) -> b.Name
+    | Lambda (_, Let (_, Call (_, _, Lambda (_, Call (_,c,_))::_), Lambda (_, Call (_, b, _)))) 
+        when b.Name = "AddHandler" -> c.Name
     | _ -> failwithf "Unknown pattern %A" exp
 
-let registerCall (exp : Expr<'a -> 'b>) (resultF: 'c -> 'd) (mock:'a) =
+let setup (exp : Expr<'a -> 'b>) (resultF: 'c -> 'd) (mock:'a) =
     let field = mock.GetType().GetField "_dict"
     let d = field.GetValue mock :?> Dictionary<obj,obj>
-    
-    d.Add(getMethodName exp,resultF)
+    let scenario = Expectations.getScenarioName()
+    let methodName = getMethodName exp
+
+    let f x =
+        Expectations.addCall scenario (mock.ToString()) methodName x
+        resultF x
+
+    d.Add(methodName,f)
 
     field.SetValue(mock,d)
     mock
 
-let expectAnyCall exp resultF mock =
+let called methodName x mock =
+    let scenario = Expectations.getScenarioName()
+
+    let verfiy() =    
+        if Expectations.calls.Contains(scenario,(mock.ToString()),methodName,x) then null
+        else new System.Exception(sprintf "Method %s was not called with %A on %A." methodName x mock) 
+
+    Expectations.add(scenario,verfiy)
+
+let Called (exp : Expr<'a -> 'b>) x (mock:'a) = 
+    let methodName = getMethodName exp
+    let m = called methodName x mock
+    toSpec (sprintf "\r\n      => Called %s(%A)" methodName x) 
+
+    mock
+
+let private expectAnyCall exp resultF mock =
     let methodName = getMethodName exp
     let wasCalled = ref false
     let called x = 
@@ -176,42 +200,8 @@ let expectAnyCall exp resultF mock =
         else new System.Exception(sprintf "Method %s was not called on %A." methodName mock) 
 
     Expectations.add(Expectations.getScenarioName(),expectation)
-    registerCall exp called mock
+    setup exp called mock
 
 
 let registerProperty (exp : Expr<'a -> 'b>)  (resultF:unit -> 'b) (mock:'a) = expectAnyCall exp resultF mock
 let register (exp : Expr<'a -> ('b -> 'c)>)  (resultF:('b -> 'c)) (mock:'a) = expectAnyCall exp resultF mock
-
-let expectCall (exp : Expr<'a -> ('b -> 'c)>)  parameter (resultF:('b -> 'c)) (mock:'a) =
-    let field = mock.GetType().GetField "_dict"
-    let d = field.GetValue mock :?> Dictionary<obj,obj>
-    let methodName = getMethodName exp
-    let wasCalled = ref false
-
-    Expectations.add(
-        Expectations.getScenarioName(),
-        (fun _ ->
-            if !wasCalled then null
-            else new System.Exception(sprintf "Method %s was not called with %A on %A." methodName parameter mock)))
-
-    match d.TryGetValue methodName with
-    | true,m ->
-        let m1 = m :?> ('b -> 'c)
-        let called x = 
-            if x = parameter then
-                wasCalled := true
-                resultF x
-            else m1 x
-
-        d.[methodName] <- called
-    | _ -> 
-        let called x = 
-            if x = parameter then
-                wasCalled := true
-                resultF x
-            else failwithf "No result given for %s (%A) on %A" methodName parameter mock
-
-        d.Add(methodName,called)
-
-    field.SetValue(mock,d)
-    mock

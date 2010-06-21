@@ -5,13 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{17626bc2-8e11-4527-a356-ee71ed95e39d}</ProjectGuid>
+    <ProjectGuid>{c798b91f-b10a-4667-865a-0111936b5b64}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Spec.CarSellingLib</RootNamespace>
-    <AssemblyName>Spec.CarSellingLib</AssemblyName>
+    <RootNamespace>Spec.OrderProcessingLib</RootNamespace>
+    <AssemblyName>Spec.OrderProcessingLib</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <Name>Spec.CarSellingLib</Name>
+    <Name>Spec.OrderProcessingLib</Name>
     <TargetFrameworkProfile />
     <FscToolPath>..\..\..\tools\FSharp\</FscToolPath>
   </PropertyGroup>
@@ -35,7 +35,6 @@
   <ItemGroup>
     <Reference Include="FSharp.Core">
       <HintPath>..\..\..\tools\FSharp\FSharp.Core.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="nunit.framework">
@@ -47,8 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CarSpec.fs" />
-    <Compile Include="DealerMockingSample.fs" />
+    <Compile Include="StoreMock.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\app\NaturalSpec\NaturalSpec.fsproj">
@@ -56,9 +54,10 @@
       <Project>{3019240d-bbd3-4951-9c5e-4b343638bd4b}</Project>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\CarSellingLib\CarSellingLib.csproj">
-      <Project>{BD004EA1-3738-49C2-A139-CDBF25886033}</Project>
-      <Name>CarSellingLib</Name>
+    <ProjectReference Include="..\StoreSample\StoreSample.csproj">
+      <Name>StoreSample</Name>
+      <Project>{48b72b94-6af8-4a38-8fb4-86c95732192f}</Project>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\..\..\tools\FSharp\Microsoft.FSharp.Targets" />
