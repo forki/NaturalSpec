@@ -1,4 +1,4 @@
-﻿module AssemblyInfo
+﻿module NaturalSpec.AssemblyInfo
 
 open System.Reflection
 open System.Runtime.CompilerServices
