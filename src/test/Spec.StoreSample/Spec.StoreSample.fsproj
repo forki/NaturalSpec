@@ -56,8 +56,8 @@
       <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\StoreSample\StoreSample.csproj">
-      <Name>StoreSample (Samples\Mocking\StoreSample\StoreSample)</Name>
-      <Project>{0bfe8954-d349-4414-b4b6-40d660601f24}</Project>
+      <Name>StoreSample</Name>
+      <Project>{48b72b94-6af8-4a38-8fb4-86c95732192f}</Project>
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>

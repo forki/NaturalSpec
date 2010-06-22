@@ -1,29 +1,29 @@
 ﻿module Spec.StoreSample
 
+open System
 open NaturalSpec
-open StoreSample.Presenters
-open StoreSample.Views
+open StoreSample.Models
+open StoreSample.Presenter
 open StoreSample.Services
+open StoreSample.Views
 
-
-let creatingPresenterWith view catalog =
+let creating_presenter_with view catalog =
     printMethod view
     new ProductsPresenter(catalog, view)
-     
+
 [<Scenario>]
-let ``ProductsPresenter should set view categories``() =     
-    let wasCalled = ref false
+let ``Creating a ProductsPresenter should set ViewCategories``() =
+    let list = [Category(Name="Islay");Category(Name="Highland")] 
     let catalog = 
         mock<ICatalogService> "Catalog"
-          |> registerCall <@fun x -> x.GetCategories @>  (fun _ -> [])
+          |> setup <@fun x -> x.GetCategories @> (fun _ -> list)
     let view = 
         mock<IProductsView> "View"
-          |> registerCall <@fun x -> x.SetCategories @>  (fun c -> ())
-          |> registerCall <@fun x -> x.CategorySelected.AddHandler @>  (fun c -> ())
+          |> setup <@fun x -> x.SetCategories @> (fun _ -> ())
+          |> setup <@fun x -> x.CategorySelected.AddHandler @> (fun _ -> ())
 
     Given catalog
-      |> When creatingPresenterWith view
-      |> Whereas (!wasCalled)
-      |> It should equal true
-      // view.Verify(v => v.SetCategories(It.IsAny<IEnumerable<Category>>()));
-      |> Verify    
+      |> When creating_presenter_with view
+      |> Whereas view
+      |> Called <@fun x -> x.SetCategories @> list
+      |> Verify
