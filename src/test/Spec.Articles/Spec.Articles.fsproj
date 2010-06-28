@@ -5,10 +5,10 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{17626bc2-8e11-4527-a356-ee71ed95e39d}</ProjectGuid>
+    <ProjectGuid>{d6b349e0-c610-449e-afe9-1fef49f11f45}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Spec.CarSellingLib</RootNamespace>
-    <AssemblyName>Spec.CarSellingLib</AssemblyName>
+    <AssemblyName>Spec.Articles</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Name>Spec.CarSellingLib</Name>
@@ -47,8 +47,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CarSpec.fs" />
-    <Compile Include="DealerMockingSample.fs" />
     <Compile Include="AccountSpec.fs" />
     <Compile Include="ArticleSearchViewModelSpec.fs" />
   </ItemGroup>
@@ -58,9 +56,10 @@
       <Project>{3019240d-bbd3-4951-9c5e-4b343638bd4b}</Project>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\CarSellingLib\CarSellingLib.csproj">
-      <Project>{BD004EA1-3738-49C2-A139-CDBF25886033}</Project>
-      <Name>CarSellingLib</Name>
+    <ProjectReference Include="..\Articles\Articles.csproj">
+      <Name>Articles (Samples\Mocking\Articles\Articles)</Name>
+      <Project>{7e8d49c0-e2d6-4ed3-8185-ea1e98649565}</Project>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\..\..\tools\FSharp\Microsoft.FSharp.Targets" />
