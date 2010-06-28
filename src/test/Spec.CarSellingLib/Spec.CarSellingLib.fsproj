@@ -49,6 +49,8 @@
   <ItemGroup>
     <Compile Include="CarSpec.fs" />
     <Compile Include="DealerMockingSample.fs" />
+    <Compile Include="AccountSpec.fs" />
+    <Compile Include="ArticleSearchViewModelSpec.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\app\NaturalSpec\NaturalSpec.fsproj">

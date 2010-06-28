@@ -28,3 +28,7 @@ namespace CarSellingLib
         }
     }
 }
+
+namespace Machine.Specifications.Example
+{
+}

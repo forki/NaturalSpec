@@ -37,6 +37,7 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FSharp.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -67,9 +68,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account.cs" />
+    <Compile Include="Article.cs" />
+    <Compile Include="ArticleSearchViewModel.cs" />
     <Compile Include="Car.cs" />
     <Compile Include="CarType.cs" />
     <Compile Include="Dealer.cs" />
+    <Compile Include="IArticleSource.cs" />
     <Compile Include="IDealer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
