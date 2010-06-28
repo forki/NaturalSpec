@@ -2,6 +2,7 @@
 Thumbs.db
 #Ignore files build by Visual Studio
 docs/
+Doc/
 docsBuild/
 test/
 !src/test/
