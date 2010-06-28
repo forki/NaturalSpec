@@ -118,7 +118,7 @@ let should f x y =
 /// Tests if the given observation does not hold
 /// Use it as in "|> It shouldn't equal 5"
 let shouldn't f x y =
-    toSpec "should not "
+    toSpec "shouldn't "
     f x y |> not' |> check 
 
 /// generates TestCaseData object

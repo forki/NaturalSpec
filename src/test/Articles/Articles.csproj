@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{BD004EA1-3738-49C2-A139-CDBF25886033}</ProjectGuid>
+    <ProjectGuid>{7E8D49C0-E2D6-4ED3-8185-EA1E98649565}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CarSellingLib</RootNamespace>
-    <AssemblyName>CarSellingLib</AssemblyName>
+    <RootNamespace>Articles</RootNamespace>
+    <AssemblyName>Articles</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
@@ -52,10 +52,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Car.cs" />
-    <Compile Include="CarType.cs" />
-    <Compile Include="Dealer.cs" />
-    <Compile Include="IDealer.cs" />
+    <Compile Include="Account.cs" />
+    <Compile Include="Article.cs" />
+    <Compile Include="ArticleSearchViewModel.cs" />
+    <Compile Include="IArticleSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
