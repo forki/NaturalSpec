@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using StoreSample.Models;
 
 namespace StoreSample.Views
@@ -7,7 +7,7 @@ namespace StoreSample.Views
     {
         public CategoryEventArgs(Category category)
         {
-            this.Category = category;
+            Category = category;
         }
 
         public Category Category { get; private set; }

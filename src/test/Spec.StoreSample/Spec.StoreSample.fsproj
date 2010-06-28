@@ -5,13 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{c798b91f-b10a-4667-865a-0111936b5b64}</ProjectGuid>
+    <ProjectGuid>{0acc9807-1967-4137-b1aa-7ecc172e0bf5}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Spec.OrderProcessingLib</RootNamespace>
-    <AssemblyName>Spec.OrderProcessingLib</AssemblyName>
+    <RootNamespace>Spec.CarSellingLib</RootNamespace>
+    <AssemblyName>Spec.CarSellingLib</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <Name>Spec.OrderProcessingLib</Name>
+    <Name>Spec.CarSellingLib</Name>
     <TargetFrameworkProfile />
     <FscToolPath>..\..\..\tools\FSharp\</FscToolPath>
   </PropertyGroup>
@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="FSharp.Core">
       <HintPath>..\..\..\tools\FSharp\FSharp.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="nunit.framework">
@@ -46,7 +47,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="StoreMock.fs" />
+    <Compile Include="StoreMockingSample.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\app\NaturalSpec\NaturalSpec.fsproj">

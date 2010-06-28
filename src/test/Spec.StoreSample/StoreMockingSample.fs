@@ -1,4 +1,4 @@
-﻿module Spec.StoreMock
+﻿module Spec.StoreSample
 
 open System
 open NaturalSpec

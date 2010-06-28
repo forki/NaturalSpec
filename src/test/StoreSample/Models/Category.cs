@@ -1,4 +1,4 @@
-﻿namespace StoreSample.Models
+namespace StoreSample.Models
 {
     public class Category
     {

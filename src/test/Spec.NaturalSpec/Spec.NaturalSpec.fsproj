@@ -47,18 +47,6 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.CoreEx">
-      <HintPath>D:\NaturalSpec\Lib\Rx\System.CoreEx.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Interactive">
-      <HintPath>D:\NaturalSpec\Lib\Rx\System.Interactive.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive">
-      <HintPath>D:\NaturalSpec\Lib\Rx\System.Reactive.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading">
-      <HintPath>D:\NaturalSpec\Lib\Rx\System.Threading.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
