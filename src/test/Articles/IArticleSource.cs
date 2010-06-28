@@ -1,9 +1,9 @@
-﻿using Microsoft.FSharp.Collections;
+﻿using System.Collections.Generic;
 
 namespace Articles
 {
     public interface IArticleSource
     {
-        FSharpList<Article> Search(string searchTerm);
+        List<Article> Search(string searchTerm);
     }
 }

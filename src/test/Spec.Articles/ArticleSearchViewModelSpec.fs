@@ -17,10 +17,9 @@ let articleCount count (vm:ArticleSearchViewModel) =
 
 [<Scenario>]
 let ``Given an existing search term when starting for articles``() =
-    let empty : Article list = []
     let service = 
         mock<IArticleSource> "Service"
-            |> setup <@fun x -> x.Search @> (fun x -> if x = "Term" then empty else failwith "Error")
+            |> setup <@fun x -> x.Search @> (fun x -> if x = "Term" then (new List<Article>()) else failwith "Error")
 
     let viewModel = new ArticleSearchViewModel(service,SearchTerm = "Term")
 

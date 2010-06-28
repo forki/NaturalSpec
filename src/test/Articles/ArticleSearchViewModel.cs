@@ -1,4 +1,4 @@
-﻿using Microsoft.FSharp.Collections;
+﻿using System.Collections.Generic;
 
 namespace Articles
 {
@@ -13,7 +13,7 @@ namespace Articles
 
         public string SearchTerm { get; set; }
 
-        public FSharpList<Article> Results { get; set; }
+        public List<Article> Results { get; set; }
 
         public void StartSearch()
         {

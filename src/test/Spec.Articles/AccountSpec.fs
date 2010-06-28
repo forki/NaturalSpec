@@ -12,8 +12,6 @@ let balance amount (account:Account) =
     printMethod amount
     account.Balance = amount
 
-
-
 [<Scenario>]
 let ``When transferring between two account``() =
     let fromAccount = new Account(AccountNo=1,Balance=1m)
