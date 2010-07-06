@@ -5,13 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3019240d-bbd3-4951-9c5e-4b343638bd4b}</ProjectGuid>
+    <ProjectGuid>{d6b349e0-c610-449e-afe9-1fef49f11f45}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>NaturalSpec</RootNamespace>
-    <AssemblyName>NaturalSpec</AssemblyName>
+    <RootNamespace>Spec.CarSellingLib</RootNamespace>
+    <AssemblyName>Spec.Articles</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <Name>NaturalSpec</Name>
+    <Name>Spec.CarSellingLib</Name>
     <TargetFrameworkProfile />
     <FscToolPath>..\..\..\tools\FSharp\</FscToolPath>
   </PropertyGroup>
@@ -26,29 +26,16 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>3</WarningLevel>
-    <Tailcalls>true</Tailcalls>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DocumentationFile>bin\Release\NaturalSpec.XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <DocumentationFile>bin\Debug\NaturalSpec.xml</DocumentationFile>
-    <OtherFlags>
-    </OtherFlags>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core">
       <HintPath>..\..\..\tools\FSharp\FSharp.Core.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="FSharp.PowerPack">
-      <HintPath>..\..\..\tools\PowerPack\FSharp.PowerPack.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="nunit.framework">
@@ -60,17 +47,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="Spec.fs" />
-    <Compile Include="Expectations.fs" />
-    <Compile Include="Utils.fs" />
-    <Compile Include="TimeMeasurement.fs" />
-    <Compile Include="Syntax.fs" />
-    <Compile Include="SequenceFunctions .fs" />
-    <Compile Include="Math.fs" />
-    <Compile Include="File.fs" />
-    <Compile Include="IlHelper.fs" />
-    <Compile Include="Mock.fs" />
+    <Compile Include="AccountSpec.fs" />
+    <Compile Include="ArticleSearchViewModelSpec.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\app\NaturalSpec\NaturalSpec.fsproj">
+      <Name>NaturalSpec</Name>
+      <Project>{3019240d-bbd3-4951-9c5e-4b343638bd4b}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Articles\Articles.csproj">
+      <Name>Articles (Samples\Mocking\Articles\Articles)</Name>
+      <Project>{7e8d49c0-e2d6-4ed3-8185-ea1e98649565}</Project>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\..\..\tools\FSharp\Microsoft.FSharp.Targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

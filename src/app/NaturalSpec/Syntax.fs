@@ -18,15 +18,8 @@ let printMethod (x:obj) =
     methodName 2 x
       |> toSpec
 
-
-/// Calls  
-let calls = new System.Collections.Generic.HashSet<string * string>()
-
-/// Register a expected call
-let calling methodName param = calls.Add(methodName, param.ToString()) |> ignore
-
 /// Inits a scenario    
-let initScenario() =  
+let initScenario() =
     stopWatch.Reset()
     stopWatch.Start()
     printScenario()
@@ -93,7 +86,12 @@ let checkEquality (expected:'a) (value:'a) pipe = Equality,expected,value,pipe
 /// Use it as in "|> It should equal x"
 let equal (expected:'a) (value:'a) = 
     sprintf "equal %s" (prepareOutput expected) |> toSpec
-    checkEquality expected value value    
+    checkEquality expected value value
+
+/// Fluid helper - prints "casting as type "
+let castingAs<'a>  (value:obj) = 
+    sprintf "casting as %s" (typeof<'a>.ToString()) |> toSpec
+    value :?> 'a
   
 /// Fluid helper - prints "be "
 /// Tests for boolean condition
@@ -107,15 +105,7 @@ let be (f:'a -> bool) value =
 /// Use it as in "|> It should be true"    
 let have (f:'a-> bool) value = 
     toSpec "have "
-    IsTrue,true,f value,value     
-
-/// Fluid helper - prints "called "
-/// Tests for boolean condition
-/// Use it as in "|> It should have called"  
-let called methodName param _ = 
-    let p = param.ToString()
-    toSpec <| sprintf "called %s with %s" (prepareOutput methodName) p
-    calls.Contains(methodName,p)
+    IsTrue,true,f value,value
         
 /// Fluid helper - prints "should "
 /// Tests if the given observation hold
@@ -128,7 +118,7 @@ let should f x y =
 /// Tests if the given observation does not hold
 /// Use it as in "|> It shouldn't equal 5"
 let shouldn't f x y =
-    toSpec "should not "
+    toSpec "shouldn't "
     f x y |> not' |> check 
 
 /// generates TestCaseData object
@@ -179,9 +169,15 @@ let Named (name:string) (list:TestCaseData list) =
       
 /// Verifies a scenario   
 let Verify x =
+    // verify expectations
+    Expectations.getErrors()
+      |> Seq.iter raise
+
+    // print OK
     prepareOutput x
       |> sprintf "\r\n  ==> Result is: %s" 
       |> toSpec
+
     toSpec "\r\n  ==> OK"    
     printElapsed()
     toSpec "\r\n"

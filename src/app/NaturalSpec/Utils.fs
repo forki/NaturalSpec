@@ -3,7 +3,6 @@ module NaturalSpec.Utils
 
 open System.IO
 open System.Collections.Generic
-open System.Diagnostics
 
 let maxOutputLength = 70
 
@@ -36,34 +35,23 @@ let specWriter =
 let toSpec s =
     printf "%s" s
     specWriter.Write s
-  
+
+
 /// Prints the test scenario name to the spec output         
 let printScenario() = 
-  /// Try to find scenario in call stack
-  let rec findScenario i = 
-    let m = (new StackTrace()).GetFrame(i).GetMethod()
-    if m.GetCustomAttributes(typeof<Scenario>,true).Length > 0 ||
-       m.GetCustomAttributes(typeof<ScenarioTemplate>,true).Length > 0
-    then m else findScenario (i+1)
-  
-  let m = 
-    try 
-      findScenario 1 
-    with ex -> 
-      (new StackTrace()).GetFrame(2).GetMethod()
-  
-  let methodName = m.Name.Replace("_"," ")
+    let m = Expectations.findScenario()
+    let methodName = m.Name.Replace("_"," ")
     
-  sprintf "\n\nScenario: %s\r\n" methodName |> toSpec
-  for attrib in m.GetCustomAttributes(typeof<Fails>,true) do
-    let a = attrib :?> Fails
-    match a.ExpectedMessage , a.ExpectedException with
-    | null, null
-    | ""  , null -> "  - Should fail with unspecified exception\r\n" |> toSpec
-    | m   , null -> sprintf "  - Should fail with %A\r\n" m |> toSpec
-    | null, t  
-    | "", t      -> sprintf "  - Should fail with exception type %A\r\n" t |> toSpec
-    | x, t       -> sprintf "  - Should fail with %A and message %A\r\n" t m |> toSpec
+    sprintf "\n\nScenario: %s\r\n" methodName |> toSpec
+    for attrib in m.GetCustomAttributes(typeof<Fails>,true) do
+        let a = attrib :?> Fails
+        match a.ExpectedMessage , a.ExpectedException with
+        | null, null
+        | ""  , null -> "  - Should fail with unspecified exception\r\n" |> toSpec
+        | m   , null -> sprintf "  - Should fail with %A\r\n" m |> toSpec
+        | null, t  
+        | "", t      -> sprintf "  - Should fail with exception type %A\r\n" t |> toSpec
+        | x, t       -> sprintf "  - Should fail with %A and message %A\r\n" t m |> toSpec
   
 open NUnit.Framework
 

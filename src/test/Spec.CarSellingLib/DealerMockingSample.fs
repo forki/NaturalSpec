@@ -11,51 +11,74 @@ open CarSellingLib
 let DreamCar = new Car(CarType.BMW, 200)
 let LameCar = new Car(CarType.Fiat, 45)
 
-// 4. define a mock object and give it a name
-let createDealer carPrices =     
-    let dict = Map.ofSeq carPrices
-    {new IDealer with 
-        member x.SellCar price = 
-            calling "SellCar" price
-            Map.find price dict }
+let getCarByPrice price = if price < 20000 then LameCar else DreamCar
 
-// 5. create a method in BDD-style
+// 4. create a method in BDD-style
 let selling_a_car_for amount (dealer:IDealer) =
     printMethod amount
     dealer.SellCar amount
 
-// 6. create a scenario      
+// 5. create a scenario      
 [<Scenario>]
 let ``When selling the DreamCar for 40000``() =     
-    let bert = createDealer [(40000,DreamCar)]
+    let bert = 
+        mock<IDealer> "Bert"
+          |> setup <@fun x -> x.SellCar @> getCarByPrice
 
     As bert
       |> When selling_a_car_for 40000
       |> It should equal DreamCar
-      |> It shouldn't equal LameCar
-      |> It should have (called "SellCar" 40000)
+      |> Whereas bert
+      |> Called <@fun x -> x.SellCar @> 40000
       |> Verify
     
      
 [<Scenario>]
 let ``When selling the Lamecar for 19000``() = 
-    let bert = createDealer [(19000,LameCar)]  
+    let bert =
+        mock<IDealer> "Bert"
+          |> setup <@fun x -> x.SellCar @> getCarByPrice
 
     As bert
       |> When selling_a_car_for 19000
-      |> It shouldn't equal DreamCar
       |> It should equal LameCar
-      |> It should have (called "SellCar" 19000)
+      |> Whereas bert
+      |> Called <@fun x -> x.SellCar @> 19000
       |> Verify
-    
+
 [<Scenario>]
-[<Fails>]
-let ``When not calling the mocked function``() =   
-    let bert = createDealer [(30000,DreamCar);(19000,LameCar)]
+[<FailsWith "Method SellCar was not called with 19000 on Bert.">]
+let ``When not calling the mocked function``() = 
+    let bert =
+        mock<IDealer> "Bert"
+          |> setup <@fun x -> x.SellCar @> getCarByPrice
+
+    As bert
+      |> Called <@fun x -> x.SellCar @> 19000
+      |> Verify
+
+[<Scenario>]
+[<FailsWith "Method SellCar was not called with 40000 on Bert.">]
+let ``When not calling the second mocked function``() = 
+    let bert =
+        mock<IDealer> "Bert"
+          |> setup <@fun x -> x.SellCar @> getCarByPrice
 
     As bert
       |> When selling_a_car_for 19000
-      |> It should equal DreamCar
-      |> It should have (called "SellCar" 19000)
-      |> It should have (called "SellCar" 30000)
+      |> It should equal LameCar
+      |> Whereas bert
+      |> Called <@fun x -> x.SellCar @> 19000
+      |> Called <@fun x -> x.SellCar @> 40000
+      |> Verify
+      
+[<Scenario>]
+let ``When selling the Lamecar for 19000 mocked``() = 
+    let bert =
+        mock<IDealer> "Bert"
+          |> setup <@fun x -> x.SellCar @> getCarByPrice
+
+    As bert
+      |> When selling_a_car_for 19000
+      |> It should equal LameCar
       |> Verify

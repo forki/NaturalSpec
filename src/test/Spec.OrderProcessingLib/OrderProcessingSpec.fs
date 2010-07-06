@@ -1,27 +1,46 @@
 ﻿module Spec.OrderProcOrderProcessingSpec
 
+open System
 open NaturalSpec
 open OrderProcessingLib
 
-let shipping order (x:OrderProcessing) =
-    printMethod order
-    x.Ship order |> ignore
-    x
+let TALISKER = "Talisker"
 
-let mockEmailService = 
-    {new IEmailService with
-        member x.Send() = calling "EmailService.Send" "" }
-
-let order = 
-    {new IOrder with
-        member x.Ship() = calling "Order.Ship" "" }
+let filling warehouse (order:Order) =
+    printMethod warehouse
+    order.Fill warehouse
+    order
+    
+let filled (order:Order) = 
+    printMethod ""
+    order.IsFilled
 
 [<Scenario>]
-let ``When shipping order``() =
-  let OrderProcessing = new OrderProcessing(mockEmailService)
-  
-  Given OrderProcessing
-    |> When shipping order
-    |> It should have (called "EmailService.Send" "")
-    |> It should have (called "Order.Ship" "")
-    |> Verify
+let ``Filling order removes items from inventory if in Stock``() =
+    let order = new Order(TALISKER, 50)
+    let warehouse = 
+        mock<IWarehouse> "Warehouse"
+            |> setup <@fun x -> x.HasInventory @> (fun _ -> true)
+            |> setup <@fun x -> x.Remove @> (fun _ -> ())
+
+    Given order
+      |> When filling warehouse
+      |> It should be filled
+      |> Whereas warehouse
+      |> Called <@fun x -> x.HasInventory @> (TALISKER, 50)
+      |> Called <@fun x -> x.Remove @> (TALISKER, 50)
+      |> Verify
+
+[<Scenario>]
+let ``Filling order removes doesn't remove items from inventory if not enough in Stock``() =
+    let order = new Order(TALISKER, 50)
+    let warehouse = 
+        mock<IWarehouse> "Warehouse"
+            |> setup <@fun x -> x.HasInventory @> (fun _ -> false)
+
+    Given order
+      |> When filling warehouse
+      |> It shouldn't be filled
+      |> Whereas warehouse
+      |> Called <@fun x -> x.HasInventory @> (TALISKER, 50)
+      |> Verify
