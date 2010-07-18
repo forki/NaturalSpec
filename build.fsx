@@ -70,7 +70,7 @@ Target? GenerateDocumentation <-
                ToolPath = @".\tools\FAKE\docu.exe"
                TemplatesPath = @".\tools\FAKE\templates"
                OutputPath = docDir })
-            (buildDir + "NaturalSpec.dll")
+            (!+ (buildDir @@ "NaturalSpec.dll") |> Scan)
 
 Target? BuildZip <-
     fun _ ->
