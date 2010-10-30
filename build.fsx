@@ -3,12 +3,15 @@
 open Fake 
 
 // properties 
+let authors = ["Steffen Forkmann"]
 let projectName = "NaturalSpec"
+let projectDescription = "NaturalSpec is a .NET UnitTest framework which provides automatically testable specs in natural language."
   
 let buildDir = @".\build\"
-let docDir = @".\Doc\" 
+let docsDir = @".\Doc\" 
 let deployDir = @".\deploy\"
 let testDir = @".\test\"
+let nugetDir = @".\nuget\" 
 let nunitPath = @".\Tools\NUnit"
 
 // files
@@ -31,7 +34,7 @@ let testAssemblies =
 
 // Targets
 Target? Clean <-
-    fun _ -> CleanDirs [buildDir; deployDir; testDir; docDir]
+    fun _ -> CleanDirs [buildDir; deployDir; testDir; docsDir; nugetDir]
 
 Target? BuildApp <-
     fun _ -> 
@@ -41,8 +44,8 @@ Target? BuildApp <-
               {p with
                  CodeLanguage = FSharp;
                  AssemblyVersion = buildVersion;
-                 AssemblyTitle = "NaturalSpec";
-                 AssemblyDescription = "NaturalSpec is a .NET UnitTest framework which provides automatically testable specs in natural language.";
+                 AssemblyTitle = projectName;
+                 AssemblyDescription = projectDescription;
                  Guid = "62F3EDB4-1ED9-415c-A349-510DF60380B5";
                  OutputFileName = @".\src\app\NaturalSpec\AssemblyInfo.fs"})                      
 
@@ -69,7 +72,7 @@ Target? GenerateDocumentation <-
             {p with
                ToolPath = @".\tools\FAKE\docu.exe"
                TemplatesPath = @".\tools\FAKE\templates"
-               OutputPath = docDir })
+               OutputPath = docsDir })
             (!+ (buildDir @@ "NaturalSpec.dll") |> Scan)
 
 Target? BuildZip <-
@@ -81,10 +84,25 @@ Target? BuildZip <-
 Target? ZipDocumentation <-
     fun _ ->    
         let docFiles = 
-          !+ (docDir + @"\**\*.*")
+          !+ (docsDir + @"\**\*.*")
             |> Scan
         let zipFileName = deployDir + sprintf "Documentation-%s.zip" buildVersion
         Zip @".\Doc\" zipFileName docFiles
+
+Target? BuildNuGet <-
+    fun _ -> 
+        let nugetDocsDir = nugetDir @@ "docs/"
+        let nugetLibDir = nugetDir @@ "lib/"
+        
+        XCopy docsDir nugetDocsDir
+        XCopy buildDir nugetLibDir
+
+        NuGet (fun p -> 
+            {p with               
+               Authors = authors
+               Project = projectName
+               Description = projectDescription                
+               OutputPath = nugetDir })  "naturalspec.nuspec" 
 
 Target? Default <- DoNothing
 Target? Deploy <- DoNothing
@@ -95,7 +113,7 @@ For? Test <- Dependency? BuildApp |> And? BuildTest
 For? GenerateDocumentation <- Dependency? BuildApp
 For? ZipDocumentation <- Dependency? GenerateDocumentation
 For? BuildZip <- Dependency? Test
-For? Deploy <- Dependency? BuildZip |> And? ZipDocumentation
+For? Deploy <- Dependency? BuildZip |> And? ZipDocumentation |> And? BuildNuGet
 For? Default <- Dependency? Deploy
 
 // start build

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <description>@description@</description>
+    <id>@project@</id>
+    <version>@build.number@</version>
+    <authors>@authors@</authors>
+    <language>en-US</language>
+    <summary>@summary@</summary>
+    <dependencies>
+      <dependency id="NUnit" version="2.5.7.10213" />
+    </dependencies>
+  </metadata>
+</package>
