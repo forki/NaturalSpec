@@ -2,6 +2,31 @@
 <doc>
 <assembly><name>FakeLib</name></assembly>
 <members>
+<member name="M:FSharp.Nullable.Option.toNullable``1(Microsoft.FSharp.Core.FSharpOption{``0})">
+<summary>
+ Converts an F# option into a nullable object
+</summary>
+</member>
+<member name="M:FSharp.Nullable.Option.fromNullable``1(System.Nullable{``0})">
+<summary>
+ Converts a nullable object into an F# option
+</summary>
+</member>
+<member name="T:FSharp.Nullable.Option">
+
+</member>
+<member name="T:FSharp.Nullable">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
 <member name="">
 
 </member>
@@ -128,11 +153,6 @@
  The BuildServer type.
 </summary>
 </member>
-<member name="P:Fake.BuildServerHelper.traceMode">
-<summary>
- The actual trace mode.
-</summary>
-</member>
 <member name="P:Fake.BuildServerHelper.isLocalBuild">
 <summary>
  Determines if the current build is a local build.
@@ -167,6 +187,11 @@
 <member name="P:Fake.BuildServerHelper.localBuildLabel">
 <summary>
  A constant for local builds            
+</summary>
+</member>
+<member name="P:Fake.BuildServerHelper.verbose">
+<summary>
+ Trace verbose output
 </summary>
 </member>
 <member name="T:Fake.BuildServerHelper">
@@ -275,11 +300,13 @@
 </member>
 <member name="M:Fake.FSIHelper.runBuildScript(System.String,System.Collections.Generic.IEnumerable{System.Tuple`2{System.String,System.String}})">
 <summary>
- Run the buildscript with fsi
+ Run the given buildscript with fsi.exe
 </summary>
 </member>
-<member name="">
-
+<member name="P:Fake.FSIHelper.fsiPath">
+<summary>
+ The Path to the F# interactive tool
+</summary>
 </member>
 <member name="T:Fake.FSIHelper">
 
@@ -815,8 +842,10 @@
 <member name="">
 
 </member>
-<member name="">
-
+<member name="M:Fake.MSBuild.SpecsRemovement.Nothing``2(``0,``1)">
+<summary>
+ A Convetion which matches nothing
+</summary>
 </member>
 <member name="M:Fake.MSBuild.SpecsRemovement.AllSpecAndTestDataFiles(System.String,System.String)">
 <summary>
@@ -851,10 +880,48 @@
 <member name="">
 
 </member>
+<member name="M:Fake.MSBuild.SpecsRemovement.normalize(System.Xml.Linq.XDocument)">
+<summary>
+ Converts a MSBuildProject to XML
+</summary>
+</member>
+<member name="T:Fake.MSBuild.SpecsRemovement">
+
+</member>
 <member name="">
 
 </member>
-<member name="T:Fake.MSBuild.SpecsRemovement">
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
 
 </member>
 <member name="">
@@ -870,15 +937,21 @@
  Builds the given project files and collects the output files
 </summary>
 </member>
-<member name="M:Fake.MSBuildHelper.MSBuild(System.String,System.String,System.Collections.Generic.IEnumerable{System.Tuple`2{System.String,System.String}},System.Collections.Generic.IEnumerable{System.String})">
+<member name="M:Fake.MSBuildHelper.MSBuild(System.String,System.String,Microsoft.FSharp.Collections.FSharpList{System.Tuple`2{System.String,System.String}},System.Collections.Generic.IEnumerable{System.String})">
 <summary>
  Builds the given project files and collects the output files
 </summary>
 </member>
-<member name="M:Fake.MSBuildHelper.build``1(System.String,System.String,System.Collections.Generic.IEnumerable{System.Tuple`2{System.String,System.String}},``0,System.String)">
+<member name="M:Fake.MSBuildHelper.build(Microsoft.FSharp.Core.FSharpFunc`2{Fake.MSBuildHelper.MSBuildParams,Fake.MSBuildHelper.MSBuildParams},System.String)">
 <summary>
  Runs a msbuild project
 </summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
 </member>
 <member name="">
 
@@ -918,24 +991,6 @@
 <member name="">
 
 </member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
 <member name="M:Fake.MailBoxHelper.MessageBoxIsEmpty">
 <summary>
  Checks if the current message queue is empty
@@ -946,26 +1001,6 @@
 </member>
 <member name="">
 
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="P:Fake.MailBoxHelper.verbose">
-<summary>
- Trace verbose output
-</summary>
 </member>
 <member name="T:Fake.MailBoxHelper">
 
@@ -1140,6 +1175,46 @@
 <member name="T:Fake.NUnitHelper">
 
 </member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:Fake.NuGetHelper.NuGet(Microsoft.FSharp.Core.FSharpFunc`2{Fake.NuGetHelper.NuGetParams,Fake.NuGetHelper.NuGetParams},System.String)">
+<summary>
+ Creates a new NuGet package   
+</summary>
+</member>
+<member name="M:Fake.NuGetHelper.NuGetDefaults">
+<summary>
+ NuGet default params  
+</summary>
+</member>
+<member name="T:Fake.NuGetHelper">
+
+</member>
 <member name="F:Fake.ProcessHelper.ExecParams.Args">
 <summary>
  Command-line argument pairs. The value will be quoted if it contains
@@ -1215,9 +1290,14 @@
  Adds quotes and a blank around the string   
 </summary>
 </member>
-<member name="M:Fake.ProcessHelper.quote(System.String)">
+<member name="M:Fake.ProcessHelper.quoteIfNeeded(System.String)">
 <summary>
  Adds quotes around the string if needed
+</summary>
+</member>
+<member name="M:Fake.ProcessHelper.quote(System.String)">
+<summary>
+ Adds quotes around the string
 </summary>
 </member>
 <member name="M:Fake.ProcessHelper.execProcess(Microsoft.FSharp.Core.FSharpFunc`2{System.Diagnostics.ProcessStartInfo,Microsoft.FSharp.Core.Unit},System.TimeSpan)">
@@ -1347,6 +1427,19 @@
 </summary>
 </member>
 <member name="T:Fake.RegistryHelper">
+
+</member>
+<member name="M:Fake.SCPHelper.SCP(Microsoft.FSharp.Core.FSharpFunc`2{Fake.SCPParams,Fake.SCPParams},System.String,System.String)">
+ <summary>Performs a SCP copy.</summary>
+ <param name="source">The source directory (fileName)</param>
+ <param name="destination">The target directory (fileName)</param>
+</member>
+<member name="P:Fake.SCPHelper.SCPDefaults">
+<summary>
+ SCP default params  
+</summary>
+</member>
+<member name="T:Fake.SCPHelper">
 
 </member>
 <member name="">
@@ -1601,15 +1694,17 @@
 </summary>
 </member>
 <member name="M:Fake.TargetHelper.run(System.String)">
-<summary>
- Runs a Target and its dependencies        
-</summary>
+ <summary>Runs a target and its dependencies</summary>
+ <param name="targetName">The target to run.</param>
 </member>
-<member name="">
-
+<member name="M:Fake.TargetHelper.WriteTaskTimeSummary``1(``0)">
+ <summary>Writes a build time report.</summary>
+ <param name="total">The total runtime.</param>
 </member>
-<member name="">
-
+<member name="M:Fake.TargetHelper.PrintDependencyGraph(System.Boolean,System.String)">
+ <summary>Writes a dependency graph.</summary>
+ <param name="verbose">Whether to print verbose output or not.</param>
+ <param name="target">The target for which the dependencies should be printed.</param>
 </member>
 <member name="M:Fake.TargetHelper.runFinalTargets">
 <summary>
@@ -1796,6 +1891,11 @@
 <member name="M:Fake.TeamCityHelper.sendToTeamCity(Microsoft.FSharp.Core.PrintfFormat{Microsoft.FSharp.Core.FSharpFunc`2{System.String,System.String},Microsoft.FSharp.Core.Unit,System.String,System.String},System.String)">
 <summary>
  Send message to TeamCity
+</summary>
+</member>
+<member name="M:Fake.TeamCityHelper.EncapsulateSpecialChars(System.String)">
+<summary>
+ Encapsulates special chars
 </summary>
 </member>
 <member name="T:Fake.TeamCityHelper">
@@ -2007,7 +2107,7 @@
 </member>
 <member name="M:Fake.TraceHelper.traceImportant(System.String)">
 <summary>
- Writes a trace to stderr (in green)  
+ Writes a trace to stderr (in yellow)  
 </summary>
 </member>
 <member name="M:Fake.TraceHelper.traceVerbose(System.String)">
@@ -2030,11 +2130,6 @@
  Writes a trace to the command line (in green)
 </summary>
 </member>
-<member name="M:Fake.TraceHelper.logColored(System.Boolean,System.ConsoleColor,System.Boolean,System.String)">
-<summary>
- Writes a trace output to the message buffer (in the given color)
-</summary>
-</member>
 <member name="M:Fake.TraceHelper.logVerbosefn``1(Microsoft.FSharp.Core.PrintfFormat{``0,Microsoft.FSharp.Core.Unit,System.String,Microsoft.FSharp.Core.Unit})">
 <summary>
  Logs the specified string if the verbose mode is activated.
@@ -2050,19 +2145,9 @@
  Logs the specified message
 </summary>
 </member>
-<member name="P:Fake.TraceHelper.log">
+<member name="M:Fake.TraceHelper.log(System.String)">
 <summary>
  Logs the specified string        
-</summary>
-</member>
-<member name="M:Fake.TraceHelper.logMessage(System.Boolean,System.Boolean,System.String)">
-<summary>
- Logs the specified string (via message buffer)
-</summary>
-</member>
-<member name="M:Fake.TraceHelper.xmlMessage(System.String)">
-<summary>
- Writes a XML message to the bufffer.
 </summary>
 </member>
 <member name="M:Fake.TraceHelper.WaitUntilEverythingIsPrinted">
@@ -2084,6 +2169,102 @@
 </summary>
 </member>
 <member name="T:Fake.TraceHelper">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:Fake.TraceListener.NAntXmlTraceListener.Fake-TraceListener-ITraceListener-Write(Fake.TraceListener.TraceData)">
+<summary>
+ Writes the given message to the xml file.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="T:Fake.TraceListener.NAntXmlTraceListener">
+ <summary>Implements a TraceListener which writes NAnt like XML files.</summary>
+ <param name="xmlOutputFile">Defines the xml output file.</param>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:Fake.TraceListener.ConsoleTraceListener.Fake-TraceListener-ITraceListener-Write(Fake.TraceListener.TraceData)">
+<summary>
+ Writes the given message to the Console.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="T:Fake.TraceListener.ConsoleTraceListener">
+ <summary>Implements a TraceListener for System.Console</summary>
+ <param name="importantMessagesToStdErr">Defines whether to trace important messages to StdErr.</param>
+ <param name="colorMap">A function which maps TracePriorities to ConsoleColors.</param>
+</member>
+<member name="">
+
+</member>
+<member name="T:Fake.TraceListener.ITraceListener">
+<summary>
+ Defines a TraceListener interface
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Fake.TraceListener.TraceData">
+<summary>
+ Defines Tracing information for TraceListeners
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="P:Fake.TraceListener.defaultConsoleTraceListener">
+<summary>
+ The default TraceListener for Console
+</summary>
+</member>
+<member name="M:Fake.TraceListener.colorMap(Fake.TraceListener.TraceData)">
+<summary>
+ Maps TracePriorities to ConsoleColors
+</summary>
+</member>
+<member name="T:Fake.TraceListener">
 
 </member>
 <member name="">
