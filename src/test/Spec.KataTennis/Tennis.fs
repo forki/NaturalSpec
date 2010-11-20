@@ -24,6 +24,8 @@ let getScore = function
 | Deuce -> 4,4
 | Advantage player when player = Player.Player1 -> 5,4 
 | Advantage player when player = Player.Player2 -> 4,5
+| Victory player when player = Player.Player1 -> 5,0
+| Victory player when player = Player.Player2 -> 0,5
 
 let score game player =     
     let oldScore = getScore game

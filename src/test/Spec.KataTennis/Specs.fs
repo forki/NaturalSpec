@@ -85,3 +85,13 @@ let ``When a player looses his advantage they should be back to deuce`` player o
       |> When point_goes_to opponent
       |> It should equal Deuce
       |> Verify
+
+[<ScenarioTemplate(Player.Player1,Player.Player1)>]  
+[<ScenarioTemplate(Player.Player1,Player.Player2)>]  
+[<ScenarioTemplate(Player.Player2,Player.Player1)>]  
+[<ScenarioTemplate(Player.Player2,Player.Player2)>]  
+let ``A won game is not changable`` player scorer =
+    Given (Victory player)
+      |> When point_goes_to scorer
+      |> It should equal (Victory player)
+      |> Verify
