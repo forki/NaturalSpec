@@ -77,3 +77,11 @@ let ``When a player scores after he got advantage he has won`` player =
       |> When point_goes_to player
       |> It should equal (Victory player)
       |> Verify
+
+[<ScenarioTemplate(Player.Player1,Player.Player2)>]  
+[<ScenarioTemplate(Player.Player2,Player.Player1)>]  
+let ``When a player looses his advantage they should be back to deuce`` player opponent =
+    Given (Advantage player)
+      |> When point_goes_to opponent
+      |> It should equal Deuce
+      |> Verify
