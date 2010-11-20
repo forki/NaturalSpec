@@ -58,13 +58,7 @@ let ``When a player scores after a deuce he should have the advantage`` player =
 
 [<Scenario>] 
 let ``If both players score 4 times the game should be deuce``() =
-    Given NewGame
-      |> When point_goes_to Player.Player1
-      |> When point_goes_to Player.Player2
-      |> When point_goes_to Player.Player1
-      |> When point_goes_to Player.Player2
-      |> When point_goes_to Player.Player1
-      |> When point_goes_to Player.Player2
+    Given (Thirty <=> Thirty)
       |> When point_goes_to Player.Player1
       |> When point_goes_to Player.Player2
       |> It should equal Deuce
