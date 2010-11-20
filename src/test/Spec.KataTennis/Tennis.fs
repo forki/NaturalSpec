@@ -13,6 +13,8 @@ type Game =
 | OpenGame of int * int
 | Victory of Player
 
+let inline (<=>) x y = OpenGame(x,y)
+
 let NewGame = OpenGame(Love,Love)
 
 let getScore = function | OpenGame(x,y) -> x,y
