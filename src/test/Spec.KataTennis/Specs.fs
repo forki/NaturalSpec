@@ -20,3 +20,11 @@ let ``When Player1 scores once the score should be Fifteen to Love`` () =
       |> When point_goes_to Player1
       |> It should equal (Fifteen,Love)
       |> Verify
+
+[<Scenario>]     
+let ``When player one scores twice the score should be Thirty to Love`` () =   
+    Given NewGame
+      |> When point_goes_to Player1
+      |> When point_goes_to Player1
+      |> It should equal (Thirty,Love)
+      |> Verify
