@@ -7,7 +7,6 @@ let point_goes_to player game =
     printMethod player
     score game player
 
-
 [<Scenario>]     
 let ``A newly started game should start with score Love to Love`` () =   
     Given NewGame
@@ -47,4 +46,18 @@ let ``If a player scores 4 times and the other did not score he has won`` winner
       |> When point_goes_to winner
       |> When point_goes_to winner
       |> It should equal (Victory winner)
+      |> Verify
+
+[<Scenario>] 
+let ``If both players score 4 times the game should be duce``() =
+    Given NewGame
+      |> When point_goes_to Player.Player1
+      |> When point_goes_to Player.Player2
+      |> When point_goes_to Player.Player1
+      |> When point_goes_to Player.Player2
+      |> When point_goes_to Player.Player1
+      |> When point_goes_to Player.Player2
+      |> When point_goes_to Player.Player1
+      |> When point_goes_to Player.Player2
+      |> It should equal Deuce
       |> Verify

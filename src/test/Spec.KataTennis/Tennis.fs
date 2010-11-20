@@ -11,6 +11,7 @@ type Player =
 
 type Game = 
 | OpenGame of int * int
+| Deuce
 | Victory of Player
 
 let inline (<=>) x y = OpenGame(x,y)
@@ -26,6 +27,7 @@ let score game player =
         | Player.Player1 -> fst oldScore + 1,snd oldScore
         | Player.Player2 -> fst oldScore,snd oldScore + 1
     match newScore with
+    | x,y when x = Fourty && y = Fourty-> Deuce
     | _,x when x > Fourty -> Victory Player.Player2
     | x,_ when x > Fourty -> Victory Player.Player1
     | _ -> OpenGame newScore
