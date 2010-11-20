@@ -69,3 +69,11 @@ let ``If both players score 4 times the game should be deuce``() =
       |> When point_goes_to Player.Player2
       |> It should equal Deuce
       |> Verify
+
+[<ScenarioTemplate(Player.Player1)>]  
+[<ScenarioTemplate(Player.Player2)>]  
+let ``When a player scores after he got advantage he has won`` player =
+    Given (Advantage player)
+      |> When point_goes_to player
+      |> It should equal (Victory player)
+      |> Verify
