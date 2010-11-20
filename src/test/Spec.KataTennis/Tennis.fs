@@ -1,24 +1,29 @@
 ﻿module Tennis.Model
 
-type Score =
-| Love
-| Fifteen
-| Thirty
-| Fourty
+let Love = 0
+let Fifteen = 1
+let Thirty = 2
+let Fourty = 3
 
-type Game = Score * Score
+type Player =
+| Player1 = 0
+| Player2 = 1
 
-type Players =
-| Player1
-| Player2
+type Game = 
+| OpenGame of int * int
+| Victory of Player
 
-let NewGame = Love,Love
+let NewGame = OpenGame(Love,Love)
 
-let increaseScore = function
-| Love -> Fifteen
-| Fifteen -> Thirty
-| Thirty -> Fourty
+let getScore = function | OpenGame(x,y) -> x,y
 
-let score game = function
-| Player1 -> fst game |> increaseScore,snd game
-| Player2 -> fst game,snd game |> increaseScore
+let score game player = 
+    let oldScore = getScore game
+    let newScore =
+        match player with
+        | Player.Player1 -> fst oldScore + 1,snd oldScore
+        | Player.Player2 -> fst oldScore,snd oldScore + 1
+    match newScore with
+    | _,x when x > Fourty -> Victory Player.Player2
+    | x,_ when x > Fourty -> Victory Player.Player1
+    | _ -> OpenGame newScore

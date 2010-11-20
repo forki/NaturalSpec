@@ -11,29 +11,40 @@ let point_goes_to player game =
 [<Scenario>]     
 let ``A newly started game should start with score Love to Love`` () =   
     Given NewGame
-      |> It should equal (Love,Love)
+      |> It should equal (OpenGame (Love,Love))
       |> Verify
 
 [<Scenario>]     
 let ``When Player1 scores once the score should be Fifteen to Love`` () =   
     Given NewGame
-      |> When point_goes_to Player1
-      |> It should equal (Fifteen,Love)
+      |> When point_goes_to Player.Player1
+      |> It should equal (OpenGame (Fifteen,Love))
       |> Verify
 
 [<Scenario>]     
 let ``When player one scores twice the score should be Thirty to Love`` () =   
     Given NewGame
-      |> When point_goes_to Player1
-      |> When point_goes_to Player1
-      |> It should equal (Thirty,Love)
+      |> When point_goes_to Player.Player1
+      |> When point_goes_to Player.Player1
+      |> It should equal (OpenGame (Thirty,Love))
       |> Verify
 
 [<Scenario>]     
 let ``When player two scores 3 times the score should be Love to Fourty`` () =   
     Given NewGame
-      |> When point_goes_to Player2
-      |> When point_goes_to Player2
-      |> When point_goes_to Player2
-      |> It should equal (Love,Fourty)
+      |> When point_goes_to Player.Player2
+      |> When point_goes_to Player.Player2
+      |> When point_goes_to Player.Player2
+      |> It should equal (OpenGame (Love,Fourty))
+      |> Verify
+
+[<ScenarioTemplate(Player.Player1)>]  
+[<ScenarioTemplate(Player.Player2)>]  
+let ``If a player scores 4 times and the other did not score he has won`` winner =
+    Given NewGame
+      |> When point_goes_to winner
+      |> When point_goes_to winner
+      |> When point_goes_to winner
+      |> When point_goes_to winner
+      |> It should equal (Victory winner)
       |> Verify
