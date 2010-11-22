@@ -70,8 +70,8 @@ Target? GenerateDocumentation <-
     fun _ ->
         Docu (fun p ->
             {p with
-               ToolPath = @".\tools\FAKE\docu.exe"
-               TemplatesPath = @".\tools\FAKE\templates"
+               ToolPath = @".\tools\Docu\docu.exe"
+               TemplatesPath = @".\tools\Docu\templates"
                OutputPath = docsDir })
             (!+ (buildDir @@ "NaturalSpec.dll") |> Scan)
 
