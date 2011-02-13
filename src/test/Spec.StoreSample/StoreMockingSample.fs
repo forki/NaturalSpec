@@ -27,6 +27,8 @@ let ``Creating a ProductsPresenter should set ViewCategories``() =
       |> Whereas view
       |> Called <@fun x -> x.SetCategories @> list
       |> Verify
+
+// TODO: Make this mocking possible
 //
 //
 //[<Scenario>]
