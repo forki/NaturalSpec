@@ -6,7 +6,7 @@ open OrderProcessingLib
 
 let TALISKER = "Talisker"
 
-let filling warehouse (order:Order) =
+let filling_at warehouse (order:Order) =
     printMethod warehouse
     order.Fill warehouse
     order
@@ -16,15 +16,15 @@ let filled (order:Order) =
     order.IsFilled
 
 [<Scenario>]
-let ``Filling order removes items from inventory if in Stock``() =
+let ``Filling order removes items from inventory if in stock``() =
     let order = new Order(TALISKER, 50)
     let warehouse = 
         mock<IWarehouse> "Warehouse"
-            |> setup <@fun x -> x.HasInventory @> (fun _ -> true)
-            |> setup <@fun x -> x.Remove @> (fun _ -> ())
+            |> setup <@fun x -> x.HasInventory @> AlwaysTrue   // fun _ -> true
+            |> setup <@fun x -> x.Remove @> AlwaysUnit
 
     Given order
-      |> When filling warehouse
+      |> When filling_at warehouse
       |> It should be filled
       |> Whereas warehouse
       |> Called <@fun x -> x.HasInventory @> (TALISKER, 50)
@@ -32,14 +32,14 @@ let ``Filling order removes items from inventory if in Stock``() =
       |> Verify
 
 [<Scenario>]
-let ``Filling order doesn't remove items from inventory if not enough in Stock``() =
+let ``Filling order doesn't remove items from inventory if not enough in stock``() =
     let order = new Order(TALISKER, 50)
     let warehouse = 
         mock<IWarehouse> "Warehouse"
-            |> setup <@fun x -> x.HasInventory @> (fun _ -> false)
+            |> setup <@fun x -> x.HasInventory @> AlwaysFalse
 
     Given order
-      |> When filling warehouse
+      |> When filling_at warehouse
       |> It shouldn't be filled
       |> Whereas warehouse
       |> Called <@fun x -> x.HasInventory @> (TALISKER, 50)

@@ -7,6 +7,10 @@ open System.Reflection.Emit
 
 let mutable SaveAssembly = false
 
+let AlwaysTrue _ = true
+let AlwaysFalse _ = false
+let AlwaysUnit _ = false
+
 let createProperty<'a> (typeBuilder:TypeBuilder) propertyName =
     let t = typeof<'a>
     // Generate a private field
