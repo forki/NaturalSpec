@@ -32,7 +32,7 @@ let ``Filling order removes items from inventory if in Stock``() =
       |> Verify
 
 [<Scenario>]
-let ``Filling order removes doesn't remove items from inventory if not enough in Stock``() =
+let ``Filling order doesn't remove items from inventory if not enough in Stock``() =
     let order = new Order(TALISKER, 50)
     let warehouse = 
         mock<IWarehouse> "Warehouse"
