@@ -14,14 +14,14 @@ let placed_on category list =
 [<Scenario>]     
 let ``Given 1, 1, 2, 4, 4 placed on "fours" gives 8 points.`` () =   
     Given (1, 1, 2, 4, 4)
-      |> When (placed_on Fours)
+      |> When placed_on Fours
       |> It should equal 8
       |> Verify
 
 [<Scenario>]     
 let ``Given 1, 1, 6, 4, 6 placed on "sixes" gives 12 points.`` () =   
     Given (1, 1, 6, 4, 6)
-      |> When (placed_on Sixes)
+      |> When placed_on Sixes
       |> It should equal 12
       |> Verify
 
@@ -31,21 +31,21 @@ let ``Given 1, 1, 6, 4, 6 placed on "sixes" gives 12 points.`` () =
 [<Scenario>]     
 let ``Given 3, 3, 3, 4, 4 placed on "pair" gives 8.`` () =   
     Given (3, 3, 3, 4, 4)
-      |> When (placed_on Pair)
+      |> When placed_on Pair
       |> It should equal 8
       |> Verify
 
 [<Scenario>]     
 let ``Given 5, 3, 5, 4, 4 placed on "pair" gives 10.`` () =   
     Given (5, 3, 5, 4, 4)
-      |> When (placed_on Pair)
+      |> When placed_on Pair
       |> It should equal 10
       |> Verify
 
 [<Scenario>]     
 let ``Given 5, 3, 2, 4, 1 placed on "pair" gives 0.`` () =   
     Given (5, 3, 2, 4, 1)
-      |> When (placed_on Pair)
+      |> When placed_on Pair
       |> It should equal 0
       |> Verify
 
@@ -56,21 +56,21 @@ let ``Given 5, 3, 2, 4, 1 placed on "pair" gives 0.`` () =
 [<Scenario>]     
 let ``Given 1, 1, 2, 3, 3 placed on "two pair" gives 8.`` () =   
     Given (1, 1, 2, 3, 3)
-      |> When (placed_on TwoPair)
+      |> When placed_on TwoPair
       |> It should equal 8
       |> Verify
 
 [<Scenario>]     
 let ``Given 1, 6, 6, 3, 3 placed on "two pair" gives 18.`` () =   
     Given (1, 6, 6, 3, 3)
-      |> When (placed_on TwoPair)
+      |> When placed_on TwoPair
       |> It should equal 18
       |> Verify
 
 [<Scenario>]     
 let ``Given 1, 1, 2, 4, 3 placed on "two pair" gives 0.`` () =   
     Given (1, 1, 2, 4, 3)
-      |> When (placed_on TwoPair)
+      |> When placed_on TwoPair
       |> It should equal 0
       |> Verify
 
@@ -81,14 +81,14 @@ let ``Given 1, 1, 2, 4, 3 placed on "two pair" gives 0.`` () =
 [<Scenario>]     
 let ``Given 3, 3, 3, 4, 5 placed on "three of a kind" gives 9.`` () =   
     Given (3, 3, 3, 4, 5)
-      |> When (placed_on ThreeOfAKind)
+      |> When placed_on ThreeOfAKind
       |> It should equal 9
       |> Verify
 
 [<Scenario>]     
 let ``Given 3, 4, 3, 4, 5 placed on "three of a kind" gives 0.`` () =   
     Given (3, 4, 3, 4, 5)
-      |> When (placed_on ThreeOfAKind)
+      |> When placed_on ThreeOfAKind
       |> It should equal 0
       |> Verify
 
@@ -99,14 +99,14 @@ let ``Given 3, 4, 3, 4, 5 placed on "three of a kind" gives 0.`` () =
 [<Scenario>]     
 let ``Given 2, 2, 2, 2, 5 placed on "four of a kind" gives 8.`` () =   
     Given (2, 2, 2, 2, 5)
-      |> When (placed_on FourOfAKind)
+      |> When placed_on FourOfAKind
       |> It should equal 8
       |> Verify
 
 [<Scenario>]     
 let ``Given 2, 6, 2, 2, 5 placed on "four of a kind" gives 0.`` () =   
     Given (2, 6, 2, 2, 5)
-      |> When (placed_on FourOfAKind)
+      |> When placed_on FourOfAKind
       |> It should equal 0
       |> Verify
 
@@ -116,21 +116,21 @@ let ``Given 2, 6, 2, 2, 5 placed on "four of a kind" gives 0.`` () =
 [<Scenario>]     
 let ``Given 1,2,3,4,5 placed on "Small Straight" gives 15.`` () =   
     Given (1,2,3,4,5)
-      |> When (placed_on SmallStraight)
+      |> When placed_on SmallStraight
       |> It should equal 15
       |> Verify
 
 [<Scenario>]     
 let ``Given 1,2,5,4,3 placed on "Small Straight" gives 15.`` () =   
     Given (1,2,5,4,3)
-      |> When (placed_on SmallStraight)
+      |> When placed_on SmallStraight
       |> It should equal 15
       |> Verify
 
 [<Scenario>]     
 let ``Given 1,2,6,4,3 placed on "Small Straight" gives 0.`` () =   
     Given (1,2,6,4,3)
-      |> When (placed_on SmallStraight)
+      |> When placed_on SmallStraight
       |> It should equal 0
       |> Verify
 
@@ -140,21 +140,21 @@ let ``Given 1,2,6,4,3 placed on "Small Straight" gives 0.`` () =
 [<Scenario>]     
 let ``Given 2,3,4,5,6 placed on "Large Straight" gives 20.`` () =   
     Given (2,3,4,5,6)
-      |> When (placed_on LargeStraight)
+      |> When placed_on LargeStraight
       |> It should equal 20
       |> Verify
 
 [<Scenario>]     
 let ``Given 6,2,5,4,3 placed on "Large Straight" gives 20.`` () =   
     Given (6,2,5,4,3)
-      |> When (placed_on LargeStraight)
+      |> When placed_on LargeStraight
       |> It should equal 20
       |> Verify
 
 [<Scenario>]     
 let ``Given 1,2,6,4,3 placed on "Large Straight" gives 0.`` () =   
     Given (1,2,6,4,3)
-      |> When (placed_on LargeStraight)
+      |> When placed_on LargeStraight
       |> It should equal 0
       |> Verify
 
@@ -165,21 +165,21 @@ let ``Given 1,2,6,4,3 placed on "Large Straight" gives 0.`` () =
 [<Scenario>]     
 let ``Given 1,1,2,2,2 placed on "full house" gives 8.`` () =   
     Given (1,1,2,2,2)
-      |> When (placed_on FullHouse)
+      |> When placed_on FullHouse
       |> It should equal 8
       |> Verify
 
 [<Scenario>]     
 let ``Given 4,4,4,4,4 placed on "full house" gives 0.`` () =   
     Given (4,4,4,4,4)
-      |> When (placed_on FullHouse)
+      |> When placed_on FullHouse
       |> It should equal 0
       |> Verify
 
 [<Scenario>]     
 let ``Given 1,1,2,3,2 placed on "full house" gives 0.`` () =   
     Given (1,1,2,3,2)
-      |> When (placed_on FullHouse)
+      |> When placed_on FullHouse
       |> It should equal 0
       |> Verify
 
@@ -193,14 +193,14 @@ let ``Given 1,1,2,3,2 placed on "full house" gives 0.`` () =
 [<Example(6)>]
 let ``Given n,n,n,n,n placed on "Yahtzee" gives 50.`` n =   
     Given (n,n,n,n,n)
-      |> When (placed_on Yahtzee)
+      |> When placed_on Yahtzee
       |> It should equal 50
       |> Verify
 
 [<Scenario>]     
 let ``Given 1,1,1,2,1 placed on "Yahtzee" gives 0.`` () =   
     Given (1,1,1,2,1)
-      |> When (placed_on Yahtzee)
+      |> When placed_on Yahtzee
       |> It should equal 0
       |> Verify
 
@@ -209,13 +209,13 @@ let ``Given 1,1,1,2,1 placed on "Yahtzee" gives 0.`` () =
 [<Scenario>]     
 let ``Given 1,1,1,2,1 placed on "Chance" gives 6.`` () =   
     Given (1,1,1,2,1)
-      |> When (placed_on Chance)
+      |> When placed_on Chance
       |> It should equal 6
       |> Verify
 
 [<Scenario>]     
 let ``Given 1,6,1,2,1 placed on "Chance" gives 11.`` () =   
     Given (1,6,1,2,1)
-      |> When (placed_on Chance)
+      |> When placed_on Chance
       |> It should equal 11
       |> Verify
