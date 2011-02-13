@@ -2,7 +2,7 @@
 	- Reference to NaturalSpec.dll and NUnit.Framework.dll (Nuget?)
 
   let factorial x = 
-      printMethod x  //  prints the method name via reflection
+      printMethod x  // prints the method name via reflection
       fac x          // Abstraction of SUT
               
   [<Scenario>]
@@ -31,6 +31,9 @@
 
 2. Show NaturalSpec Euler-Project.
 
-3. Show OrderProcessingSpecs
+3. Show Yathzee-Sample
+        - TDD (View at github)
+
+4. Show OrderProcessingSpecs
 	- Test of C# project
 	- Simple mocking
