@@ -8,7 +8,7 @@
     <ProjectGuid>{fc2d5eb6-e37f-46b7-a3e6-374cba380153}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>KataYahtzee</RootNamespace>
-    <AssemblyName>KataYahtzee</AssemblyName>
+    <AssemblyName>KataTennis</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <Name>KataYahtzee</Name>
     <FscToolPath>..\..\..\tools\FSharp\</FscToolPath>
