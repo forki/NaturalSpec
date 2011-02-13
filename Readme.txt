@@ -116,10 +116,10 @@ Scenario: When raising exception
 
 It is possible to use templates for scenarios:
 
-// with ScenarioTemplate attribute
-[<ScenarioTemplate(1, 1)>]  
-[<ScenarioTemplate(5, 120)>]
-[<ScenarioTemplate(10, 3628800)>]
+// with Example attribute
+[<Example(1, 1)>]  
+[<Example(5, 120)>]
+[<Example(10, 3628800)>]
 let ``When calculating fac``(x,result) =
   Given x
     |> When calculating factorial
