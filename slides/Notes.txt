@@ -1,0 +1,36 @@
+1. Factorial sample
+	- Reference to NaturalSpec.dll and NUnit.Framework.dll (Nuget?)
+
+  let factorial x = 
+      printMethod x  //  prints the method name via reflection
+      fac x          // Abstraction of SUT
+              
+  [<Scenario>]
+  let ``Factorial of 0 = 0``() =        // Scenario-Name
+      Given 0                           // Arrange
+        |> When calculating factorial   // Act
+        |> It should equal 1            // Assert
+        |> Verify   
+
+  
+  // shorter with scenario templates
+  [<Example(0,1)>]
+  [<Example(1,1)>]
+  [<Example(5,120)>]
+  let ``Factorial of n = m``(n,m) =
+      Given n
+        |> When calculating factorial
+        |> It should equal m
+        |> Verify
+
+  // Implementation
+  let rec fac = function 
+  | 0 -> 1
+  | x -> x * fac (x - 1)
+
+
+2. Show NaturalSpec Euler-Project.
+
+3. Show OrderProcessingSpecs
+	- Test of C# project
+	- Simple mocking
