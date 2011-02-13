@@ -28,8 +28,7 @@ let outputAssemblies =
     |> Seq.map FullName
 
 let testAssemblies = 
-  !+ (testDir + @"\Spec.*.dll")     
-    ++ (testDir + @"\KnightMoves.dll")
+  !+ (testDir + @"\Spec.*.dll")
       |> Scan      
 
 // Targets
