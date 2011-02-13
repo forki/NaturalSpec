@@ -38,26 +38,26 @@ let FibNumberLength n =
       |> Seq.head
       |> fst
 
-[<ScenarioTemplate(1, 1)>]
-[<ScenarioTemplate(2, 1)>]
-[<ScenarioTemplate(3, 2)>]
-[<ScenarioTemplate(4, 3)>]
-[<ScenarioTemplate(5, 5)>]
-[<ScenarioTemplate(6, 8)>]
-[<ScenarioTemplate(7, 13)>]
-[<ScenarioTemplate(8, 21)>]
-[<ScenarioTemplate(9, 34)>]
-[<ScenarioTemplate(10, 55)>]
-[<ScenarioTemplate(11, 89)>]
-[<ScenarioTemplate(12, 144)>]
+[<Example(1, 1)>]
+[<Example(2, 1)>]
+[<Example(3, 2)>]
+[<Example(4, 3)>]
+[<Example(5, 5)>]
+[<Example(6, 8)>]
+[<Example(7, 13)>]
+[<Example(8, 21)>]
+[<Example(9, 34)>]
+[<Example(10, 55)>]
+[<Example(11, 89)>]
+[<Example(12, 144)>]
 let ``What is the the value of the n.th fib?`` (n,result) =
     Given n
       |> When calculating Fib
       |> It should equal (bigint result)
       |> Verify
 
-[<ScenarioTemplate(3, 12)>]
-[<ScenarioTemplate(1000, 4782)>]
+[<Example(3, 12)>]
+[<Example(1000, 4782)>]
 let ``What is the first term in the Fibonacci sequence to contain n digits?`` (n,result) =
     Given n
       |> When solving FibNumberLength

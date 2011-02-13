@@ -50,18 +50,18 @@ let SumOfUncomposableNumbers number =
       |> Seq.sum
 
       
-[<ScenarioTemplate(11,false)>]
-[<ScenarioTemplate(12,true)>]
-[<ScenarioTemplate(28,false)>]
+[<Example(11,false)>]
+[<Example(12,true)>]
+[<Example(28,false)>]
 let ``What is n abundant?`` (n,abundant) =
     Given n
       |> When calculating IsAbundant
       |> It should equal abundant
       |> Verify
 
-[<ScenarioTemplate(11,false)>]
-[<ScenarioTemplate(24,true)>]
-[<ScenarioTemplate(28124,true)>]
+[<Example(11,false)>]
+[<Example(24,true)>]
+[<Example(28124,true)>]
 let ``What is n composed?`` (n,composed) =
     Given n
       |> When calculating IsComposed

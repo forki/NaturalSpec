@@ -13,33 +13,33 @@ let fizzBuzz n =
   printMethod ""
   fizzbuzz n
 
-[<ScenarioTemplate(1,"1")>] 
-[<ScenarioTemplate(2,"2")>]  
-[<ScenarioTemplate(3,"fizz")>]
-[<ScenarioTemplate(4,"4")>]
-[<ScenarioTemplate(5,"buzz")>]
-[<ScenarioTemplate(6,"fizz")>]
-[<ScenarioTemplate(7,"7")>]
-[<ScenarioTemplate(8,"8")>]
-[<ScenarioTemplate(9,"fizz")>]
-[<ScenarioTemplate(10,"buzz")>]
-[<ScenarioTemplate(15,"fizzbuzz")>]
-[<ScenarioTemplate(33,"fizz")>]
-[<ScenarioTemplate(48,"fizz")>]
-[<ScenarioTemplate(60,"fizzbuzz")>]
+[<Example(1,"1")>] 
+[<Example(2,"2")>]  
+[<Example(3,"fizz")>]
+[<Example(4,"4")>]
+[<Example(5,"buzz")>]
+[<Example(6,"fizz")>]
+[<Example(7,"7")>]
+[<Example(8,"8")>]
+[<Example(9,"fizz")>]
+[<Example(10,"buzz")>]
+[<Example(15,"fizzbuzz")>]
+[<Example(33,"fizz")>]
+[<Example(48,"fizz")>]
+[<Example(60,"fizzbuzz")>]
 let ``Given n gives simple fizzbuzz result.`` (n,result) =   
     Given n
       |> When fizzBuzz
       |> It should equal result
       |> Verify
 
-[<ScenarioTemplate(31,"fizz")>]
-[<ScenarioTemplate(33,"fizz")>]
-[<ScenarioTemplate(35,"fizzbuzz")>]
-[<ScenarioTemplate(39,"fizz")>]
-[<ScenarioTemplate(51,"fizzbuzz")>]
-[<ScenarioTemplate(52,"buzz")>]
-[<ScenarioTemplate(59,"buzz")>]
+[<Example(31,"fizz")>]
+[<Example(33,"fizz")>]
+[<Example(35,"fizzbuzz")>]
+[<Example(39,"fizz")>]
+[<Example(51,"fizzbuzz")>]
+[<Example(52,"buzz")>]
+[<Example(59,"buzz")>]
 let ``Given n gives extended fizzbuzz result.`` (n,result) =   
     Given n
       |> When fizzBuzz

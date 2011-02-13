@@ -32,16 +32,16 @@ let ``Sorting a small list``() =
   quicksortScenario [2;1;8;15;5;22]
     |> Verify      
     
-[<ScenarioTemplate(100)>]
-[<ScenarioTemplate(1000)>]
-[<ScenarioTemplate(2500)>]
+[<Example(100)>]
+[<Example(1000)>]
+[<Example(2500)>]
 let ``Sorting a ordered list`` n =
   quicksortScenario [1..n]
     |> Verify  
     
-[<ScenarioTemplate(100)>]
-[<ScenarioTemplate(1000)>]
-[<ScenarioTemplate(2500)>]
+[<Example(100)>]
+[<Example(1000)>]
+[<Example(2500)>]
 let ``Sorting a random list`` n =
   quicksortScenario (list_of_random_ints n)
     |> Verify

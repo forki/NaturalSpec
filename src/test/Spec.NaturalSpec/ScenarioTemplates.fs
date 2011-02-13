@@ -1,4 +1,4 @@
-﻿module NaturalSpec.ScenarioTemplates
+﻿module NaturalSpec.Examples
 
 /// Tail recursive version
 let factorial x =
@@ -9,12 +9,23 @@ let factorial x =
 
     tailRecursiveFactorial x 1
   
+// with Example Attribute
+[<Example(1, 1)>]  
+[<Example(2, 2)>]
+[<Example(5, 120)>]
+[<Example(10, 3628800)>]
+let ``Calculating factorial for n`` (x,result) =
+  Given x
+    |> When calculating factorial
+    |> It should equal result
+    |> Verify 
+    
 // with ScenarioTemplate Attribute
 [<ScenarioTemplate(1, 1)>]  
 [<ScenarioTemplate(2, 2)>]
 [<ScenarioTemplate(5, 120)>]
 [<ScenarioTemplate(10, 3628800)>]
-let ``Calculating factorial for n`` (x,result) =
+let ``Calculating factorial for n with templates`` (x,result) =
   Given x
     |> When calculating factorial
     |> It should equal result

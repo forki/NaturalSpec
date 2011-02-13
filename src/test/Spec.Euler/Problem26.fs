@@ -45,23 +45,23 @@ let MaxPeriodLength n =
     seq {1..n}
       |> Seq.maxBy (getPeriod 1)
 
-[<ScenarioTemplate(2,0)>]
-[<ScenarioTemplate(3,1)>]
-[<ScenarioTemplate(4,0)>]
-[<ScenarioTemplate(5,0)>]
-[<ScenarioTemplate(6,1)>]
-[<ScenarioTemplate(7,6)>]
-[<ScenarioTemplate(8,0)>]
-[<ScenarioTemplate(9,1)>]
-[<ScenarioTemplate(10,0)>]
+[<Example(2,0)>]
+[<Example(3,1)>]
+[<Example(4,0)>]
+[<Example(5,0)>]
+[<Example(6,1)>]
+[<Example(7,6)>]
+[<Example(8,0)>]
+[<Example(9,1)>]
+[<Example(10,0)>]
 let ``What is the the period length of 1/n?`` (n,periodLength) =
     Given n
       |> When calculating PeriodLength
       |> It should equal periodLength
       |> Verify
 
-[<ScenarioTemplate(10,7)>]
-[<ScenarioTemplate(1000,983)>]
+[<Example(10,7)>]
+[<Example(1000,983)>]
 let ``What is the value of d smaller than n for which 1/d contains the longest recurring cycle in its decimal fraction part?`` (n,result) =
     Given n
       |> When calculating MaxPeriodLength

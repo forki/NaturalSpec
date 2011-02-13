@@ -91,47 +91,47 @@ let CharCountOfWrittenWordsUpTo n =
       |> Seq.map writtenWordLength
       |> Seq.sum
 
-[<ScenarioTemplate(0,"zero")>]
-[<ScenarioTemplate(1,"one")>]
-[<ScenarioTemplate(2,"two")>]
-[<ScenarioTemplate(3,"three")>]
-[<ScenarioTemplate(4,"four")>]
-[<ScenarioTemplate(5,"five")>]
-[<ScenarioTemplate(6,"six")>]
-[<ScenarioTemplate(7,"seven")>]
-[<ScenarioTemplate(8,"eight")>]
-[<ScenarioTemplate(9,"nine")>]
-[<ScenarioTemplate(10,"ten")>]
-[<ScenarioTemplate(11,"eleven")>]
-[<ScenarioTemplate(12,"twelve")>]
-[<ScenarioTemplate(13,"thirteen")>]
-[<ScenarioTemplate(14,"fourteen")>]
-[<ScenarioTemplate(342,"three hundred and forty-two")>]
-[<ScenarioTemplate(115,"one hundred and fifteen")>]
-[<ScenarioTemplate(1000,"one thousand")>]
+[<Example(0,"zero")>]
+[<Example(1,"one")>]
+[<Example(2,"two")>]
+[<Example(3,"three")>]
+[<Example(4,"four")>]
+[<Example(5,"five")>]
+[<Example(6,"six")>]
+[<Example(7,"seven")>]
+[<Example(8,"eight")>]
+[<Example(9,"nine")>]
+[<Example(10,"ten")>]
+[<Example(11,"eleven")>]
+[<Example(12,"twelve")>]
+[<Example(13,"thirteen")>]
+[<Example(14,"fourteen")>]
+[<Example(342,"three hundred and forty-two")>]
+[<Example(115,"one hundred and fifteen")>]
+[<Example(1000,"one thousand")>]
 let ``What is the written word for the number n?`` (n,word) =
     Given n
       |> When calculating WrittenWord
       |> It should equal word
       |> Verify
 
-[<ScenarioTemplate(1,3)>]
-[<ScenarioTemplate(2,3)>]
-[<ScenarioTemplate(3,5)>]
-[<ScenarioTemplate(4,4)>]
-[<ScenarioTemplate(5,4)>]
-[<ScenarioTemplate(342,23)>]
-[<ScenarioTemplate(115,20)>]
+[<Example(1,3)>]
+[<Example(2,3)>]
+[<Example(3,5)>]
+[<Example(4,4)>]
+[<Example(5,4)>]
+[<Example(342,23)>]
+[<Example(115,20)>]
 let ``What is the length of the written word for the number n?`` (n,length) =
     Given n
       |> When calculating WrittenWordLength
       |> It should equal length
       |> Verify
 
-[<ScenarioTemplate(1,3)>]
-[<ScenarioTemplate(2,6)>]
-[<ScenarioTemplate(5,19)>]
-[<ScenarioTemplate(1000,21124)>]
+[<Example(1,3)>]
+[<Example(2,6)>]
+[<Example(5,19)>]
+[<Example(1000,21124)>]
 let ``If all the numbers from 1 to n inclusive were written out in words, how many letters would be used??`` (n,length) =
     Given n
       |> When calculating CharCountOfWrittenWordsUpTo

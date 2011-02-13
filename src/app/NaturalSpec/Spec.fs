@@ -10,7 +10,7 @@ type Scenario =
   end  
   
 [<AttributeUsage(AttributeTargets.Method, AllowMultiple=true)>]
-type ScenarioTemplate = 
+type Example = 
   class
     inherit TestCaseAttribute 
     new(testParams:obj[]) = 
@@ -24,7 +24,9 @@ type ScenarioTemplate =
 
     new(parameter:obj) = 
         { inherit TestCaseAttribute(parameter)}
-  end    
+  end
+
+type ScenarioTemplate = Example
   
 [<AttributeUsage(AttributeTargets.Method)>]
 type ScenarioSource = 

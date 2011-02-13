@@ -185,12 +185,12 @@ let ``Given 1,1,2,3,2 placed on "full house" gives 0.`` () =
 
 // Yahtzee: If all dice are the have the same number, the player scores 50 points, otherwise 0.
 
-[<ScenarioTemplate(1)>]
-[<ScenarioTemplate(2)>]
-[<ScenarioTemplate(3)>]
-[<ScenarioTemplate(4)>]
-[<ScenarioTemplate(5)>]
-[<ScenarioTemplate(6)>]
+[<Example(1)>]
+[<Example(2)>]
+[<Example(3)>]
+[<Example(4)>]
+[<Example(5)>]
+[<Example(6)>]
 let ``Given n,n,n,n,n placed on "Yahtzee" gives 50.`` n =   
     Given (n,n,n,n,n)
       |> When (placed_on Yahtzee)

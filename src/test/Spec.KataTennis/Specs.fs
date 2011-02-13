@@ -37,8 +37,8 @@ let ``When player two scores 3 times the score should be Love to Fourty`` () =
       |> It should equal (Love <=> Fourty)
       |> Verify
 
-[<ScenarioTemplate(Player.Player1)>]  
-[<ScenarioTemplate(Player.Player2)>]  
+[<Example(Player.Player1)>]  
+[<Example(Player.Player2)>]  
 let ``If a player scores 4 times and the other did not score he has won`` winner =
     Given NewGame
       |> When point_goes_to winner
@@ -48,8 +48,8 @@ let ``If a player scores 4 times and the other did not score he has won`` winner
       |> It should equal (Victory winner)
       |> Verify
 
-[<ScenarioTemplate(Player.Player1)>]  
-[<ScenarioTemplate(Player.Player2)>]  
+[<Example(Player.Player1)>]  
+[<Example(Player.Player2)>]  
 let ``When a player scores after a deuce he should have the advantage`` player =
     Given Deuce
       |> When point_goes_to player
@@ -64,26 +64,26 @@ let ``If both players score 4 times the game should be deuce``() =
       |> It should equal Deuce
       |> Verify
 
-[<ScenarioTemplate(Player.Player1)>]  
-[<ScenarioTemplate(Player.Player2)>]  
+[<Example(Player.Player1)>]  
+[<Example(Player.Player2)>]  
 let ``When a player scores after he got advantage he has won`` player =
     Given (Advantage player)
       |> When point_goes_to player
       |> It should equal (Victory player)
       |> Verify
 
-[<ScenarioTemplate(Player.Player1,Player.Player2)>]  
-[<ScenarioTemplate(Player.Player2,Player.Player1)>]  
+[<Example(Player.Player1,Player.Player2)>]  
+[<Example(Player.Player2,Player.Player1)>]  
 let ``When a player looses his advantage they should be back to deuce`` player opponent =
     Given (Advantage player)
       |> When point_goes_to opponent
       |> It should equal Deuce
       |> Verify
 
-[<ScenarioTemplate(Player.Player1,Player.Player1)>]  
-[<ScenarioTemplate(Player.Player1,Player.Player2)>]  
-[<ScenarioTemplate(Player.Player2,Player.Player1)>]  
-[<ScenarioTemplate(Player.Player2,Player.Player2)>]  
+[<Example(Player.Player1,Player.Player1)>]  
+[<Example(Player.Player1,Player.Player2)>]  
+[<Example(Player.Player2,Player.Player1)>]  
+[<Example(Player.Player2,Player.Player2)>]  
 let ``A won game is not changable`` player scorer =
     Given (Victory player)
       |> When point_goes_to scorer

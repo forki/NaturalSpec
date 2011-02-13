@@ -8,7 +8,7 @@ let findScenario() =
     let rec findScenario i = 
         let m = (new StackTrace()).GetFrame(i).GetMethod()
         if m.GetCustomAttributes(typeof<Scenario>,true).Length > 0 ||
-           m.GetCustomAttributes(typeof<ScenarioTemplate>,true).Length > 0
+           m.GetCustomAttributes(typeof<Example>,true).Length > 0
         then m else findScenario (i+1)
   
     try 

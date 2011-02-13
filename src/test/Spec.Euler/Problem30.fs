@@ -56,9 +56,9 @@ let ``What is number for [1;6;3;4]?``() =
       |> It should equal 1634
       |> Verify
 
-[<ScenarioTemplate(1634,true)>]
-[<ScenarioTemplate(8208,true)>]
-[<ScenarioTemplate(9474,true)>]
+[<Example(1634,true)>]
+[<Example(8208,true)>]
+[<Example(9474,true)>]
 let ``Is the number by 4 composable?``(n,result) =
     Given n
       |> When calculating (IsComposableBy 4)

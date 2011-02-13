@@ -31,9 +31,9 @@ let ``Factorial of 5 = 120``() =
     |> Verify    
 
 // shorter with scenario templates
-[<ScenarioTemplate(0,1)>]
-[<ScenarioTemplate(1,1)>]
-[<ScenarioTemplate(5,120)>]
+[<Example(0,1)>]
+[<Example(1,1)>]
+[<Example(5,120)>]
 let ``Factorial of n = m``(n,m) =
   Given n
     |> When calculating factorial
