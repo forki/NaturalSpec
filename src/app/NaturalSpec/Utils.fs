@@ -56,29 +56,27 @@ let printScenario() =
 open NUnit.Framework
 
 /// Checks if the given condition is valid
-let check x = 
-  let assertType,(a:obj),b,value = x
-  match assertType with
-  | Equality -> 
-     if a <> b then
-       let s = sprintf "\r\nElements are not equal.\r\nExpected:%s\r\nBut was: %s\r\n" (prepareOutput a) (prepareOutput b)
-       toSpec s
-       Assert.Fail s 
-  | Inequality -> 
-     if a = b then
-       let s = sprintf "\r\nElements should not be equal.\r\nBut both are: %s\r\n" (prepareOutput a)
-       toSpec s
-       Assert.Fail s      
-  | IsTrue -> Assert.AreEqual(a,b)
-  | IsFalse -> Assert.AreNotEqual(a,b)
-  value      
+let check (assertType,(a:obj),b,value) =
+    match assertType with
+    | Equality -> 
+         if a <> b then
+             let s = sprintf "\r\nElements are not equal.\r\nExpected:%s\r\nBut was: %s\r\n" (prepareOutput a) (prepareOutput b)
+             toSpec s
+             Assert.Fail s 
+    | Inequality -> 
+         if a = b then
+             let s = sprintf "\r\nElements should not be equal.\r\nBut both are: %s\r\n" (prepareOutput a)
+             toSpec s
+             Assert.Fail s      
+    | IsTrue -> Assert.AreEqual(a,b)
+    | IsFalse -> Assert.AreNotEqual(a,b)
+    value      
   
 /// Negotiates a observation
-let not' x = 
-  let aType,a,b,value = x
-  match aType with
-  | Equality -> Inequality,a,b,value
-  | Inequality -> Equality,a,b,value      
-  | IsTrue -> IsFalse,a,b,value
-  | IsFalse -> IsTrue,a,b,value        
+let not' (aType,a,b,value) =
+    match aType with
+    | Equality   -> Inequality,a,b,value
+    | Inequality -> Equality,a,b,value      
+    | IsTrue     -> IsFalse,a,b,value
+    | IsFalse    -> IsTrue,a,b,value
     
