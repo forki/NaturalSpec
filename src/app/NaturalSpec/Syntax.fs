@@ -134,8 +134,6 @@ let singleParam a = SingleParam(box a)
 let doubleParam a b = DoubleParam(box a,box b)
 let tripleParam a b c = TripleParam(box a,box b,box c)
 
-let inline (==>) a b = doubleParam a b
-
 /// Generates a testcase
 let TestWith p = 
   match p with
@@ -143,6 +141,8 @@ let TestWith p =
   | DoubleParam (a,b)   -> [new TestCaseData(a, b)]
   | TripleParam (a,b,c) -> [new TestCaseData(a, b, c)]
   | MultiParam  y       -> [new TestCaseData(y)]
+
+let inline (==>) a b = new TestCaseData(box a, box b)
       
 /// Generates from a list
 let TestWithList (seq: 'a seq) = 
