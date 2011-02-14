@@ -1,9 +1,9 @@
 ﻿module NaturalSpec.Fibonacci
 
-//let rec fib = function
-//| 0 -> 0
-//| 1 -> 1
-//| n -> fib (n-1) + fib (n-2)
+let rec fib1 = function
+| 0 -> 0
+| 1 -> 1
+| n -> fib1 (n-1) + fib1 (n-2)
 
 let q1 = 1I,1I,1I,0I
 
