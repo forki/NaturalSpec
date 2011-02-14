@@ -134,6 +134,8 @@ let singleParam a = SingleParam(box a)
 let doubleParam a b = DoubleParam(box a,box b)
 let tripleParam a b c = TripleParam(box a,box b,box c)
 
+let inline (==>) a b = doubleParam a b
+
 /// Generates a testcase
 let TestWith p = 
   match p with

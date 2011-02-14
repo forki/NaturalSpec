@@ -49,3 +49,20 @@ let ``Fibonacci of n = m``(n,m:int) =
     |> When calculating Fibonacci
     |> It should equal (bigint m)
     |> Verify
+
+
+/// with a scenario source      
+let exampleFibs =
+    TestWith (1  ==> 1I)
+      |> And (2  ==> 1I)
+      |> And (3  ==> 2I)
+      |> And (4  ==> 3I)
+      |> And (5  ==> 5I)
+      |> And (46 ==> 1836311903I)
+
+[<ScenarioSource "exampleFibs">]
+let ``Fibonacci of n should equal m``  n m =
+    Given n
+    |> When calculating Fibonacci
+    |> It should equal m
+    |> Verify   
