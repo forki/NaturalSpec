@@ -1,32 +1,63 @@
-1. Factorial sample
+1. Fibonacci sample
 	- Reference to NaturalSpec.dll and NUnit.Framework.dll (Nuget?)
 
-  let factorial x = 
-      printMethod x  // prints the method name via reflection
-      fac x          // Abstraction of SUT
+  let Fibonacci n = 
+      printMethod n  // prints the method name via reflection
+      fib n          // Abstraction of SUT
               
   [<Scenario>]
-  let ``Factorial of 0 = 0``() =        // Scenario-Name
-      Given 0                           // Arrange
-        |> When calculating factorial   // Act
-        |> It should equal 1            // Assert
+  let ``Fibonacci of 0 = 0``() =          // Scenario-Name
+      Given 0                             // Arrange
+        |> When calculating Fibonacci     // Act
+        |> It should equal 0              // Assert
         |> Verify   
 
   
   // shorter with scenario templates
-  [<Example(0,1)>]
+  [<Example(0,0)>]
   [<Example(1,1)>]
-  [<Example(5,120)>]
-  let ``Factorial of n = m``(n,m) =
+  [<Example(2,1)>]
+  [<Example(3,2)>]
+  [<Example(4,3)>]
+  [<Example(5,5)>]
+  [<Example(46,1836311903)>]
+  let ``Fibonacci of n = m``(n,m:int) =
       Given n
-        |> When calculating factorial
-        |> It should equal m
+        |> When calculating Fibonacci
+        |> It should equal (bigint m)
         |> Verify
 
+
   // Implementation
-  let rec fac = function 
-  | 0 -> 1
-  | x -> x * fac (x - 1)
+  let rec fib = function
+  | 0 -> 0
+  | 1 -> 1
+  | n -> fib (n-1) + fib (n-2)
+
+
+
+  // Implementation
+  let q1 = 1I,1I,1I,0I
+
+  let mult (a11,a12,a21,a22) (b11,b12,b21,b22) =
+      a11 * b11 + a12 * b21,
+      a11 * b12 + a12 * b22,
+      a21 * b11 + a22 * b21,
+      a21 * b12 + a22 * b22
+
+  let sq x = mult x x
+
+  let rec pow x n =
+      match n with
+      | 1 -> x
+      | z when z % 2 = 0 -> pow x (n/2) |> sq
+      | _ -> pow x ((n-1)/2) |> sq |> mult x
+
+  let fib n =
+      let _,x,_,_ = pow q1 n
+      x
+
+
 
 
 2. Show NaturalSpec Euler-Project.

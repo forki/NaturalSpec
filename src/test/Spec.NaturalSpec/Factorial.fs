@@ -10,7 +10,7 @@ let factorial x =
     fac x
               
 [<Scenario>]
-let ``Factorial of 0 = 0``() =
+let ``Factorial of 0 = 1``() =
   Given 0
     |> When calculating factorial
     |> It should equal 1

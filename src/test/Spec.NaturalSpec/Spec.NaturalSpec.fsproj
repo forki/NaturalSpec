@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="SimpleTypes.fs" />
     <Compile Include="Factorial.fs" />
+    <Compile Include="Fibonacci.fs" />
     <Compile Include="RaisingExceptions.fs" />
     <Compile Include="WhereasSpec.fs" />
     <Compile Include="ScenarioTemplates.fs" />

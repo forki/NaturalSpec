@@ -5,6 +5,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		build.bat = build.bat
 		build.fsx = build.fsx
+		naturalspec.nuspec = naturalspec.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{BCD0950D-A360-45D4-B4B0-DF97D2689FFC}"
@@ -53,10 +54,9 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Spec.Articles", "src\test\S
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Spec.KataTennis", "src\test\Spec.KataTennis\Spec.KataTennis.fsproj", "{FC2D5EB6-E37F-46B7-A3E6-374CBA380153}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{0E93F529-944F-42FC-9A4D-F43875F17540}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGetContent", "NuGetContent", "{0E93F529-944F-42FC-9A4D-F43875F17540}"
 	ProjectSection(SolutionItems) = preProject
-		nuget\naturalspec.nuspec = nuget\naturalspec.nuspec
-		Sample.fs.pp = Sample.fs.pp
+		NuGetContent\Sample.fs.pp = NuGetContent\Sample.fs.pp
 	EndProjectSection
 EndProject
 Global
