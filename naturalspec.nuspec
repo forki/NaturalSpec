@@ -5,10 +5,14 @@
     <id>@project@</id>
     <version>@build.number@</version>
     <authors>@authors@</authors>
+    <owners>@authors@</owners>
     <language>en-US</language>
     <summary>@summary@</summary>
+    <projectUrl>https://github.com/forki/NaturalSpec</projectUrl>
+    <licenseUrl>https://github.com/forki/NaturalSpec/blob/master/License.txt</licenseUrl>
+    <tags>tdd bdd testing unittest</tags>
     <dependencies>
-      <dependency id="NUnit" version="2.5.7.10213" />
+      <dependency id="NUnit" version="2.5.9.10348" />
     </dependencies>
   </metadata>
 </package>
