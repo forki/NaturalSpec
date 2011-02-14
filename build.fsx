@@ -12,6 +12,7 @@ let docsDir = @".\Doc\"
 let deployDir = @".\deploy\"
 let testDir = @".\test\"
 let nugetDir = @".\nuget\" 
+let nugetContentSourceDir = @".\NuGetContent\" 
 let nunitPath = @".\Tools\NUnit"
 
 // files
@@ -92,9 +93,11 @@ Target? BuildNuGet <-
     fun _ -> 
         let nugetDocsDir = nugetDir @@ "docs/"
         let nugetLibDir = nugetDir @@ "lib/"
+        let nugetContentDir = nugetDir @@ "Content/"
         
         XCopy docsDir nugetDocsDir
         XCopy buildDir nugetLibDir
+        XCopy nugetContentSourceDir nugetContentDir
 
         NuGet (fun p -> 
             {p with               
