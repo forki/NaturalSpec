@@ -9,7 +9,7 @@ open NUnit.Framework
 // Methods
 
 /// Remove an element from the sequence
-let Removing x seq =
+let removing x seq =
     printMethod x
     Seq.filter ((<>) x) seq
       
