@@ -1,9 +1,9 @@
 ﻿module NaturalSpec.Fibonacci
 
-//let rec fib = function
-//| 0 -> 0
-//| 1 -> 1
-//| n -> fib (n-1) + fib (n-2)
+let rec fib1 = function
+| 0 -> 0
+| 1 -> 1
+| n -> fib1 (n-1) + fib1 (n-2)
 
 let q1 = 1I,1I,1I,0I
 
@@ -49,3 +49,20 @@ let ``Fibonacci of n = m``(n,m:int) =
     |> When calculating Fibonacci
     |> It should equal (bigint m)
     |> Verify
+
+
+/// with a scenario source      
+let exampleFibs =
+    [1  ==> 1I
+     2  ==> 1I
+     3  ==> 2I
+     4  ==> 3I
+     5  ==> 5I
+     46 ==> 1836311903I]
+
+[<ScenarioSource "exampleFibs">]
+let ``Fibonacci of n should equal m``  n m =
+    Given n
+    |> When calculating Fibonacci
+    |> It should equal m
+    |> Verify   

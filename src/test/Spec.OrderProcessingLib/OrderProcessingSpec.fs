@@ -1,4 +1,4 @@
-﻿module Spec.OrderProcOrderProcessingSpec
+﻿module Spec.OrderProcessingSpec
 
 open System
 open NaturalSpec

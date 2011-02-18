@@ -19,9 +19,7 @@ type Category =
 | Yahtzee
 | Chance
 
-let toList (roll:Roll) =
-    let a,b,c,d,e = roll
-    [a;b;c;d;e]
+let toList (a,b,c,d,e) = [a;b;c;d;e]
 
 let sumNumber number =
     Seq.filter ((=) number)

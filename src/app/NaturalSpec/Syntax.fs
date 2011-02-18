@@ -141,6 +141,8 @@ let TestWith p =
   | DoubleParam (a,b)   -> [new TestCaseData(a, b)]
   | TripleParam (a,b,c) -> [new TestCaseData(a, b, c)]
   | MultiParam  y       -> [new TestCaseData(y)]
+
+let inline (==>) a b = new TestCaseData(box a, box b)
       
 /// Generates from a list
 let TestWithList (seq: 'a seq) = 
