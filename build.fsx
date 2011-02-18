@@ -103,8 +103,10 @@ Target? BuildNuGet <-
             {p with               
                Authors = authors
                Project = projectName
-               Description = projectDescription                
-               OutputPath = nugetDir })  "naturalspec.nuspec" 
+               Description = projectDescription                               
+               OutputPath = nugetDir
+               AccessKey = getBuildParamOrDefault "nugetkey" ""
+               Publish = hasBuildParam "nugetkey" })  "naturalspec.nuspec" 
 
 Target? Default <- DoNothing
 Target? Deploy <- DoNothing
