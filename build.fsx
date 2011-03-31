@@ -89,24 +89,24 @@ Target? ZipDocumentation <-
         let zipFileName = deployDir + sprintf "Documentation-%s.zip" buildVersion
         Zip @".\Doc\" zipFileName docFiles
 
-Target? BuildNuGet <-
-    fun _ -> 
-        let nugetDocsDir = nugetDir @@ "docs/"
-        let nugetLibDir = nugetDir @@ "lib/"
-        let nugetContentDir = nugetDir @@ "Content/"
+Target "BuildNuGet" (fun _ -> 
+    let nugetDocsDir = nugetDir @@ "docs/"
+    let nugetLibDir = nugetDir @@ "lib/"
+    let nugetContentDir = nugetDir @@ "Content/"
         
-        XCopy docsDir nugetDocsDir
-        XCopy buildDir nugetLibDir
-        XCopy nugetContentSourceDir nugetContentDir
+    XCopy docsDir nugetDocsDir
+    XCopy buildDir nugetLibDir
+    XCopy nugetContentSourceDir nugetContentDir
 
-        NuGet (fun p -> 
-            {p with               
-               Authors = authors
-               Project = projectName
-               Description = projectDescription                               
-               OutputPath = nugetDir
-               AccessKey = getBuildParamOrDefault "nugetkey" ""
-               Publish = hasBuildParam "nugetkey" })  "naturalspec.nuspec" 
+    NuGet (fun p -> 
+        {p with               
+            Authors = authors
+            Project = projectName
+            Description = projectDescription                               
+            OutputPath = nugetDir
+            AccessKey = getBuildParamOrDefault "nugetkey" ""
+            Publish = hasBuildParam "nugetkey" })  "naturalspec.nuspec" 
+)
 
 Target? Default <- DoNothing
 Target? Deploy <- DoNothing
