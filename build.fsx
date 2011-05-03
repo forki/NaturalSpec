@@ -38,7 +38,6 @@ Target? Clean <-
 
 Target? BuildApp <-
     fun _ -> 
-        tracefn "Building project with version: %s" buildVersion
         if not isLocalBuild then
           AssemblyInfo 
            (fun p -> 
