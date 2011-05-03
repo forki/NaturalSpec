@@ -102,7 +102,8 @@ Target "BuildNuGet" (fun _ ->
         {p with               
             Authors = authors
             Project = projectName
-            Description = projectDescription                               
+            Description = projectDescription
+            ProjectFile = @".\src\app\NaturalSpec\NaturalSpec.fsproj"                             
             OutputPath = nugetDir
             AccessKey = getBuildParamOrDefault "nugetkey" ""
             Publish = hasBuildParam "nugetkey" })  "naturalspec.nuspec" 
