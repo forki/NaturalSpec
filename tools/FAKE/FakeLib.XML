@@ -2402,6 +2402,11 @@
  Writes string to a file
 </summary>
 </member>
+<member name="M:Fake.StringHelper.NormalizeVersion(System.String)">
+<summary>
+ Removes all trailing .0 from a version string
+</summary>
+</member>
 <member name="M:Fake.StringHelper.WriteToFile(System.Boolean,System.String,System.Collections.Generic.IEnumerable{System.String})">
 <summary>
  Writes a file line by line
