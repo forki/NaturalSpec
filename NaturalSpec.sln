@@ -3,7 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C977C9DA-86F2-4F97-8AE9-A53D72118607}"
 	ProjectSection(SolutionItems) = preProject
-		build.bat = build.bat
 		build.fsx = build.fsx
 		naturalspec.nuspec = naturalspec.nuspec
 	EndProjectSection

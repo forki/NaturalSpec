@@ -121,4 +121,4 @@ For? Deploy <- Dependency? BuildZip |> And? ZipDocumentation |> And? BuildNuGet
 For? Default <- Dependency? Deploy
 
 // start build
-Run? Default
+RunParameterTargetOrDefault  "target" "Default"
