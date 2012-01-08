@@ -7,7 +7,7 @@ SET TARGET="Default"
 
 IF NOT [%1]==[] (set TARGET="%1")
   
-"tools\FAKE\Fake.exe" "build.fsx" "target=%TARGET%"
+"packages\FAKE.1.62.1\tools\Fake.exe" "build.fsx" "target=%TARGET%"
 
 rem Bail if we're running a TeamCity build.
 if defined TEAMCITY_PROJECT_NAME goto Quit

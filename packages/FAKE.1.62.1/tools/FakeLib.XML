@@ -304,6 +304,9 @@
 <member name="">
 
 </member>
+<member name="">
+
+</member>
 <member name="P:Fake.EnvironmentHelper.documentsFolder">
 <summary>
  The path to the personal documents
@@ -1737,12 +1740,47 @@
 <member name="">
 
 </member>
+<member name="">
+
+</member>
 <member name="P:Fake.MSBuildHelper.msBuildExe">
 <summary>
  MSBuild exe fileName
 </summary>
 </member>
 <member name="T:Fake.MSBuildHelper">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="P:Fake.MSIHelper.MSIDefaults">
+<summary>
+ MSI default params  
+</summary>
+</member>
+<member name="T:Fake.MSIHelper">
 
 </member>
 <member name="">
@@ -1778,32 +1816,6 @@
 </summary>
 </member>
 <member name="T:Fake.MSpecHelper">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="M:Fake.MailBoxHelper.MessageBoxIsEmpty">
-<summary>
- Checks if the current message queue is empty
-</summary>
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="T:Fake.MailBoxHelper">
 
 </member>
 <member name="M:Fake.MessageHelper.WaitForMessageFile(System.String,System.TimeSpan)">
@@ -1955,6 +1967,9 @@
 <member name="">
 
 </member>
+<member name="">
+
+</member>
 <member name="M:Fake.NUnitHelper.writeXMLOutput(Fake.NUnitHelper.TestSuite,System.String)">
 <summary>
  writes the given TestSuite as XML file in NUnit style
@@ -1969,9 +1984,6 @@
 <summary>
  NUnit default params  
 </summary>
-</member>
-<member name="">
-
 </member>
 <member name="T:Fake.NUnitHelper">
 
@@ -2106,6 +2118,15 @@
 <summary>
  Execute an external program and return the exit code.
 </summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
 </member>
 <member name="M:Fake.ProcessHelper.asyncShellExec(Fake.ProcessHelper.ExecParams)">
 <summary>
@@ -2281,6 +2302,31 @@
 <member name="">
 
 </member>
+<member name="M:Fake.RegAsmHelper.RegAsm(Microsoft.FSharp.Core.FSharpFunc`2{Fake.RegAsmHelper.RegAsmParams,Fake.RegAsmHelper.RegAsmParams},System.String)">
+<summary>
+ Runs regasm on the given lib
+</summary>
+</member>
+<member name="P:Fake.RegAsmHelper.RegAsmDefaults">
+<summary>
+ RegAsm default params  
+</summary>
+</member>
+<member name="T:Fake.RegAsmHelper">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
 <member name="">
 
 </member>
@@ -2319,6 +2365,12 @@
 </summary>
 </member>
 <member name="T:Fake.SCPHelper">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
 
 </member>
 <member name="M:Fake.Seq.contains``1(``0)">
@@ -2366,31 +2418,6 @@
 </member>
 <member name="">
 
-</member>
-<member name="M:Fake.StringHelper.op_LessMultiply(System.String,System.String)">
-<summary>
- Checks wether the given text starts with the given prefix
-</summary>
-</member>
-<member name="M:Fake.StringHelper.toLines(System.Collections.Generic.IEnumerable{System.String})">
-<summary>
- Converts a sequence of strings into a string separated with line ends
-</summary>
-</member>
-<member name="M:Fake.StringHelper.split(System.Char,System.String)">
-<summary>
- Splits the given string at the given delimiter
-</summary>
-</member>
-<member name="M:Fake.StringHelper.trimSlash(System.String)">
-<summary>
- Removes the slashes from the end of the given string
-</summary>
-</member>
-<member name="M:Fake.StringHelper.shortenCurrentDirectory(System.String)">
-<summary>
- Replaces any occurence of the currentDirectory with .
-</summary>
 </member>
 <member name="M:Fake.StringHelper.toRelativePath(System.String)">
 <summary>
@@ -2462,9 +2489,59 @@
 <member name="">
 
 </member>
-<member name="M:Fake.StringHelper.replace(System.String,System.String,System.String)">
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:Fake.StringHelper.ReplaceInFile(Microsoft.FSharp.Core.FSharpFunc`2{System.String,System.String},System.String)">
 <summary>
- Replaces the given pattern in the given text with the replacement
+ Replaces the text in the given file
+</summary>
+</member>
+<member name="M:Fake.StringHelper.endsWith(System.String,System.String)">
+<summary>
+ Checks wether the given text ends with the given suffix
+</summary>
+</member>
+<member name="M:Fake.StringHelper.op_LessMultiply(System.String,System.String)">
+<summary>
+ Checks wether the given text starts with the given prefix
+</summary>
+</member>
+<member name="M:Fake.StringHelper.startsWith(System.String,System.String)">
+<summary>
+ Checks wether the given text starts with the given prefix
+</summary>
+</member>
+<member name="M:Fake.StringHelper.toLines(System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Converts a sequence of strings into a string separated with line ends
+</summary>
+</member>
+<member name="M:Fake.StringHelper.split(System.Char,System.String)">
+<summary>
+ Splits the given string at the given delimiter
+</summary>
+</member>
+<member name="M:Fake.StringHelper.trimSlash(System.String)">
+<summary>
+ Removes the slashes from the end of the given string
+</summary>
+</member>
+<member name="M:Fake.StringHelper.shortenCurrentDirectory(System.String)">
+<summary>
+ Replaces any occurence of the currentDirectory with .
 </summary>
 </member>
 <member name="M:Fake.StringHelper.ReadFileAsString(System.String)">
@@ -2475,6 +2552,11 @@
 <member name="M:Fake.StringHelper.separated(System.String,System.Collections.Generic.IEnumerable{System.String})">
 <summary>
  Converts a sequence of strings to a string with delimiters
+</summary>
+</member>
+<member name="M:Fake.StringHelper.replace(System.String,System.String,System.String)">
+<summary>
+ Replaces the given pattern in the given text with the replacement
 </summary>
 </member>
 <member name="M:Fake.StringHelper.AppendToFile(System.String,System.Collections.Generic.IEnumerable{System.String})">
@@ -3089,11 +3171,6 @@
  Logs the specified string        
 </summary>
 </member>
-<member name="M:Fake.TraceHelper.WaitUntilEverythingIsPrinted">
-<summary>
- Waits until the message queue is empty
-</summary>
-</member>
 <member name="">
 
 </member>
@@ -3183,6 +3260,9 @@
 <summary>
  Defines Tracing information for TraceListeners
 </summary>
+</member>
+<member name="">
+
 </member>
 <member name="">
 
