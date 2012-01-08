@@ -76,6 +76,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Compile Include="Problem77.fs" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core">
@@ -83,12 +84,19 @@
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="nunit.framework">
-      <HintPath>..\..\..\tools\Nunit\nunit.framework.dll</HintPath>
+      <HintPath>..\..\..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.mocks">
+      <HintPath>..\..\..\packages\NUnit.2.5.10.11092\lib\nunit.mocks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="pnunit.framework">
+      <HintPath>..\..\..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\app\NaturalSpec\NaturalSpec.fsproj">
       <Name>NaturalSpec</Name>
       <Project>{3019240d-bbd3-4951-9c5e-4b343638bd4b}</Project>

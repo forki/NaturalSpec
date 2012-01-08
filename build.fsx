@@ -13,7 +13,7 @@ let deployDir = @".\deploy\"
 let testDir = @".\test\"
 let nugetDir = @".\nuget\" 
 let nugetContentSourceDir = @".\NuGetContent\" 
-let nunitPath = @".\Tools\NUnit"
+let nunitPath = @".\packages\NUnit.2.5.10.11092\tools"
 
 // files
 let AppReferences  = !+ @"src\app\**\*.*proj"  |> Scan

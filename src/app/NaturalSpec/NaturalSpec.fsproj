@@ -44,23 +44,7 @@
     </OtherFlags>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="FSharp.Core">
-      <HintPath>..\..\..\tools\FSharp\FSharp.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FSharp.PowerPack">
-      <HintPath>..\..\..\tools\PowerPack\FSharp.PowerPack.dll</HintPath>
-    </Reference>
-    <Reference Include="mscorlib" />
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\..\tools\Nunit\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-  </ItemGroup>
+  <Import Project="..\..\..\tools\FSharp\Microsoft.FSharp.Targets" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Spec.fs" />
@@ -73,8 +57,34 @@
     <Compile Include="File.fs" />
     <Compile Include="IlHelper.fs" />
     <Compile Include="Mock.fs" />
+    <None Include="packages.config" />
   </ItemGroup>
-  <Import Project="..\..\..\tools\FSharp\Microsoft.FSharp.Targets" />
+  <ItemGroup>
+    <Reference Include="FSharp.Core">
+      <HintPath>..\..\..\tools\FSharp\FSharp.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FSharp.PowerPack">
+      <HintPath>..\..\..\tools\PowerPack\FSharp.PowerPack.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.mocks">
+      <HintPath>..\..\..\packages\NUnit.2.5.10.11092\lib\nunit.mocks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="pnunit.framework">
+      <HintPath>..\..\..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
 	     Other similar extension points exist, see Microsoft.Common.targets.
 	<Target Name="BeforeBuild">

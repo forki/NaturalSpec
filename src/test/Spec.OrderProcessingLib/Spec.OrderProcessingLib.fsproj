@@ -32,23 +32,32 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>3</WarningLevel>
   </PropertyGroup>
+  <Import Project="..\..\..\tools\FSharp\Microsoft.FSharp.Targets" />
+  <ItemGroup>
+    <Compile Include="OrderProcessingSpec.fs" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core">
       <HintPath>..\..\..\tools\FSharp\FSharp.Core.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="nunit.framework">
-      <HintPath>..\..\..\tools\Nunit\nunit.framework.dll</HintPath>
+      <HintPath>..\..\..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.mocks">
+      <HintPath>..\..\..\packages\NUnit.2.5.10.11092\lib\nunit.mocks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="pnunit.framework">
+      <HintPath>..\..\..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="OrderProcessingSpec.fs" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\app\NaturalSpec\NaturalSpec.fsproj">
       <Name>NaturalSpec</Name>
       <Project>{3019240d-bbd3-4951-9c5e-4b343638bd4b}</Project>
@@ -59,7 +68,6 @@
       <Name>OrderProcessingLib</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="..\..\..\tools\FSharp\Microsoft.FSharp.Targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
 	     Other similar extension points exist, see Microsoft.Common.targets.
 	<Target Name="BeforeBuild">
