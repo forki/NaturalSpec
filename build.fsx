@@ -13,6 +13,9 @@ let deployDir = @".\deploy\"
 let testDir = @".\test\"
 let nugetDir = @".\nuget\" 
 let nugetContentSourceDir = @".\NuGetContent\" 
+let nugetDocsDir = nugetDir @@ "docs/"
+let nugetLibDir = nugetDir @@ "lib/"
+let nugetContentDir = nugetDir @@ "Content/"
 let nunitPath = @".\packages\NUnit.2.5.10.11092\tools"
 
 // files
@@ -34,7 +37,7 @@ let testAssemblies =
 
 // Targets
 Target? Clean <-
-    fun _ -> CleanDirs [buildDir; deployDir; testDir; docsDir; nugetDir]
+    fun _ -> CleanDirs [buildDir; deployDir; testDir; docsDir; nugetDir; nugetLibDir]
 
 Target? BuildApp <-
     fun _ -> 
@@ -89,13 +92,13 @@ Target? ZipDocumentation <-
         let zipFileName = deployDir + sprintf "Documentation-%s.zip" buildVersion
         Zip @".\Doc\" zipFileName docFiles
 
-Target "BuildNuGet" (fun _ -> 
-    let nugetDocsDir = nugetDir @@ "docs/"
-    let nugetLibDir = nugetDir @@ "lib/"
-    let nugetContentDir = nugetDir @@ "Content/"
-        
-    XCopy docsDir nugetDocsDir
-    XCopy buildDir nugetLibDir
+Target "BuildNuGet" (fun _ ->       
+    XCopy docsDir nugetDocsDir  
+    
+    [buildDir @@ "NaturalSpec.dll"
+     buildDir @@ "NaturalSpec.pdb"]
+       |> CopyTo nugetLibDir
+
     XCopy nugetContentSourceDir nugetContentDir
 
     NuGet (fun p -> 
