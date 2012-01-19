@@ -8,8 +8,15 @@ let combined_with x y=
     combine x y
 
 [<Scenario>]     
-let ``Certainly combined with Certainly should be Certainly `` () =   
+let ``Certainly combined with Certainly should be Certainly`` () =   
     Given Certainly
       |> When combined_with Certainly
       |> It should equal Certainly
+      |> Verify
+
+[<Scenario>]     
+let ``Certainly combined with Impossible should be Impossible`` () =   
+    Given Certainly
+      |> When combined_with Impossible
+      |> It should equal Impossible
       |> Verify
