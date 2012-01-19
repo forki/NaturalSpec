@@ -56,3 +56,17 @@ let ``The inverse of Impossible should be Certainly`` () =
       |> When inversed
       |> It should equal Certainly
       |> Verify
+
+[<Scenario>]     
+let ``The inverse of Certainly should be Impossible`` () =
+    Given Certainly
+      |> When inversed
+      |> It should equal Impossible
+      |> Verify
+
+[<Scenario>]     
+let ``The inverse of one third should be two thirds`` () =
+    Given oneThird
+      |> When inversed
+      |> It should equal twoThirds
+      |> Verify
