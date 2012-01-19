@@ -1,8 +1,10 @@
 ﻿module Probability.Model
 
-type Probability = Probability of float
+type Probability = Probability of BigRational
 
-let Certainly = Probability 1.
-let Impossible = Probability 0.
+let Certainly = Probability 1N
+let Impossible = Probability 0N
 
-let combine x y = x
+let combine (Probability x) (Probability y) = Probability(x * y)
+
+let toProbability x = Probability x
