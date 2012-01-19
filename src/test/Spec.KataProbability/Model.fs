@@ -10,3 +10,7 @@ let combine (Probability x) (Probability y) = Probability(x * y)
 let toProbability x = Probability x
 
 let inverse (Probability x) = Probability(1N - x)
+
+let either (Probability x) (Probability y) = 
+    x + y - x * y 
+    |> toProbability

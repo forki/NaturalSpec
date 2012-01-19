@@ -11,6 +11,10 @@ let inversed x=
     printMethod ""
     inverse x
 
+let using_either_with x y=
+    printMethod ""
+    either x y
+
 [<Scenario>]     
 let ``Certainly combined with Certainly should be Certainly`` () =   
     Given Certainly
@@ -68,5 +72,33 @@ let ``The inverse of Certainly should be Impossible`` () =
 let ``The inverse of one third should be two thirds`` () =
     Given oneThird
       |> When inversed
+      |> It should equal twoThirds
+      |> Verify
+
+[<Scenario>]     
+let ``Certainly or Certainly should be Certainly`` () =   
+    Given Certainly
+      |> When using_either_with Certainly
+      |> It should equal Certainly
+      |> Verify
+
+[<Scenario>]     
+let ``Certainly or Impossible should be Certainly`` () =   
+    Given Certainly
+      |> When using_either_with Impossible
+      |> It should equal Certainly
+      |> Verify
+
+[<Scenario>]     
+let ``Impossible or two thirds should be two thirds`` () =   
+    Given Impossible
+      |> When using_either_with twoThirds
+      |> It should equal twoThirds
+      |> Verify
+
+[<Scenario>]     
+let ``oneThird or oneHalf should be two thirds`` () =   
+    Given oneThird
+      |> When using_either_with oneHalf
       |> It should equal twoThirds
       |> Verify
