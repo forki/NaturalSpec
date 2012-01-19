@@ -7,6 +7,10 @@ let combined_with x y=
     printMethod ""
     combine x y
 
+let inversed x=
+    printMethod ""
+    inverse x
+
 [<Scenario>]     
 let ``Certainly combined with Certainly should be Certainly`` () =   
     Given Certainly
@@ -44,4 +48,11 @@ let ``One half combined with two thirds should be one third`` () =
     Given oneHalf
       |> When combined_with twoThirds
       |> It should equal oneThird
+      |> Verify
+
+[<Scenario>]     
+let ``The inverse of Impossible should be Certainly`` () =
+    Given Impossible
+      |> When inversed
+      |> It should equal Certainly
       |> Verify

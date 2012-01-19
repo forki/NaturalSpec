@@ -8,3 +8,5 @@ let Impossible = Probability 0N
 let combine (Probability x) (Probability y) = Probability(x * y)
 
 let toProbability x = Probability x
+
+let inverse x = Certainly
