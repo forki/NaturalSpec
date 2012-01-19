@@ -1,7 +1,7 @@
 ﻿module Probability.Model
 
-type Probability = float
+type Probability = Probability of float
 
-let certainly =  1. : Probability
+let Certainly =  Probability 1.
 
 let combine x y = x

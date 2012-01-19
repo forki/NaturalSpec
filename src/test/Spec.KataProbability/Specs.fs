@@ -9,7 +9,7 @@ let combined_with x y=
 
 [<Scenario>]     
 let ``Certainly combined with Certainly should be Certainly `` () =   
-    Given certainly
-      |> When combined_with certainly
-      |> It should equal certainly
+    Given Certainly
+      |> When combined_with Certainly
+      |> It should equal Certainly
       |> Verify
