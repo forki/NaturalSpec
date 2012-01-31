@@ -14,7 +14,7 @@ let GetLargetsPrimeFactorOf max =
         |> float
         |> System.Math.Sqrt
         |> int
-      
+
     primes x
       |> Seq.toList
       |> List.rev
