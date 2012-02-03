@@ -6,7 +6,7 @@ open Model
 
 let replacing replacements =
     printMethod replacements
-    replace replacements 
+    replace replacements
 
 
 [<Scenario>]     
@@ -49,4 +49,22 @@ let ``Should remove multiple placeholders when key was not found`` () =
     Given "$say$ $me$$really$ $who$"
       |> When replacing ["who","bingo"; "say","hello"]
       |> It should equal "hello  bingo"
+      |> Verify
+
+let searching_for_template text =
+    printMethod ""
+    findTemplate text
+
+[<Scenario>]     
+let ``Should not find template in string without $`` () =   
+    Given "hello bingo"
+      |> When searching_for_template
+      |> It should equal None
+      |> Verify
+
+[<Scenario>]     
+let ``Should not find template in string with only one $`` () =   
+    Given "hello $bingo"
+      |> When searching_for_template
+      |> It should equal None
       |> Verify

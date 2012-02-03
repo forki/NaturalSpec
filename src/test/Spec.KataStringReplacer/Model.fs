@@ -1,5 +1,6 @@
 ﻿module StringReplacer.Model
 
+let findTemplate text = None
 
 let replace replacements (text:string) =
     replacements
