@@ -37,7 +37,9 @@ let ``Should replace multiple keys with values when found`` () =
       |> It should equal "hello bingo"
       |> Verify
 
-//[<Fact>]
-//let should_remove_placeholders_when_key_was_not_found () =
-//  let text = subst "$say$ $me$" [("who", "bingo");("say", "hello")]
-//  Assert.Equal<string>("hello ", text)
+[<Scenario>]     
+let ``Should remove placeholders when key was not found`` () =   
+    Given "$say$ $me$"
+      |> When replacing ["who","bingo"; "say","hello"]
+      |> It should equal "hello "
+      |> Verify
