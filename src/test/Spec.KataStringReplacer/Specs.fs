@@ -43,3 +43,10 @@ let ``Should remove placeholders when key was not found`` () =
       |> When replacing ["who","bingo"; "say","hello"]
       |> It should equal "hello "
       |> Verify
+
+[<Scenario>]     
+let ``Should remove multiple placeholders when key was not found`` () =   
+    Given "$say$ $me$$really$ $who$"
+      |> When replacing ["who","bingo"; "say","hello"]
+      |> It should equal "hello  bingo"
+      |> Verify
