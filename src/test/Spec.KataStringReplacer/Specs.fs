@@ -23,11 +23,13 @@ let ``Should yield text when text is passed with no keywords`` () =
       |> It should equal "something"
       |> Verify
 
-//[<Fact>]
-//let should_replace_key_with_value_when_key_was_found () = 
-//  let text = subst "hi $who$" [("who", "bingo")]
-//  Assert.Equal<string>("hi bingo", text)
-//
+[<Scenario>]     
+let ``Should replace key with value when key was found`` () =   
+    Given "hi $who$"
+      |> When replacing ["who","bingo"]
+      |> It should equal "hi bingo"
+      |> Verify
+
 //[<Fact>]
 //let should_replace_multiple_keys_with_values_when_found () =
 //  let text = subst "$say$ $who$" [("who", "bingo");("say", "hello")]
