@@ -10,8 +10,17 @@ let findTemplate (text:string) =
 
 
 let replace replacements (text:string) =
-    replacements
-      |> Seq.map (fun (p,r) -> sprintf "$%s$" p,r)
-      |> Seq.fold (fun (text:string) (p,r) -> text.Replace(p,r)) text
-      |> fun s -> s.Replace("$me$","")
-      |> fun s -> s.Replace("$really$","")
+    let replacements = 
+        replacements
+        |> Seq.map (fun (p,r) -> sprintf "$%s$" p,r)
+        |> Map.ofSeq
+
+    let rec replaceAll text =
+        match findTemplate text with    
+        | Some t ->
+            match Map.tryFind t replacements with
+            | Some r -> replaceAll (text.Replace(t,r))
+            | _ -> replaceAll (text.Replace(t,""))
+        | None -> text
+
+    replaceAll text
