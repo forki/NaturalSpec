@@ -1,3 +1,3 @@
 ﻿module StringReplacer.Model
 
-let replace replacements text = ""
+let replace replacements text = text

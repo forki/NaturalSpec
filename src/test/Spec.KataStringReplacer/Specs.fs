@@ -16,11 +16,13 @@ let ``Should yield empty text when empty text is provided`` () =
       |> It should equal ""
       |> Verify
 
-//[<Fact>]
-//let should_yield_text_when_text_is_passed_with_no_keywords () = 
-//  let text = subst "something" []
-//  Assert.Equal<string>("something", text)
-//
+[<Scenario>]     
+let ``Should yield text when text is passed with no keywords`` () =   
+    Given "something"
+      |> When replacing []
+      |> It should equal "something"
+      |> Verify
+
 //[<Fact>]
 //let should_replace_key_with_value_when_key_was_found () = 
 //  let text = subst "hi $who$" [("who", "bingo")]
