@@ -75,3 +75,10 @@ let ``Should not find a single template`` () =
       |> When searching_for_template
       |> It should equal (Some "$bingo$")
       |> Verify
+
+[<Scenario>]     
+let ``Should not find the first template in multiple`` () =   
+    Given "hello $bingo$ $the$ $clowno$"
+      |> When searching_for_template
+      |> It should equal (Some "$bingo$")
+      |> Verify
