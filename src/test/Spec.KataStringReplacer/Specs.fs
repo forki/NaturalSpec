@@ -2,18 +2,20 @@
 
 open NaturalSpec
 
+open Model
+
+let replacing replacements =
+    printMethod replacements
+    replace replacements 
+
+
 [<Scenario>]     
-let ``Checking testrunner`` () =   
-    Given 1
-      |> It should equal 1
+let ``Should yield empty text when empty text is provided`` () =   
+    Given ""
+      |> When replacing []
+      |> It should equal ""
       |> Verify
 
-
-//[<Fact>]
-//let should_yield_empty_text_when_empty_text_is_provided () = 
-//  let text = subst "" []
-//  Assert.Equal<string>("", text)
-//
 //[<Fact>]
 //let should_yield_text_when_text_is_passed_with_no_keywords () = 
 //  let text = subst "something" []

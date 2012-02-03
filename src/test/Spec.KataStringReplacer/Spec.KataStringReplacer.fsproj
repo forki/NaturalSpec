@@ -37,9 +37,9 @@
     <Content Include="Description.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Model.fs" />
     <Compile Include="Specs.fs" />
     <None Include="packages.config" />
-    <Compile Include="StringReplacer.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core">
