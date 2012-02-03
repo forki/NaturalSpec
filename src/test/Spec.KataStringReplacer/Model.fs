@@ -9,7 +9,7 @@ let findTemplate (text:string) =
         | y  -> Some(text.Substring(x,y-x+1))
 
 
-let replace replacements (text:string) =
+let replace replacements =
     let replacements = 
         replacements
         |> Seq.map (fun (p,r) -> sprintf "$%s$" p,r)
@@ -26,4 +26,4 @@ let replace replacements (text:string) =
               |> replaceAll
         | None -> text
 
-    replaceAll text
+    replaceAll
