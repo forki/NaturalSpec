@@ -81,24 +81,4 @@ let ``Multiply 0 with a`` a =
  Given 0 
    |> When multiply_with a
    |> It should equal 0
-   |> Verify     
-   
-   
-/// with a scenario source      
-let MyTestCases3 =
-  let rand = new System.Random()    
-  let f _ = 
-    let a = rand.Next()
-    let b = rand.Next(1,100) 
-    (a,b,(a/b))
-    
-  Array.init 10 f
-  
-
-[<Scenario>]
-let ``Dividing ints`` ([<Source "MyTestCases3">] p) =
-   let a,b,result = unbox p
-   Given a 
-     |> When dividing_by b
-     |> It should equal result
-     |> Verify
+   |> Verify
