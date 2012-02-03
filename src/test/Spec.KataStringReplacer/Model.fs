@@ -18,9 +18,12 @@ let replace replacements (text:string) =
     let rec replaceAll text =
         match findTemplate text with    
         | Some t ->
-            match Map.tryFind t replacements with
-            | Some r -> replaceAll (text.Replace(t,r))
-            | _ -> replaceAll (text.Replace(t,""))
+            let replacement =
+                match Map.tryFind t replacements with
+                | Some r -> r
+                | _ -> ""
+            text.Replace(t,replacement)
+              |> replaceAll
         | None -> text
 
     replaceAll text
