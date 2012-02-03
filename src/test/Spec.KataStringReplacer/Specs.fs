@@ -68,3 +68,10 @@ let ``Should not find template in string with only one $`` () =
       |> When searching_for_template
       |> It should equal None
       |> Verify
+
+[<Scenario>]     
+let ``Should not find a single template`` () =   
+    Given "hello $bingo$"
+      |> When searching_for_template
+      |> It should equal (Some "$bingo$")
+      |> Verify
