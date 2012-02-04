@@ -4,8 +4,14 @@ open NaturalSpec
 
 open Model
 
+let sorting list =
+    printMethod ""
+    sort list
+
 [<Scenario>]     
-let ``NaturalSpec should work`` () =   
-    Given 1
-      |> It should equal 1
+let ``When sorting an empty list it should return an empty list`` () =   
+    Given []
+      |> When sorting
+      |> It should equal []
       |> Verify
+      
