@@ -70,15 +70,22 @@ let ``Should not find template in string with only one $`` () =
       |> Verify
 
 [<Scenario>]     
-let ``Should not find a single template`` () =   
+let ``Should find a single template`` () =   
     Given "hello $bingo$"
       |> When searching_for_template
       |> It should equal (Some "$bingo$")
       |> Verify
 
 [<Scenario>]     
-let ``Should not find the first template in multiple`` () =   
+let ``Should find the first template in multiple`` () =   
     Given "hello $bingo$ $the$ $clowno$"
       |> When searching_for_template
       |> It should equal (Some "$bingo$")
+      |> Verify
+
+[<Scenario>]     
+let ``Should replace a recursive template`` () =   
+    Given "$say$ $who$ $recurse$"
+      |> When replacing ["who","bingo"; "say","hello"; "recurse","$say$"]
+      |> It should equal "hello bingo hello"
       |> Verify
