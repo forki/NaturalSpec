@@ -49,3 +49,17 @@ let ``When sorting an unsorted list with three elements`` () =
       |> When sorting
       |> It should equal [1;2;3]
       |> Verify
+
+[<Scenario>]     
+let ``When sorting an other unsorted list with three elements`` () =   
+    Given [1;3;2]
+      |> When sorting
+      |> It should equal [1;2;3]
+      |> Verify
+
+[<Scenario>]     
+let ``When sorting a reverse sorted list with three elements`` () =   
+    Given [3;2;1]
+      |> When sorting
+      |> It should equal [1;2;3]
+      |> Verify
