@@ -63,3 +63,10 @@ let ``When sorting a reverse sorted list with three elements`` () =
       |> When sorting
       |> It should equal [1;2;3]
       |> Verify
+
+[<Scenario>]     
+let ``When sorting a list with three equal elements`` () =   
+    Given [4;4;4]
+      |> When sorting
+      |> It should equal [4;4;4]
+      |> Verify
