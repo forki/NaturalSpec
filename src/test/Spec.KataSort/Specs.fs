@@ -21,3 +21,17 @@ let ``When sorting a singleton list it should return the same list`` () =
       |> When sorting
       |> It should equal [1]
       |> Verify
+
+[<Scenario>]     
+let ``When sorting a sorted list with two elements it should return the same list`` () =   
+    Given [1;2]
+      |> When sorting
+      |> It should equal [1;2]
+      |> Verify
+
+[<Scenario>]     
+let ``When sorting an unsorted list with two elements`` () =   
+    Given [2;1]
+      |> When sorting
+      |> It should equal [1;2]
+      |> Verify
