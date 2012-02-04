@@ -15,3 +15,9 @@ let ``When sorting an empty list it should return an empty list`` () =
       |> It should equal []
       |> Verify
       
+[<Scenario>]     
+let ``When sorting a singleton list it should return the same list`` () =   
+    Given [1]
+      |> When sorting
+      |> It should equal [1]
+      |> Verify

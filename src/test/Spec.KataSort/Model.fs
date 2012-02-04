@@ -1,3 +1,3 @@
 ﻿module Sort.Model
 
-let sort list = []
+let sort list = list
