@@ -28,6 +28,12 @@ let primes' (n:int64) =
 
 open System.Collections
 
+let primeFactors number =
+    let rec primeF index number =
+        if number % index = 0L then index::(primeF index (number / index)) else
+        if number >= 2L then primeF (index+1L) number else []
+    primeF 2L number
+
 let primes max =
     let primes = new BitArray(max+1, true)
     seq { for n in 2 .. max do
