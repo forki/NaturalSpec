@@ -70,3 +70,10 @@ let ``When sorting a list with three equal elements`` () =
       |> When sorting
       |> It should equal [4;4;4]
       |> Verify
+
+[<Scenario>]     
+let ``When sorting a list with 10 elements`` () =   
+    Given [4;5;4;-3;2;1;8;0;9;1]
+      |> When sorting
+      |> It should equal [-3; 0; 1; 1; 2; 4; 4; 5; 8; 9]
+      |> Verify
