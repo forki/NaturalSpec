@@ -89,3 +89,11 @@ let ``Should replace a recursive template`` () =
       |> When replacing ["who","bingo"; "say","hello"; "recurse","$say$"]
       |> It should equal "hello bingo hello"
       |> Verify
+
+
+[<Scenario>]     
+let ``Should replace a full recursive template`` () =   
+    Given "$say$ $who$ $recurse$"
+      |> When replacing ["who","bingo"; "say","hello"; "recurse","$recurse$"]
+      |> It should equal "hello bingo $recurse$"
+      |> Verify

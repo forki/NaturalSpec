@@ -15,7 +15,8 @@ let replace replacements =
         |> Seq.map (fun (p,r) -> sprintf "$%s$" p,r)
         |> Map.ofSeq
 
-    let rec replaceAll text =
+    let rec replaceAll set text =
+        if Set.contains text set then text else
         match findTemplate text with    
         | Some t ->
             let replacement =
@@ -23,7 +24,7 @@ let replace replacements =
                 | Some r -> r
                 | _ -> ""
             text.Replace(t,replacement)
-              |> replaceAll
+              |> replaceAll (Set.add text set)
         | None -> text
 
-    replaceAll
+    replaceAll Set.empty
