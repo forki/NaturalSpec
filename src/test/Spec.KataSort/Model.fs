@@ -3,5 +3,5 @@
 let sort list = 
     match list with
     | [] -> list
-    | [x] -> list
-    | [x;y] -> if x<y then [x;y] else [y;x]
+    | [x] -> list    
+    | x::y::rest -> if x<y then x::y::rest else y::x::rest

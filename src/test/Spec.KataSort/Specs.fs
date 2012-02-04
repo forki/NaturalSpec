@@ -35,3 +35,17 @@ let ``When sorting an unsorted list with two elements`` () =
       |> When sorting
       |> It should equal [1;2]
       |> Verify
+
+[<Scenario>]     
+let ``When sorting a sorted list with three elements it should return the same list`` () =   
+    Given [1;2;3]
+      |> When sorting
+      |> It should equal [1;2;3]
+      |> Verify
+
+[<Scenario>]     
+let ``When sorting an unsorted list with three elements`` () =   
+    Given [2;1;3]
+      |> When sorting
+      |> It should equal [1;2;3]
+      |> Verify
