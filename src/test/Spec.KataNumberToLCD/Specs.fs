@@ -17,3 +17,13 @@ let ``Should display single 0`` () =
              "| |\n" +
              "|_|\n")
       |> Verify
+
+[<Scenario>]     
+let ``Should display single 1`` () =   
+    Given "1"
+      |> When converting_to_LCD
+      |> It should equal 
+            ("   \n" +
+             "  |\n" +
+             "  |\n")
+      |> Verify
