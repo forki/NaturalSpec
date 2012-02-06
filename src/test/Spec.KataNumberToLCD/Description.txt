@@ -1,0 +1,3 @@
+﻿KataNumberToLCD
+
+The basic idea is the inverse of KataBankOCR
