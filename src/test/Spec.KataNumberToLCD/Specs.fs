@@ -17,7 +17,7 @@ let ``Should display single 0`` () =
              "| |\n" +
              "   \n" +
              "| |\n" +
-             " - \n")
+             " - ")
       |> Verify
 
 [<Scenario>]     
@@ -29,7 +29,7 @@ let ``Should display single 1`` () =
              "  |\n" +
              "   \n" +
              "  |\n" +
-             "   \n")
+             "   ")
       |> Verify
 
 [<Scenario>]     
@@ -41,7 +41,7 @@ let ``Should display single 2`` () =
              "  |\n" +
              " - \n" +
              "|  \n" +
-             " - \n")
+             " - ")
       |> Verify
 
 [<Scenario>]     
@@ -53,7 +53,7 @@ let ``Should display single 3`` () =
              "  |\n" +
              " - \n" +
              "  |\n" +
-             " - \n")
+             " - ")
       |> Verify
 
 [<Scenario>]     
@@ -65,7 +65,7 @@ let ``Should display single 4`` () =
              "| |\n" +
              " - \n" +
              "  |\n" +
-             "   \n")
+             "   ")
       |> Verify
 
 [<Scenario>]     
@@ -77,7 +77,7 @@ let ``Should display single 5`` () =
              "|  \n" +
              " - \n" +
              "  |\n" +
-             " - \n")
+             " - ")
       |> Verify
 
 [<Scenario>]     
@@ -89,7 +89,7 @@ let ``Should display single 6`` () =
              "|  \n" +
              " - \n" +
              "| |\n" +
-             " - \n")
+             " - ")
       |> Verify
 
 [<Scenario>]     
@@ -101,7 +101,7 @@ let ``Should display single 7`` () =
              "  |\n" +
              "   \n" +
              "  |\n" +
-             "   \n")
+             "   ")
       |> Verify
 
 [<Scenario>]     
@@ -113,7 +113,7 @@ let ``Should display single 8`` () =
              "| |\n" +
              " - \n" +
              "| |\n" +
-             " - \n")
+             " - ")
       |> Verify
 
 [<Scenario>]     
@@ -125,5 +125,41 @@ let ``Should display single 9`` () =
              "| |\n" +
              " - \n" +
              "  |\n" +
-             " - \n")
+             " - ")
+      |> Verify
+
+[<Scenario>]     
+let ``Should display two digits`` () =   
+    Given 12
+      |> When converting_to_LCD
+      |> It should equal 
+            ("     - \n" +
+             "  |   |\n" +
+             "     - \n" +
+             "  | |  \n" +
+             "     - ")
+      |> Verify
+
+[<Scenario>]     
+let ``Should display three digits`` () =   
+    Given 345
+      |> When converting_to_LCD
+      |> It should equal 
+            (" -       - \n" +
+             "  | | | |  \n" +
+             " -   -   - \n" +
+             "  |   |   |\n" +
+             " -       - ")
+      |> Verify
+
+[<Scenario>]     
+let ``Should display five digits`` () =   
+    Given 67890
+      |> When converting_to_LCD
+      |> It should equal 
+            (" -   -   -   -   - \n" +
+             "|     | | | | | | |\n" +
+             " -       -   -     \n" +
+             "| |   | | |   | | |\n" +
+             " -       -   -   - ")
       |> Verify
