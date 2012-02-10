@@ -32,7 +32,7 @@ let digitsForSegment = function
 | _ -> [Middle; Both; Blank; Both; Middle]
 
 let toLCD number =
-    let digits = [for c in number.ToString() -> c.ToString()] |> List.map (int)        
+    let digits = number.ToString() |> Seq.map (string >> int) |> Seq.toList
 
     digits 
     |> List.map digitsForSegment 
