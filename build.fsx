@@ -16,7 +16,11 @@ let nugetContentSourceDir = @".\NuGetContent\"
 let nugetDocsDir = nugetDir @@ "docs/"
 let nugetLibDir = nugetDir @@ "lib/"
 let nugetContentDir = nugetDir @@ "Content/"
-let nunitPath = @".\packages\NUnit.2.5.10.11092\tools"
+let packagesDir = @".\packages\"
+
+// tools
+let nUnitVersion = GetPackageVersion packagesDir "NUnit.Runners"
+let nunitPath = sprintf @"%sNUnit.Runners.%s\tools" packagesDir nUnitVersion
 
 // files
 let AppReferences  = !+ @"src\app\**\*.*proj"  |> Scan
