@@ -13,7 +13,7 @@ type Scenario =
 type Example = 
     class
         inherit TestCaseAttribute 
-        new (testParams:obj[]) =     { inherit TestCaseAttribute(testParams) }
+        new ([<ParamArray>] testParams:obj[]) = { inherit TestCaseAttribute(testParams) }
         new (given:obj,result:obj) = { inherit TestCaseAttribute(given,result) }
         new (p1:obj,p2:obj,p3:obj) = { inherit TestCaseAttribute(p1,p2,p3) }
         new (parameter:obj) =        { inherit TestCaseAttribute(parameter) }
