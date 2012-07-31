@@ -24,3 +24,11 @@ let ``Dividing by zero should fail``() =
   Given 10
     |> When dividing_by 0
     |> Verify                              
+
+[<Example(1, 2, 3, 6)>]
+let ``1 + 2 + 3 should give 6``(x, y, z, expected) =
+  Given x
+    |> When adding y
+    |> When adding z
+    |> It should equal expected
+    |> Verify
