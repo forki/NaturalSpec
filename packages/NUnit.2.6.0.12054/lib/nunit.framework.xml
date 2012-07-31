@@ -574,6 +574,34 @@
             guaranteed to be called, even if an exception is thrown.
             </summary>
         </member>
+        <member name="T:NUnit.Framework.TestActionAttribute">
+            <summary>
+            Provide actions to execute before and after tests.
+            </summary>
+        </member>
+        <member name="T:NUnit.Framework.ITestAction">
+            <summary>
+            When implemented by an attribute, this interface implemented to provide actions to execute before and after tests.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.ITestAction.BeforeTest(NUnit.Framework.TestDetails)">
+            <summary>
+            Executed before each test is run
+            </summary>
+            <param name="testDetails">Provides details about the test that is going to be run.</param>
+        </member>
+        <member name="M:NUnit.Framework.ITestAction.AfterTest(NUnit.Framework.TestDetails)">
+            <summary>
+            Executed after each test is run
+            </summary>
+            <param name="testDetails">Provides details about the test that has just been run.</param>
+        </member>
+        <member name="P:NUnit.Framework.ITestAction.Targets">
+            <summary>
+            Provides the target for the action attribute
+            </summary>
+            <returns>The target for the action attribute</returns>
+        </member>
         <member name="T:NUnit.Framework.TestAttribute">
             <summary>
             Adding this attribute to a method within a <seealso cref="T:NUnit.Framework.TestFixtureAttribute"/> 
@@ -891,6 +919,13 @@
             </summary>
             <value>The ignore reason.</value>
         </member>
+        <member name="P:NUnit.Framework.TestFixtureAttribute.TypeArgs">
+            <summary>
+            Get or set the type arguments. If not set
+            explicitly, any leading arguments that are
+            Types are taken as type arguments.
+            </summary>
+        </member>
         <member name="T:NUnit.Framework.TestFixtureSetUpAttribute">
             <summary>
             Attribute used to identify a method that is 
@@ -1116,9 +1151,9 @@
             <param name="del">An ActualValueDelegate</param>
             <returns>True for success, false for failure</returns>
         </member>
-        <member name="M:NUnit.Framework.Constraints.Constraint.Matches(System.Boolean@)">
+        <member name="M:NUnit.Framework.Constraints.Constraint.Matches``1(``0@)">
             <summary>
-            Test whether the constraint is satisfied by a given bool reference.
+            Test whether the constraint is satisfied by a given reference.
             The default implementation simply dereferences the value but
             derived classes may override it to provide for delayed processing.
             </summary>
@@ -1513,6 +1548,34 @@
             <param name="comparer">The IComparer object to use.</param>
             <returns>Self.</returns>
         </member>
+        <member name="M:NUnit.Framework.Constraints.CollectionItemsEqualConstraint.Using``1(System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Flag the constraint to use the supplied IComparer object.
+            </summary>
+            <param name="comparer">The IComparer object to use.</param>
+            <returns>Self.</returns>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.CollectionItemsEqualConstraint.Using``1(System.Comparison{``0})">
+            <summary>
+            Flag the constraint to use the supplied Comparison object.
+            </summary>
+            <param name="comparer">The IComparer object to use.</param>
+            <returns>Self.</returns>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.CollectionItemsEqualConstraint.Using(System.Collections.IEqualityComparer)">
+            <summary>
+            Flag the constraint to use the supplied IEqualityComparer object.
+            </summary>
+            <param name="comparer">The IComparer object to use.</param>
+            <returns>Self.</returns>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.CollectionItemsEqualConstraint.Using``1(System.Collections.Generic.IEqualityComparer{``0})">
+            <summary>
+            Flag the constraint to use the supplied IEqualityComparer object.
+            </summary>
+            <param name="comparer">The IComparer object to use.</param>
+            <returns>Self.</returns>
+        </member>
         <member name="M:NUnit.Framework.Constraints.CollectionItemsEqualConstraint.ItemsEqual(System.Object,System.Object)">
             <summary>
             Compares two collection members for equality
@@ -1657,6 +1720,16 @@
             Modifies the constraint to use an IComparer and returns self.
             </summary>
         </member>
+        <member name="M:NUnit.Framework.Constraints.CollectionOrderedConstraint.Using``1(System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Modifies the constraint to use an IComparer&lt;T&gt; and returns self.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.CollectionOrderedConstraint.Using``1(System.Comparison{``0})">
+            <summary>
+            Modifies the constraint to use a Comparison&lt;T&gt; and returns self.
+            </summary>
+        </member>
         <member name="M:NUnit.Framework.Constraints.CollectionOrderedConstraint.By(System.String)">
             <summary>
             Modifies the constraint to test ordering by the value of
@@ -1729,6 +1802,16 @@
             Returns a ComparisonAdapter that wraps an IComparer
             </summary>
         </member>
+        <member name="M:NUnit.Framework.Constraints.ComparisonAdapter.For``1(System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Returns a ComparisonAdapter that wraps an IComparer&lt;T&gt;
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.ComparisonAdapter.For``1(System.Comparison{``0})">
+            <summary>
+            Returns a ComparisonAdapter that wraps a Comparison&lt;T&gt;
+            </summary>
+        </member>
         <member name="M:NUnit.Framework.Constraints.ComparisonAdapter.Compare(System.Object,System.Object)">
             <summary>
             Compares two objects
@@ -1758,6 +1841,33 @@
             Construct a default ComparisonAdapter
             </summary>
         </member>
+        <member name="T:NUnit.Framework.Constraints.ComparisonAdapter.ComparerAdapter`1">
+            <summary>
+            ComparisonAdapter&lt;T&gt; extends ComparisonAdapter and
+            allows use of an IComparer&lt;T&gt; or Comparison&lt;T&gt;
+            to actually perform the comparison.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.ComparisonAdapter.ComparerAdapter`1.#ctor(System.Collections.Generic.IComparer{`0})">
+            <summary>
+            Construct a ComparisonAdapter for an IComparer&lt;T&gt;
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.ComparisonAdapter.ComparerAdapter`1.Compare(System.Object,System.Object)">
+            <summary>
+            Compare a Type T to an object
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.ComparisonAdapter.ComparisonAdapterForComparison`1.#ctor(System.Comparison{`0})">
+            <summary>
+            Construct a ComparisonAdapter for a Comparison&lt;T&gt;
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.ComparisonAdapter.ComparisonAdapterForComparison`1.Compare(System.Object,System.Object)">
+            <summary>
+            Compare a Type T to an object
+            </summary>
+        </member>
         <member name="T:NUnit.Framework.Constraints.ComparisonConstraint">
             <summary>
             Abstract base class for constraints that compare values to
@@ -1783,6 +1893,16 @@
         <member name="M:NUnit.Framework.Constraints.ComparisonConstraint.Using(System.Collections.IComparer)">
             <summary>
             Modifies the constraint to use an IComparer and returns self
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.ComparisonConstraint.Using``1(System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Modifies the constraint to use an IComparer&lt;T&gt; and returns self
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.ComparisonConstraint.Using``1(System.Comparison{``0})">
+            <summary>
+            Modifies the constraint to use a Comparison&lt;T&gt; and returns self
             </summary>
         </member>
         <member name="T:NUnit.Framework.Constraints.ActualValueDelegate">
@@ -2022,7 +2142,19 @@
             presence of a particular attribute on an object.
             </summary>
         </member>
+        <member name="M:NUnit.Framework.Constraints.ConstraintExpression.Attribute``1">
+            <summary>
+            Returns a new AttributeConstraint checking for the
+            presence of a particular attribute on an object.
+            </summary>
+        </member>
         <member name="M:NUnit.Framework.Constraints.ConstraintExpression.Matches(NUnit.Framework.Constraints.Constraint)">
+            <summary>
+            Returns the constraint provided as an argument - used to allow custom
+            custom constraints to easily participate in the syntax.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.ConstraintExpression.Matches``1(System.Predicate{``0})">
             <summary>
             Returns the constraint provided as an argument - used to allow custom
             custom constraints to easily participate in the syntax.
@@ -2080,7 +2212,19 @@
             value is of the exact type supplied as an argument.
             </summary>
         </member>
+        <member name="M:NUnit.Framework.Constraints.ConstraintExpression.TypeOf``1">
+            <summary>
+            Returns a constraint that tests whether the actual
+            value is of the exact type supplied as an argument.
+            </summary>
+        </member>
         <member name="M:NUnit.Framework.Constraints.ConstraintExpression.InstanceOf(System.Type)">
+            <summary>
+            Returns a constraint that tests whether the actual value
+            is of the type supplied as an argument or a derived type.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.ConstraintExpression.InstanceOf``1">
             <summary>
             Returns a constraint that tests whether the actual value
             is of the type supplied as an argument or a derived type.
@@ -2092,13 +2236,31 @@
             is of the type supplied as an argument or a derived type.
             </summary>
         </member>
+        <member name="M:NUnit.Framework.Constraints.ConstraintExpression.InstanceOfType``1">
+            <summary>
+            Returns a constraint that tests whether the actual value
+            is of the type supplied as an argument or a derived type.
+            </summary>
+        </member>
         <member name="M:NUnit.Framework.Constraints.ConstraintExpression.AssignableFrom(System.Type)">
             <summary>
             Returns a constraint that tests whether the actual value
             is assignable from the type supplied as an argument.
             </summary>
         </member>
+        <member name="M:NUnit.Framework.Constraints.ConstraintExpression.AssignableFrom``1">
+            <summary>
+            Returns a constraint that tests whether the actual value
+            is assignable from the type supplied as an argument.
+            </summary>
+        </member>
         <member name="M:NUnit.Framework.Constraints.ConstraintExpression.AssignableTo(System.Type)">
+            <summary>
+            Returns a constraint that tests whether the actual value
+            is assignable from the type supplied as an argument.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.ConstraintExpression.AssignableTo``1">
             <summary>
             Returns a constraint that tests whether the actual value
             is assignable from the type supplied as an argument.
@@ -2205,7 +2367,7 @@
             is the same path or under an expected path after canonicalization.
             </summary>
         </member>
-        <member name="M:NUnit.Framework.Constraints.ConstraintExpression.InRange(System.IComparable,System.IComparable)">
+        <member name="M:NUnit.Framework.Constraints.ConstraintExpression.InRange``1(``0,``0)">
             <summary>
             Returns a constraint that tests whether the actual value falls 
             within a specified range.
@@ -2355,6 +2517,12 @@
             presence of a particular attribute on an object.
             </summary>
         </member>
+        <member name="M:NUnit.Framework.Constraints.ConstraintFactory.Attribute``1">
+            <summary>
+            Returns a new AttributeConstraint checking for the
+            presence of a particular attribute on an object.
+            </summary>
+        </member>
         <member name="M:NUnit.Framework.Constraints.ConstraintFactory.EqualTo(System.Object)">
             <summary>
             Returns a constraint that tests two items for equality
@@ -2407,7 +2575,19 @@
             value is of the exact type supplied as an argument.
             </summary>
         </member>
+        <member name="M:NUnit.Framework.Constraints.ConstraintFactory.TypeOf``1">
+            <summary>
+            Returns a constraint that tests whether the actual
+            value is of the exact type supplied as an argument.
+            </summary>
+        </member>
         <member name="M:NUnit.Framework.Constraints.ConstraintFactory.InstanceOf(System.Type)">
+            <summary>
+            Returns a constraint that tests whether the actual value
+            is of the type supplied as an argument or a derived type.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.ConstraintFactory.InstanceOf``1">
             <summary>
             Returns a constraint that tests whether the actual value
             is of the type supplied as an argument or a derived type.
@@ -2419,13 +2599,31 @@
             is of the type supplied as an argument or a derived type.
             </summary>
         </member>
+        <member name="M:NUnit.Framework.Constraints.ConstraintFactory.InstanceOfType``1">
+            <summary>
+            Returns a constraint that tests whether the actual value
+            is of the type supplied as an argument or a derived type.
+            </summary>
+        </member>
         <member name="M:NUnit.Framework.Constraints.ConstraintFactory.AssignableFrom(System.Type)">
             <summary>
             Returns a constraint that tests whether the actual value
             is assignable from the type supplied as an argument.
             </summary>
         </member>
+        <member name="M:NUnit.Framework.Constraints.ConstraintFactory.AssignableFrom``1">
+            <summary>
+            Returns a constraint that tests whether the actual value
+            is assignable from the type supplied as an argument.
+            </summary>
+        </member>
         <member name="M:NUnit.Framework.Constraints.ConstraintFactory.AssignableTo(System.Type)">
+            <summary>
+            Returns a constraint that tests whether the actual value
+            is assignable from the type supplied as an argument.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.ConstraintFactory.AssignableTo``1">
             <summary>
             Returns a constraint that tests whether the actual value
             is assignable from the type supplied as an argument.
@@ -2556,7 +2754,7 @@
             is the same path or under an expected path after canonicalization.
             </summary>
         </member>
-        <member name="M:NUnit.Framework.Constraints.ConstraintFactory.InRange(System.IComparable,System.IComparable)">
+        <member name="M:NUnit.Framework.Constraints.ConstraintFactory.InRange``1(``0,``0)">
             <summary>
             Returns a constraint that tests whether the actual value falls 
             within a specified range.
@@ -3014,6 +3212,34 @@
             <param name="comparer">The IComparer object to use.</param>
             <returns>Self.</returns>
         </member>
+        <member name="M:NUnit.Framework.Constraints.ContainsConstraint.Using``1(System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Flag the constraint to use the supplied IComparer object.
+            </summary>
+            <param name="comparer">The IComparer object to use.</param>
+            <returns>Self.</returns>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.ContainsConstraint.Using``1(System.Comparison{``0})">
+            <summary>
+            Flag the constraint to use the supplied Comparison object.
+            </summary>
+            <param name="comparer">The IComparer object to use.</param>
+            <returns>Self.</returns>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.ContainsConstraint.Using(System.Collections.IEqualityComparer)">
+            <summary>
+            Flag the constraint to use the supplied IEqualityComparer object.
+            </summary>
+            <param name="comparer">The IComparer object to use.</param>
+            <returns>Self.</returns>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.ContainsConstraint.Using``1(System.Collections.Generic.IEqualityComparer{``0})">
+            <summary>
+            Flag the constraint to use the supplied IEqualityComparer object.
+            </summary>
+            <param name="comparer">The IComparer object to use.</param>
+            <returns>Self.</returns>
+        </member>
         <member name="P:NUnit.Framework.Constraints.ContainsConstraint.IgnoreCase">
             <summary>
             Flag the constraint to ignore case and return self.
@@ -3055,9 +3281,9 @@
             <param name="del">The delegate whose value is to be tested</param>
             <returns>True for if the base constraint fails, false if it succeeds</returns>
         </member>
-        <member name="M:NUnit.Framework.Constraints.DelayedConstraint.Matches(System.Boolean@)">
+        <member name="M:NUnit.Framework.Constraints.DelayedConstraint.Matches``1(``0@)">
             <summary>
-            Test whether the constraint is satisfied by a given boolean reference.
+            Test whether the constraint is satisfied by a given reference.
             Overridden to wait for the specified delay period before
             calling the base constraint with the dereferenced value.
             </summary>
@@ -3169,6 +3395,34 @@
         <member name="M:NUnit.Framework.Constraints.EqualConstraint.Using(System.Collections.IComparer)">
             <summary>
             Flag the constraint to use the supplied IComparer object.
+            </summary>
+            <param name="comparer">The IComparer object to use.</param>
+            <returns>Self.</returns>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.EqualConstraint.Using``1(System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Flag the constraint to use the supplied IComparer object.
+            </summary>
+            <param name="comparer">The IComparer object to use.</param>
+            <returns>Self.</returns>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.EqualConstraint.Using``1(System.Comparison{``0})">
+            <summary>
+            Flag the constraint to use the supplied Comparison object.
+            </summary>
+            <param name="comparer">The IComparer object to use.</param>
+            <returns>Self.</returns>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.EqualConstraint.Using(System.Collections.IEqualityComparer)">
+            <summary>
+            Flag the constraint to use the supplied IEqualityComparer object.
+            </summary>
+            <param name="comparer">The IComparer object to use.</param>
+            <returns>Self.</returns>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.EqualConstraint.Using``1(System.Collections.Generic.IEqualityComparer{``0})">
+            <summary>
+            Flag the constraint to use the supplied IEqualityComparer object.
             </summary>
             <param name="comparer">The IComparer object to use.</param>
             <returns>Self.</returns>
@@ -3334,7 +3588,38 @@
             Returns an EqualityAdapter that wraps an IComparer.
             </summary>
         </member>
+        <member name="M:NUnit.Framework.Constraints.EqualityAdapter.For(System.Collections.IEqualityComparer)">
+            <summary>
+            Returns an EqualityAdapter that wraps an IEqualityComparer.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.EqualityAdapter.For``1(System.Collections.Generic.IEqualityComparer{``0})">
+            <summary>
+            Returns an EqualityAdapter that wraps an IEqualityComparer&lt;T&gt;.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.EqualityAdapter.For``1(System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Returns an EqualityAdapter that wraps an IComparer&lt;T&gt;.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.EqualityAdapter.For``1(System.Comparison{``0})">
+            <summary>
+            Returns an EqualityAdapter that wraps a Comparison&lt;T&gt;.
+            </summary>
+        </member>
         <member name="T:NUnit.Framework.Constraints.EqualityAdapter.ComparerAdapter">
+            <summary>
+            EqualityAdapter that wraps an IComparer.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.EqualityAdapter.GenericEqualityAdapter`1.CanCompare(System.Object,System.Object)">
+            <summary>
+            Returns true if the two objects can be compared by this adapter.
+            Generic adapter requires objects of the specified type.
+            </summary>
+        </member>
+        <member name="T:NUnit.Framework.Constraints.EqualityAdapter.ComparerAdapter`1">
             <summary>
             EqualityAdapter that wraps an IComparer.
             </summary>
@@ -3859,6 +4144,17 @@
             Returns the default NUnitComparer.
             </summary>
         </member>
+        <member name="T:NUnit.Framework.Constraints.NUnitComparer`1">
+            <summary>
+            Generic version of NUnitComparer
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.NUnitComparer`1.Compare(`0,`0)">
+            <summary>
+            Compare two objects of the same type
+            </summary>
+        </member>
         <member name="T:NUnit.Framework.Constraints.NUnitEqualityComparer">
             <summary>
             NUnitEqualityComparer encapsulates NUnit's handling of
@@ -4137,6 +4433,28 @@
             </summary>
             <param name="writer">The writer on which the description is displayed</param>
         </member>
+        <member name="T:NUnit.Framework.Constraints.PredicateConstraint`1">
+            <summary>
+            Predicate constraint wraps a Predicate in a constraint,
+            returning success if the predicate is true.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.PredicateConstraint`1.#ctor(System.Predicate{`0})">
+            <summary>
+            Construct a PredicateConstraint from a predicate
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.PredicateConstraint`1.Matches(System.Object)">
+            <summary>
+            Determines whether the predicate succeeds when applied
+            to the actual value.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.PredicateConstraint`1.WriteDescriptionTo(NUnit.Framework.Constraints.MessageWriter)">
+            <summary>
+            Writes the description to a MessageWriter
+            </summary>
+        </member>
         <member name="T:NUnit.Framework.Constraints.NotConstraint">
             <summary>
             NotConstraint negates the effect of some other constraint
@@ -4356,27 +4674,27 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:NUnit.Framework.Constraints.RangeConstraint">
+        <member name="T:NUnit.Framework.Constraints.RangeConstraint`1">
             <summary>
             RangeConstraint tests whethe two values are within a 
             specified range.
             </summary>
         </member>
-        <member name="M:NUnit.Framework.Constraints.RangeConstraint.#ctor(System.IComparable,System.IComparable)">
+        <member name="M:NUnit.Framework.Constraints.RangeConstraint`1.#ctor(`0,`0)">
             <summary>
             Initializes a new instance of the <see cref="T:RangeConstraint"/> class.
             </summary>
             <param name="from">From.</param>
             <param name="to">To.</param>
         </member>
-        <member name="M:NUnit.Framework.Constraints.RangeConstraint.Matches(System.Object)">
+        <member name="M:NUnit.Framework.Constraints.RangeConstraint`1.Matches(System.Object)">
             <summary>
             Test whether the constraint is satisfied by a given value
             </summary>
             <param name="actual">The value to be tested</param>
             <returns>True for success, false for failure</returns>
         </member>
-        <member name="M:NUnit.Framework.Constraints.RangeConstraint.WriteDescriptionTo(NUnit.Framework.Constraints.MessageWriter)">
+        <member name="M:NUnit.Framework.Constraints.RangeConstraint`1.WriteDescriptionTo(NUnit.Framework.Constraints.MessageWriter)">
             <summary>
             Write the constraint description to a MessageWriter
             </summary>
@@ -4739,6 +5057,14 @@
             <param name="actual">A delegate representing the code to be tested</param>
             <returns>True if an exception is thrown and the constraint succeeds, otherwise false</returns>
         </member>
+        <member name="M:NUnit.Framework.Constraints.ThrowsConstraint.Matches(NUnit.Framework.Constraints.ActualValueDelegate)">
+            <summary>
+            Converts an ActualValueDelegate to a TestDelegate
+            before calling the primary overload.
+            </summary>
+            <param name="del"></param>
+            <returns></returns>
+        </member>
         <member name="M:NUnit.Framework.Constraints.ThrowsConstraint.WriteDescriptionTo(NUnit.Framework.Constraints.MessageWriter)">
             <summary>
             Write the constraint description to a MessageWriter
@@ -4776,6 +5102,14 @@
             </summary>
             <param name="actual">The value to be tested</param>
             <returns>True if no exception is thrown, otherwise false</returns>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.ThrowsNothingConstraint.Matches(NUnit.Framework.Constraints.ActualValueDelegate)">
+            <summary>
+            Converts an ActualValueDelegate to a TestDelegate
+            before calling the primary overload.
+            </summary>
+            <param name="del"></param>
+            <returns></returns>
         </member>
         <member name="M:NUnit.Framework.Constraints.ThrowsNothingConstraint.WriteDescriptionTo(NUnit.Framework.Constraints.MessageWriter)">
             <summary>
@@ -5149,6 +5483,41 @@
             Serialization Constructor
             </summary>
         </member>
+        <member name="T:NUnit.Framework.INUnitEqualityComparer`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:NUnit.Framework.INUnitEqualityComparer`1.AreEqual(`0,`0,NUnit.Framework.Constraints.Tolerance@)">
+            <summary>
+            Compares two objects of a given Type for equality within a tolerance
+            </summary>
+            <param name="x">The first object to compare</param>
+            <param name="y">The second object to compare</param>
+            <param name="tolerance">The tolerance to use in the comparison</param>
+            <returns></returns>
+        </member>
+        <member name="T:NUnit.Framework.ActionTargets">
+            <summary>
+            The different targets a test action attribute can be applied to
+            </summary>
+        </member>
+        <member name="F:NUnit.Framework.ActionTargets.Default">
+            <summary>
+            Default target, which is determined by where the action attribute is attached
+            </summary>
+        </member>
+        <member name="F:NUnit.Framework.ActionTargets.Test">
+            <summary>
+            Target a individual test case
+            </summary>
+        </member>
+        <member name="F:NUnit.Framework.ActionTargets.Suite">
+            <summary>
+            Target a suite of test cases
+            </summary>
+        </member>
         <member name="T:NUnit.Framework.TestDelegate">
             <summary>
             Delegate used by tests that execute code and
@@ -5338,30 +5707,30 @@
             <param name="message">The message that will be displayed on failure</param>
             <param name="args">Arguments to be used in formatting the message</param>
         </member>
-        <member name="M:NUnit.Framework.Assert.That(System.Boolean@,NUnit.Framework.Constraints.IResolveConstraint)">
-            <summary>
-            Apply a constraint to a referenced boolean, succeeding if the constraint
-            is satisfied and throwing an assertion exception on failure.
-            </summary>
-            <param name="constraint">A Constraint to be applied</param>
-            <param name="actual">The actual value to test</param>
-        </member>
-        <member name="M:NUnit.Framework.Assert.That(System.Boolean@,NUnit.Framework.Constraints.IResolveConstraint,System.String)">
+        <member name="M:NUnit.Framework.Assert.That``1(``0@,NUnit.Framework.Constraints.IResolveConstraint)">
             <summary>
             Apply a constraint to a referenced value, succeeding if the constraint
             is satisfied and throwing an assertion exception on failure.
             </summary>
-            <param name="constraint">A Constraint to be applied</param>
+            <param name="expression">A Constraint to be applied</param>
+            <param name="actual">The actual value to test</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.That``1(``0@,NUnit.Framework.Constraints.IResolveConstraint,System.String)">
+            <summary>
+            Apply a constraint to a referenced value, succeeding if the constraint
+            is satisfied and throwing an assertion exception on failure.
+            </summary>
+            <param name="expression">A Constraint to be applied</param>
             <param name="actual">The actual value to test</param>
             <param name="message">The message that will be displayed on failure</param>
         </member>
-        <member name="M:NUnit.Framework.Assert.That(System.Boolean@,NUnit.Framework.Constraints.IResolveConstraint,System.String,System.Object[])">
+        <member name="M:NUnit.Framework.Assert.That``1(``0@,NUnit.Framework.Constraints.IResolveConstraint,System.String,System.Object[])">
             <summary>
             Apply a constraint to a referenced value, succeeding if the constraint
             is satisfied and throwing an assertion exception on failure.
             </summary>
+            <param name="expression">A Constraint to be applied</param>
             <param name="actual">The actual value to test</param>
-            <param name="expression">A Constraint expression to be applied</param>
             <param name="message">The message that will be displayed on failure</param>
             <param name="args">Arguments to be used in formatting the message</param>
         </member>
@@ -5482,6 +5851,30 @@
             <param name="expectedExceptionType">The exception Type expected</param>
             <param name="code">A TestSnippet delegate</param>
         </member>
+        <member name="M:NUnit.Framework.Assert.Throws``1(NUnit.Framework.TestDelegate,System.String,System.Object[])">
+            <summary>
+            Verifies that a delegate throws a particular exception when called.
+            </summary>
+            <typeparam name="T">Type of the expected exception</typeparam>
+            <param name="code">A TestSnippet delegate</param>
+            <param name="message">The message that will be displayed on failure</param>
+            <param name="args">Arguments to be used in formatting the message</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.Throws``1(NUnit.Framework.TestDelegate,System.String)">
+            <summary>
+            Verifies that a delegate throws a particular exception when called.
+            </summary>
+            <typeparam name="T">Type of the expected exception</typeparam>
+            <param name="code">A TestSnippet delegate</param>
+            <param name="message">The message that will be displayed on failure</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.Throws``1(NUnit.Framework.TestDelegate)">
+            <summary>
+            Verifies that a delegate throws a particular exception when called.
+            </summary>
+            <typeparam name="T">Type of the expected exception</typeparam>
+            <param name="code">A TestSnippet delegate</param>
+        </member>
         <member name="M:NUnit.Framework.Assert.Catch(NUnit.Framework.TestDelegate,System.String,System.Object[])">
             <summary>
             Verifies that a delegate throws an exception when called
@@ -5531,6 +5924,33 @@
             or one derived from it when called and returns it.
             </summary>
             <param name="expectedExceptionType">The expected Exception Type</param>
+            <param name="code">A TestDelegate</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.Catch``1(NUnit.Framework.TestDelegate,System.String,System.Object[])">
+            <summary>
+            Verifies that a delegate throws an exception of a certain Type
+            or one derived from it when called and returns it.
+            </summary>
+            <typeparam name="T">The expected Exception Type</typeparam>
+            <param name="code">A TestDelegate</param>
+            <param name="message">The message that will be displayed on failure</param>
+            <param name="args">Arguments to be used in formatting the message</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.Catch``1(NUnit.Framework.TestDelegate,System.String)">
+            <summary>
+            Verifies that a delegate throws an exception of a certain Type
+            or one derived from it when called and returns it.
+            </summary>
+            <typeparam name="T">The expected Exception Type</typeparam>
+            <param name="code">A TestDelegate</param>
+            <param name="message">The message that will be displayed on failure</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.Catch``1(NUnit.Framework.TestDelegate)">
+            <summary>
+            Verifies that a delegate throws an exception of a certain Type
+            or one derived from it when called and returns it.
+            </summary>
+            <typeparam name="T">The expected Exception Type</typeparam>
             <param name="code">A TestDelegate</param>
         </member>
         <member name="M:NUnit.Framework.Assert.DoesNotThrow(NUnit.Framework.TestDelegate,System.String,System.Object[])">
@@ -5785,6 +6205,33 @@
             </summary>
             <param name="aDouble">The value that is to be tested</param>
         </member>
+        <member name="M:NUnit.Framework.Assert.IsNaN(System.Nullable{System.Double},System.String,System.Object[])">
+            <summary>
+            Verifies that the double that is passed in is an <code>NaN</code> value.
+            If the object is not <code>NaN</code> then an <see cref="T:NUnit.Framework.AssertionException"/>
+            is thrown.
+            </summary>
+            <param name="aDouble">The value that is to be tested</param>
+            <param name="message">The message to display in case of failure</param>
+            <param name="args">Array of objects to be used in formatting the message</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.IsNaN(System.Nullable{System.Double},System.String)">
+            <summary>
+            Verifies that the double that is passed in is an <code>NaN</code> value.
+            If the object is not <code>NaN</code> then an <see cref="T:NUnit.Framework.AssertionException"/>
+            is thrown.
+            </summary>
+            <param name="aDouble">The value that is to be tested</param>
+            <param name="message">The message to display in case of failure</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.IsNaN(System.Nullable{System.Double})">
+            <summary>
+            Verifies that the double that is passed in is an <code>NaN</code> value.
+            If the object is not <code>NaN</code> then an <see cref="T:NUnit.Framework.AssertionException"/>
+            is thrown.
+            </summary>
+            <param name="aDouble">The value that is to be tested</param>
+        </member>
         <member name="M:NUnit.Framework.Assert.IsEmpty(System.String,System.String,System.Object[])">
             <summary>
             Assert that a string is empty - that is equal to string.Empty
@@ -5935,6 +6382,30 @@
             <param name="expected">The expected Type.</param>
             <param name="actual">The object under examination</param>
         </member>
+        <member name="M:NUnit.Framework.Assert.IsAssignableFrom``1(System.Object,System.String,System.Object[])">
+            <summary>
+            Asserts that an object may be assigned a  value of a given Type.
+            </summary>
+            <typeparam name="T">The expected Type.</typeparam>
+            <param name="actual">The object under examination</param>
+            <param name="message">The message to display in case of failure</param>
+            <param name="args">Array of objects to be used in formatting the message</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.IsAssignableFrom``1(System.Object,System.String)">
+            <summary>
+            Asserts that an object may be assigned a  value of a given Type.
+            </summary>
+            <typeparam name="T">The expected Type.</typeparam>
+            <param name="actual">The object under examination</param>
+            <param name="message">The message to display in case of failure</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.IsAssignableFrom``1(System.Object)">
+            <summary>
+            Asserts that an object may be assigned a  value of a given Type.
+            </summary>
+            <typeparam name="T">The expected Type.</typeparam>
+            <param name="actual">The object under examination</param>
+        </member>
         <member name="M:NUnit.Framework.Assert.IsNotAssignableFrom(System.Type,System.Object,System.String,System.Object[])">
             <summary>
             Asserts that an object may not be assigned a  value of a given Type.
@@ -5957,6 +6428,30 @@
             Asserts that an object may not be assigned a  value of a given Type.
             </summary>
             <param name="expected">The expected Type.</param>
+            <param name="actual">The object under examination</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.IsNotAssignableFrom``1(System.Object,System.String,System.Object[])">
+            <summary>
+            Asserts that an object may not be assigned a  value of a given Type.
+            </summary>
+            <typeparam name="T">The expected Type.</typeparam>
+            <param name="actual">The object under examination</param>
+            <param name="message">The message to display in case of failure</param>
+            <param name="args">Array of objects to be used in formatting the message</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.IsNotAssignableFrom``1(System.Object,System.String)">
+            <summary>
+            Asserts that an object may not be assigned a  value of a given Type.
+            </summary>
+            <typeparam name="T">The expected Type.</typeparam>
+            <param name="actual">The object under examination</param>
+            <param name="message">The message to display in case of failure</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.IsNotAssignableFrom``1(System.Object)">
+            <summary>
+            Asserts that an object may not be assigned a  value of a given Type.
+            </summary>
+            <typeparam name="T">The expected Type.</typeparam>
             <param name="actual">The object under examination</param>
         </member>
         <member name="M:NUnit.Framework.Assert.IsInstanceOf(System.Type,System.Object,System.String,System.Object[])">
@@ -6007,6 +6502,30 @@
             <param name="expected">The expected Type</param>
             <param name="actual">The object being examined</param>
         </member>
+        <member name="M:NUnit.Framework.Assert.IsInstanceOf``1(System.Object,System.String,System.Object[])">
+            <summary>
+            Asserts that an object is an instance of a given type.
+            </summary>
+            <typeparam name="T">The expected Type</typeparam>
+            <param name="actual">The object being examined</param>
+            <param name="message">The message to display in case of failure</param>
+            <param name="args">Array of objects to be used in formatting the message</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.IsInstanceOf``1(System.Object,System.String)">
+            <summary>
+            Asserts that an object is an instance of a given type.
+            </summary>
+            <typeparam name="T">The expected Type</typeparam>
+            <param name="actual">The object being examined</param>
+            <param name="message">The message to display in case of failure</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.IsInstanceOf``1(System.Object)">
+            <summary>
+            Asserts that an object is an instance of a given type.
+            </summary>
+            <typeparam name="T">The expected Type</typeparam>
+            <param name="actual">The object being examined</param>
+        </member>
         <member name="M:NUnit.Framework.Assert.IsNotInstanceOf(System.Type,System.Object,System.String,System.Object[])">
             <summary>
             Asserts that an object is not an instance of a given type.
@@ -6053,6 +6572,30 @@
             Asserts that an object is not an instance of a given type.
             </summary>
             <param name="expected">The expected Type</param>
+            <param name="actual">The object being examined</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.IsNotInstanceOf``1(System.Object,System.String,System.Object[])">
+            <summary>
+            Asserts that an object is not an instance of a given type.
+            </summary>
+            <typeparam name="T">The expected Type</typeparam>
+            <param name="actual">The object being examined</param>
+            <param name="message">The message to display in case of failure</param>
+            <param name="args">Array of objects to be used in formatting the message</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.IsNotInstanceOf``1(System.Object,System.String)">
+            <summary>
+            Asserts that an object is not an instance of a given type.
+            </summary>
+            <typeparam name="T">The expected Type</typeparam>
+            <param name="actual">The object being examined</param>
+            <param name="message">The message to display in case of failure</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.IsNotInstanceOf``1(System.Object)">
+            <summary>
+            Asserts that an object is not an instance of a given type.
+            </summary>
+            <typeparam name="T">The expected Type</typeparam>
             <param name="actual">The object being examined</param>
         </member>
         <member name="M:NUnit.Framework.Assert.AreEqual(System.Int32,System.Int32,System.String,System.Object[])">
@@ -6218,6 +6761,45 @@
             <param name="message">The message to display in case of failure</param>
         </member>
         <member name="M:NUnit.Framework.Assert.AreEqual(System.Double,System.Double,System.Double)">
+            <summary>
+            Verifies that two doubles are equal considering a delta. If the
+            expected value is infinity then the delta value is ignored. If 
+            they are not equal then an <see cref="T:NUnit.Framework.AssertionException"/> is
+            thrown.
+            </summary>
+            <param name="expected">The expected value</param>
+            <param name="actual">The actual value</param>
+            <param name="delta">The maximum acceptable difference between the
+            the expected and the actual</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.AreEqual(System.Double,System.Nullable{System.Double},System.Double,System.String,System.Object[])">
+            <summary>
+            Verifies that two doubles are equal considering a delta. If the
+            expected value is infinity then the delta value is ignored. If 
+            they are not equal then an <see cref="T:NUnit.Framework.AssertionException"/> is
+            thrown.
+            </summary>
+            <param name="expected">The expected value</param>
+            <param name="actual">The actual value</param>
+            <param name="delta">The maximum acceptable difference between the
+            the expected and the actual</param>
+            <param name="message">The message to display in case of failure</param>
+            <param name="args">Array of objects to be used in formatting the message</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.AreEqual(System.Double,System.Nullable{System.Double},System.Double,System.String)">
+            <summary>
+            Verifies that two doubles are equal considering a delta. If the
+            expected value is infinity then the delta value is ignored. If 
+            they are not equal then an <see cref="T:NUnit.Framework.AssertionException"/> is
+            thrown.
+            </summary>
+            <param name="expected">The expected value</param>
+            <param name="actual">The actual value</param>
+            <param name="delta">The maximum acceptable difference between the
+            the expected and the actual</param>
+            <param name="message">The message to display in case of failure</param>
+        </member>
+        <member name="M:NUnit.Framework.Assert.AreEqual(System.Double,System.Nullable{System.Double},System.Double)">
             <summary>
             Verifies that two doubles are equal considering a delta. If the
             expected value is infinity then the delta value is ignored. If 
@@ -7594,15 +8176,15 @@
             <param name="message">The message that will be displayed on failure</param>
             <param name="args">Arguments to be used in formatting the message</param>
         </member>
-        <member name="M:NUnit.Framework.AssertionHelper.Expect(System.Boolean@,NUnit.Framework.Constraints.IResolveConstraint)">
+        <member name="M:NUnit.Framework.AssertionHelper.Expect``1(``0@,NUnit.Framework.Constraints.IResolveConstraint)">
             <summary>
-            Apply a constraint to a referenced boolean, succeeding if the constraint
+            Apply a constraint to a referenced value, succeeding if the constraint
             is satisfied and throwing an assertion exception on failure.
             </summary>
             <param name="constraint">A Constraint to be applied</param>
             <param name="actual">The actual value to test</param>
         </member>
-        <member name="M:NUnit.Framework.AssertionHelper.Expect(System.Boolean@,NUnit.Framework.Constraints.IResolveConstraint,System.String)">
+        <member name="M:NUnit.Framework.AssertionHelper.Expect``1(``0@,NUnit.Framework.Constraints.IResolveConstraint,System.String)">
             <summary>
             Apply a constraint to a referenced value, succeeding if the constraint
             is satisfied and throwing an assertion exception on failure.
@@ -7611,13 +8193,13 @@
             <param name="actual">The actual value to test</param>
             <param name="message">The message that will be displayed on failure</param>
         </member>
-        <member name="M:NUnit.Framework.AssertionHelper.Expect(System.Boolean@,NUnit.Framework.Constraints.IResolveConstraint,System.String,System.Object[])">
+        <member name="M:NUnit.Framework.AssertionHelper.Expect``1(``0@,NUnit.Framework.Constraints.IResolveConstraint,System.String,System.Object[])">
             <summary>
             Apply a constraint to a referenced value, succeeding if the constraint
             is satisfied and throwing an assertion exception on failure.
             </summary>
+            <param name="expression">A Constraint to be applied</param>
             <param name="actual">The actual value to test</param>
-            <param name="expression">A Constraint expression to be applied</param>
             <param name="message">The message that will be displayed on failure</param>
             <param name="args">Arguments to be used in formatting the message</param>
         </member>
@@ -7739,30 +8321,30 @@
             <param name="message">The message that will be displayed on failure</param>
             <param name="args">Arguments to be used in formatting the message</param>
         </member>
-        <member name="M:NUnit.Framework.Assume.That(System.Boolean@,NUnit.Framework.Constraints.IResolveConstraint)">
-            <summary>
-            Apply a constraint to a referenced boolean, succeeding if the constraint
-            is satisfied and throwing an InconclusiveException on failure.
-            </summary>
-            <param name="constraint">A Constraint to be applied</param>
-            <param name="actual">The actual value to test</param>
-        </member>
-        <member name="M:NUnit.Framework.Assume.That(System.Boolean@,NUnit.Framework.Constraints.IResolveConstraint,System.String)">
+        <member name="M:NUnit.Framework.Assume.That``1(``0@,NUnit.Framework.Constraints.IResolveConstraint)">
             <summary>
             Apply a constraint to a referenced value, succeeding if the constraint
             is satisfied and throwing an InconclusiveException on failure.
             </summary>
-            <param name="constraint">A Constraint to be applied</param>
+            <param name="expression">A Constraint expression to be applied</param>
+            <param name="actual">The actual value to test</param>
+        </member>
+        <member name="M:NUnit.Framework.Assume.That``1(``0@,NUnit.Framework.Constraints.IResolveConstraint,System.String)">
+            <summary>
+            Apply a constraint to a referenced value, succeeding if the constraint
+            is satisfied and throwing an InconclusiveException on failure.
+            </summary>
+            <param name="expression">A Constraint expression to be applied</param>
             <param name="actual">The actual value to test</param>
             <param name="message">The message that will be displayed on failure</param>
         </member>
-        <member name="M:NUnit.Framework.Assume.That(System.Boolean@,NUnit.Framework.Constraints.IResolveConstraint,System.String,System.Object[])">
+        <member name="M:NUnit.Framework.Assume.That``1(``0@,NUnit.Framework.Constraints.IResolveConstraint,System.String,System.Object[])">
             <summary>
             Apply a constraint to a referenced value, succeeding if the constraint
             is satisfied and throwing an InconclusiveException on failure.
             </summary>
-            <param name="actual">The actual value to test</param>
             <param name="expression">A Constraint expression to be applied</param>
+            <param name="actual">The actual value to test</param>
             <param name="message">The message that will be displayed on failure</param>
             <param name="args">Arguments to be used in formatting the message</param>
         </member>
@@ -8837,6 +9419,12 @@
             presence of a particular attribute on an object.
             </summary>
         </member>
+        <member name="M:NUnit.Framework.Has.Attribute``1">
+            <summary>
+            Returns a new AttributeConstraint checking for the
+            presence of a particular attribute on an object.
+            </summary>
+        </member>
         <member name="M:NUnit.Framework.Has.Member(System.Object)">
             <summary>
             Returns a new CollectionContainsConstraint checking for the
@@ -8966,7 +9554,19 @@
             value is of the exact type supplied as an argument.
             </summary>
         </member>
+        <member name="M:NUnit.Framework.Is.TypeOf``1">
+            <summary>
+            Returns a constraint that tests whether the actual
+            value is of the exact type supplied as an argument.
+            </summary>
+        </member>
         <member name="M:NUnit.Framework.Is.InstanceOf(System.Type)">
+            <summary>
+            Returns a constraint that tests whether the actual value
+            is of the type supplied as an argument or a derived type.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Is.InstanceOf``1">
             <summary>
             Returns a constraint that tests whether the actual value
             is of the type supplied as an argument or a derived type.
@@ -8978,13 +9578,31 @@
             is of the type supplied as an argument or a derived type.
             </summary>
         </member>
+        <member name="M:NUnit.Framework.Is.InstanceOfType``1">
+            <summary>
+            Returns a constraint that tests whether the actual value
+            is of the type supplied as an argument or a derived type.
+            </summary>
+        </member>
         <member name="M:NUnit.Framework.Is.AssignableFrom(System.Type)">
             <summary>
             Returns a constraint that tests whether the actual value
             is assignable from the type supplied as an argument.
             </summary>
         </member>
+        <member name="M:NUnit.Framework.Is.AssignableFrom``1">
+            <summary>
+            Returns a constraint that tests whether the actual value
+            is assignable from the type supplied as an argument.
+            </summary>
+        </member>
         <member name="M:NUnit.Framework.Is.AssignableTo(System.Type)">
+            <summary>
+            Returns a constraint that tests whether the actual value
+            is assignable from the type supplied as an argument.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Is.AssignableTo``1">
             <summary>
             Returns a constraint that tests whether the actual value
             is assignable from the type supplied as an argument.
@@ -9045,7 +9663,7 @@
             is the same path or under an expected path after canonicalization.
             </summary>
         </member>
-        <member name="M:NUnit.Framework.Is.InRange(System.IComparable,System.IComparable)">
+        <member name="M:NUnit.Framework.Is.InRange``1(``0,``0)">
             <summary>
             Returns a constraint that tests whether the actual value falls 
             within a specified range.
@@ -9829,6 +10447,46 @@
             to the TestState value.
             </summary>
         </member>
+        <member name="T:NUnit.Framework.TestDetails">
+            <summary>
+            Provides details about a test
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.TestDetails.#ctor(System.Object,System.Reflection.MethodInfo,System.String,System.String,System.Boolean)">
+            <summary>
+             Creates an instance of TestDetails
+            </summary>
+            <param name="fixture">The fixture that the test is a member of, if available.</param>
+            <param name="method">The method that implements the test, if available.</param>
+            <param name="fullName">The full name of the test.</param>
+            <param name="type">A string representing the type of test, e.g. "Test Case".</param>
+            <param name="isSuite">Indicates if the test represents a suite of tests.</param>
+        </member>
+        <member name="P:NUnit.Framework.TestDetails.Fixture">
+            <summary>
+             The fixture that the test is a member of, if available.
+            </summary>
+        </member>
+        <member name="P:NUnit.Framework.TestDetails.Method">
+            <summary>
+            The method that implements the test, if available.
+            </summary>
+        </member>
+        <member name="P:NUnit.Framework.TestDetails.FullName">
+            <summary>
+            The full name of the test.
+            </summary>
+        </member>
+        <member name="P:NUnit.Framework.TestDetails.Type">
+            <summary>
+            A string representing the type of test, e.g. "Test Case".
+            </summary>
+        </member>
+        <member name="P:NUnit.Framework.TestDetails.IsSuite">
+            <summary>
+            Indicates if the test represents a suite of tests.
+            </summary>
+        </member>
         <member name="T:NUnit.Framework.TestState">
             <summary>
             The ResultState enum indicates the result of running a test
@@ -10138,7 +10796,17 @@
             Creates a constraint specifying the exact type of exception expected
             </summary>
         </member>
+        <member name="M:NUnit.Framework.Throws.TypeOf``1">
+            <summary>
+            Creates a constraint specifying the exact type of exception expected
+            </summary>
+        </member>
         <member name="M:NUnit.Framework.Throws.InstanceOf(System.Type)">
+            <summary>
+            Creates a constraint specifying the type of exception expected
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Throws.InstanceOf``1">
             <summary>
             Creates a constraint specifying the type of exception expected
             </summary>
