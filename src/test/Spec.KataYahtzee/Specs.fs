@@ -19,6 +19,13 @@ let ``Given 1, 1, 2, 4, 4 placed on "fours" gives 8 points.`` () =
       |> Verify
 
 [<Scenario>]     
+let ``Given 1, 1, 4, 4, 4 placed on "fours" gives 12 points.`` () =   
+    Given (1, 1, 4, 4, 4)
+      |> When placed_on Fours
+      |> It should equal 12
+      |> Verify
+
+[<Scenario>]     
 let ``Given 1, 1, 6, 4, 6 placed on "sixes" gives 12 points.`` () =   
     Given (1, 1, 6, 4, 6)
       |> When placed_on Sixes
