@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C977C9DA-86F2-4F97-8AE9-A53D72118607}"
 	ProjectSection(SolutionItems) = preProject
 		build.fsx = build.fsx
@@ -65,6 +65,11 @@ EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Spec.KataSort", "src\test\Spec.KataSort\Spec.KataSort.fsproj", "{49BE2083-CA2E-4C5D-9830-F186B8DAB1A3}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Spec.KataNumberToLCD", "src\test\Spec.KataNumberToLCD\Spec.KataNumberToLCD.fsproj", "{6B7D4C2E-73E8-4809-AD95-3DAB66221A76}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7EA09B9E-9F8A-4C91-9583-BD9D4749C733}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
