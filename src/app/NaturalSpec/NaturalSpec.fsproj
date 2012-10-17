@@ -60,15 +60,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="FSharp.Core" Condition="$(TargetFrameworkVersion) == 'v3.5'">
-      <HintPath>..\..\tools\FSharp\Net20\FSharp.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="FSharp.Core" Condition="'$(TargetFrameworkVersion)' == 'v4.0'">
-      <HintPath>..\..\tools\FSharp\FSharp.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="FSharp.Core" Condition="'$(TargetFrameworkVersion)' == 'v4.5'">
-      <HintPath>..\..\tools\FSharp\Net45\FSharp.Core.dll</HintPath>
-    </Reference>
+    <Reference Include="FSharp.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="mscorlib" />
     <Reference Include="nunit.framework">
       <HintPath>..\..\..\packages\NUnit.2.6.1\lib\nunit.framework.dll</HintPath>
