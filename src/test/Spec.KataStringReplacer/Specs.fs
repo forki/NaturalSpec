@@ -4,9 +4,10 @@ open NaturalSpec
 
 open Model
 
-let replacing replacements =
+let replacing replacements text =
     printMethod replacements
-    replace replacements
+    let dict = replacements |> Map.ofSeq
+    replace dict text
 
 
 [<Scenario>]     
@@ -17,10 +18,10 @@ let ``Should yield empty text when empty text is provided`` () =
       |> Verify
 
 [<Scenario>]     
-let ``Should yield text when text is passed with no keywords`` () =   
-    Given "something"
+let ``Should yield the given text when no pattern is included`` () =   
+    Given "some text"
       |> When replacing []
-      |> It should equal "something"
+      |> It should equal "some text"
       |> Verify
 
 [<Scenario>]     
@@ -29,7 +30,7 @@ let ``Should replace key with value when key was found`` () =
       |> When replacing ["who","bingo"]
       |> It should equal "hi bingo"
       |> Verify
-
+        
 [<Scenario>]     
 let ``Should replace multiple keys with values when found`` () =   
     Given "$say$ $who$"
@@ -37,23 +38,16 @@ let ``Should replace multiple keys with values when found`` () =
       |> It should equal "hello bingo"
       |> Verify
 
-[<Scenario>]     
-let ``Should remove placeholders when key was not found`` () =   
-    Given "$say$ $me$"
-      |> When replacing ["who","bingo"; "say","hello"]
-      |> It should equal "hello "
-      |> Verify
-
-[<Scenario>]     
-let ``Should remove multiple placeholders when key was not found`` () =   
-    Given "$say$ $me$$really$ $who$"
-      |> When replacing ["who","bingo"; "say","hello"]
-      |> It should equal "hello  bingo"
-      |> Verify
-
 let searching_for_template text =
     printMethod ""
-    findTemplate text
+    findFirstPattern text
+
+[<Scenario>]     
+let ``Should find a single template`` () =   
+    Given "hello $bingo$"
+      |> When searching_for_template
+      |> It should equal (Some "$bingo$")
+      |> Verify
 
 [<Scenario>]     
 let ``Should not find template in string without $`` () =   
@@ -70,17 +64,32 @@ let ``Should not find template in string with only one $`` () =
       |> Verify
 
 [<Scenario>]     
-let ``Should find a single template`` () =   
-    Given "hello $bingo$"
+let ``Should find a different first template`` () =   
+    Given "hello $clowno$"
       |> When searching_for_template
-      |> It should equal (Some "$bingo$")
+      |> It should equal (Some "$clowno$")
       |> Verify
+
 
 [<Scenario>]     
 let ``Should find the first template in multiple`` () =   
     Given "hello $bingo$ $the$ $clowno$"
       |> When searching_for_template
       |> It should equal (Some "$bingo$")
+      |> Verify
+
+[<Scenario>]     
+let ``Should remove placeholders when key was not found`` () =   
+    Given "$say$ $me$"
+      |> When replacing ["who","bingo"; "say","hello"]
+      |> It should equal "hello "
+      |> Verify
+
+[<Scenario>]     
+let ``Should remove multiple placeholders when key was not found`` () =   
+    Given "$say$ $me$$really$ $who$"
+      |> When replacing ["who","bingo"; "say","hello"]
+      |> It should equal "hello  bingo"
       |> Verify
 
 [<Scenario>]     

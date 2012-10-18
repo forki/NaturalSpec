@@ -1,6 +1,6 @@
 ﻿module StringReplacer.Model
 
-let findTemplate (text:string) =
+let findFirstPattern (text:string) =
     match text.IndexOf('$') with
     | -1 -> None
     | x  -> 
@@ -8,23 +8,15 @@ let findTemplate (text:string) =
         | -1 -> None
         | y  -> Some(text.Substring(x,y-x+1))
 
-
-let replace replacements =
-    let replacements = 
-        replacements
-        |> Seq.map (fun (p,r) -> sprintf "$%s$" p,r)
-        |> Map.ofSeq
-
-    let rec replaceAll set text =
-        if Set.contains text set then text else
-        match findTemplate text with    
-        | Some t ->
-            let replacement =
-                match Map.tryFind t replacements with
-                | Some r -> r
-                | _ -> ""
-            text.Replace(t,replacement)
-              |> replaceAll (Set.add text set)
+let replace dict (text:string) =
+    let rec replace texts (text:string) =
+        if Set.contains text texts then text else
+        match findFirstPattern text with
         | None -> text
+        | Some pattern ->
+            match dict |> Map.tryFind (pattern.Replace("$","")) with
+            | Some(replacement) -> text.Replace(pattern,replacement)
+            | None ->              text.Replace(pattern,"")
+            |> replace (Set.add text texts) 
 
-    replaceAll Set.empty
+    replace Set.empty text
