@@ -25,7 +25,7 @@ type ScenarioTemplate = Example
 type ScenarioSource = 
     class
         inherit TestCaseSourceAttribute
-        new s = {inherit TestCaseSourceAttribute(s)}
+        new (s:string) = {inherit TestCaseSourceAttribute(s)}
     end      
     
 [<AttributeUsage(AttributeTargets.Parameter)>]
